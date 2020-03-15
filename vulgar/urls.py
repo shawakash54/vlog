@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
-from vulgar.views import HomePageView
+from vulgar.views import HomePageView, CategoryPageView, PostPageView
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     url(r'^$', HomePageView.as_view()),
+    url(r'^(?P<slug>[-\w]+)$', CategoryPageView.as_view()),
+    url(r'^topic/(?P<slug>[\w-]+)/$', PostPageView.as_view()),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
