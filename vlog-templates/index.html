@@ -70,16 +70,16 @@
           {% for recent_blog in recent %}
             <div class="col-lg-4 mb-4">
               <div class="entry2">
-                <a href="/{{recent_blog.slug}}/"><img src="{{recent_blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
+                <a href="/topic/{{recent_blog.slug}}/"><img src="{{recent_blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
                 <div class="excerpt">
                 {% for recent_blog_category in recent_blog.category.all %}
                   <span class="post-category text-white bg-secondary mb-3">{{recent_blog_category.name}}</span>
                 {% endfor %}
 
-                <h2><a href="single.html">{{recent_blog.title}}</a></h2>
+                <h2><a href="/topic/{{recent_blog.slug}}/">{{recent_blog.title}}</a></h2>
                 <div class="post-meta align-items-center text-left clearfix">
                   <figure class="author-figure mb-0 mr-3 float-left"><img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
-                  <span class="d-inline-block mt-1">By <a href="#">{{recent_blog.creator.username}}</a></span>
+                  <span class="d-inline-block mt-1">By <a href="#">{{recent_blog.creator.auth_user.username}}</a></span>
                   <span>&nbsp;-&nbsp;{{recent_blog.created_at}}</span>
                 </div>
                 
@@ -116,7 +116,7 @@
           {% for special_blog in special %}
             {% if forloop.counter == 1 %}
               <div class="col-md-5 order-md-2">
-                <a href="single.html" class="hentry img-1 h-100 gradient" style="background-image: url({{special_blog.thumbnail_image}});">
+                <a href="/topic/{{special_blog.slug}}" class="hentry img-1 h-100 gradient" style="background-image: url({{special_blog.thumbnail_image}});">
                   {% for special_blog_category in special_blog.category.all %}
                     <span class="post-category text-white bg-danger">{{special_blog_category.name}}</span>
                   {% endfor %}
@@ -135,7 +135,7 @@
               {% if forloop.counter == 2 or forloop.counter == 4 %}
                 <div class="two-col d-block d-md-flex mb-3">
               {% endif %}
-                  <a href="/{{special_blog.slug}}/" class="hentry v-height img-2 gradient mr-4" style="background-image: url({{special_blog.thumbnail_image}});">
+                  <a href="/topic/{{special_blog.slug}}/" class="hentry v-height img-2 gradient mr-4" style="background-image: url({{special_blog.thumbnail_image}});">
                     {% for special_blog_category in special_blog.category.all %}
                       <span class="post-category text-white bg-danger">{{special_blog_category.name}}</span>
                     {% endfor %}

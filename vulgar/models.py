@@ -17,10 +17,16 @@ class PublishedStatusChoice(Enum):
     INACT = 'Inactive'
 
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(published_status='Active')
+
+
 class Page(BaseModel):
     title = models.CharField(max_length=1000)
     published_status = models.CharField(max_length=100,
-                                            choices=[(tag, tag.value) for tag in PublishedStatusChoice])
+                                            choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
+                                            default='Active')
     published_date_from = models.DateTimeField()
     published_date_to = models.DateTimeField()
 
@@ -34,6 +40,10 @@ class Category(BaseModel):
     category_description = models.CharField(max_length=1000, default='')
     image = models.CharField(max_length=1000, default='')
     home_page_view = models.BooleanField(default=False)
+    published_status = models.CharField(max_length=100,
+                                            choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
+                                            default='Active')
+    published_objects = PublishedManager()                                            
     
     def __str__(self):
         return self.name
@@ -41,6 +51,10 @@ class Category(BaseModel):
 
 class Tag(BaseModel):
     name = models.CharField(max_length=100)
+    published_status = models.CharField(max_length=100,
+                                            choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
+                                            default='Active')
+    published_objects = PublishedManager()  
 
     def __str__(self):
         return self.name
@@ -51,6 +65,8 @@ class User(BaseModel):
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
     )
+    bio = models.CharField(max_length=1000, default='')
+    is_active = models.BooleanField(default=True)
 
 
 class Blog(BaseModel):
@@ -68,10 +84,13 @@ class Blog(BaseModel):
     description = models.CharField(max_length=1000, default='')
     content = models.CharField(max_length=100000)
     published_status = models.CharField(max_length=100,
-                                            choices=[(tag.value, tag.value) for tag in PublishedStatusChoice])
+                                            choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
+                                            default='Active')
     published_date_from = models.DateTimeField()
     published_date_to = models.DateTimeField()
     creator = models.ForeignKey(User, on_delete=models.PROTECT)
+
+    published_objects = PublishedManager()  
 
     def __str__(self):
         return self.title
