@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
-from vulgar.views import HomePageView, CategoryPageView, PostPageView
+from vulgar.views import HomePageView, CategoryPageView, PostPageView, server_error, not_found, permission_denied, bad_request
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -26,3 +26,9 @@ urlpatterns = [
     url(r'^topic/(?P<slug>[\w-]+)/$', PostPageView.as_view()),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+handler404 = not_found
+handler500 = server_error
+handler403 = permission_denied
+handler400 = bad_request

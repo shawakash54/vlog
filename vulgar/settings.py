@@ -144,3 +144,4 @@ CKEDITOR_CONFIGS = {
         'width': 1000,
     },
 }
+DEBUG = False
