@@ -2,6 +2,7 @@
 <html lang="en">
   {% include 'header.html' %}
   {% load static %}
+  {% load django_bootstrap_breadcrumbs %}
   <body>
   
   <div class="site-wrap">
@@ -21,18 +22,23 @@
 
     <div class="site-section bg-white">
       <div class="container">
+        {% block breadcrumbs %}
+            {% breadcrumb "Home" "/" %}
+            {% breadcrumb category.name 'category_view' '{{category.slug}}/' %}
+        {% endblock %}
+        {% render_breadcrumbs %}
         <div class="row">
           {% if category %}
             {% for blog in category.blogs.all %}
               <div class="col-lg-4 mb-4">
                 <div class="entry2">
-                  <a href="/topic/{{blog.slug}}/"><img src="{{blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
+                  <a href="/{{category.slug}}/{{blog.slug}}/"><img src="{{blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
                   <div class="excerpt">
                   {% for blog_category in blog.category.all %}
                     <span class="post-category text-white bg-secondary mb-3">{{blog_category.name}}</span>
                   {% endfor %}
 
-                  <h2><a href="/topic/{{blog.slug}}/">{{blog.title}}</a></h2>
+                  <h2><a href="/{{category.slug}}/{{blog.slug}}/">{{blog.title}}</a></h2>
                   <div class="post-meta align-items-center text-left clearfix">
                     <figure class="author-figure mb-0 mr-3 float-left"><img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
                     <span class="d-inline-block mt-1">By <a href="#">Carrol Atkinson</a></span>
@@ -40,7 +46,7 @@
                   </div>
                   
                     <p>{{blog.description}}</p>
-                    <p><a href="/topic/{{blog.slug}}/">Read More</a></p>
+                    <p><a href="/{{category.slug}}/{{blog.slug}}/">Read More</a></p>
                   </div>
                 </div>
               </div>

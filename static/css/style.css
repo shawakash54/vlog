@@ -112,11 +112,11 @@ h1, h2, h3, h4, h5,
   border-top: 1px solid #edf0f5 !important; }
 
 .site-footer {
-  padding: 4em 0;
+  padding: 2em 0;
   background: #333333; }
   @media (min-width: 768px) {
     .site-footer {
-      padding: 5em 0; } }
+      padding: 2em 0; } }
   .site-footer .border-top {
     border-top: 1px solid rgba(255, 255, 255, 0.1) !important; }
   .site-footer p {
@@ -249,6 +249,9 @@ h1, h2, h3, h4, h5,
   position: relative;
   width: 100%;
   background: #fff; }
+  .navbar-custom {
+    background: #ffeead;
+  }
   .site-navbar .site-logo a {
     font-size: 1.5rem; }
   .site-navbar .site-navigation.border-bottom {
@@ -508,6 +511,14 @@ h1, h2, h3, h4, h5,
 .muted, .entry2 p {
   color: #666666; }
 
+.height-150 {
+  height: 150px;
+}
+
+.height-200 {
+  height: 200px;
+}
+
 .site-cover {
   background-size: cover;
   background-position: top center;
@@ -521,7 +532,7 @@ h1, h2, h3, h4, h5,
     right: 0;
     bottom: 0; }
   .site-cover, .site-cover .same-height {
-    padding: 2em 0; }
+    padding: 1.5em 0; }
   .site-cover .post-entry .post-meta {
     color: #fff;
     font-size: 13px; }
@@ -1248,3 +1259,5 @@ h1, h2, h3, h4, h5,
       outline: none; }
   .search-form-wrap form .form-control {
     border: none; }
+
+

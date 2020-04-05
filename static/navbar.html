@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <div class="site-mobile-menu">
     <div class="site-mobile-menu-header">
     <div class="site-mobile-menu-close mt-3">
@@ -8,7 +10,7 @@
     <div class="site-mobile-menu-body"></div>
 </div>
 
-<header class="site-navbar" role="banner">
+<header class="site-navbar fixed-top position-sticky navbar-custom" role="banner">
     <div class="container-fluid">
     <div class="row align-items-center">
         
@@ -20,19 +22,21 @@
         </div>
 
         <div class="col-4 site-logo">
-        <a href="/" class="text-black h2 mb-0">Vulgar</a>
+        <a href="/" class="text-black h2 mb-0">{{constants.APP_NAME}}</a>
         </div>
 
         <div class="col-8 text-right">
         <nav class="site-navigation" role="navigation">
             <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
-            <li><a href="/">Home</a></li>
+                {% trans "Home" as navbar_title_1 %}
+                <li><a href="/{{LANGUAGE_CODE}}/">{{ navbar_title_1 }}</a></li>
             {% if categories %}
                 {% for category in categories %}
-                <li><a href="/{{ category.slug }}">{{ category.name }}</a></li>
+                <li><a href="/{{LANGUAGE_CODE}}/{{ category.category.slug }}/">{{ category.name }}</a></li>
                 {% endfor %}
             {% endif %}
-            <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li>
+            <!-- Search Button -->
+            <!-- <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li> -->
             </ul>
         </nav>
         <a href="#" class="site-menu-toggle js-menu-toggle text-black d-inline-block d-lg-none"><span class="icon-menu h3"></span></a></div>

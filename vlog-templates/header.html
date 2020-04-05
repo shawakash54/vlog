@@ -1,10 +1,35 @@
 <head>
-    {% load static %}
-    <title>Mini Blog</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160832830-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    // gtag('config', 'UA-160832830-1');
+    </script>
+
+
+    <title>{{meta.title}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Canonical Tag -->
+    <link rel="canonical" href={{canonical_link}} />
 
+    <!-- Custom Meta Tags -->
+    <meta name="description" content="{{meta.meta_description}}">
+    <meta name="google-site-verification" content="{{meta.google_site_verification_code}}"/>
+    <meta name="keywords" content="{{meta.search_keywords}}">
+
+    <!-- Alternate Language Tags -->
+    {% for alternate_languag in alternate_language %}
+        <link rel="alternate" hreflang="{{alternate_languag.code}}" href="{{alternate_languag.link}}" />
+    {% endfor %}
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700|Playfair+Display:400,700,900" rel="stylesheet">
+
+    {% load static %}
+    {% csrf_token %}
 
     <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">

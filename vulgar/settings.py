@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,8 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+    'django_extensions',
     'vulgar',
     'ckeditor',
+    'rest_framework',
+    'django_bootstrap_breadcrumbs',
+    'cities_light',
+    'django_better_admin_arrayfield',
+    'autotranslate',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'vulgar.urls'
@@ -144,3 +153,22 @@ CKEDITOR_CONFIGS = {
         'width': 1000,
     },
 }
+
+BREADCRUMBS_TEMPLATE = "components/breadcrumbs.html"
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('ur', _('Urdu')),
+    ('ne', _('Nepali')),
+    ('te', _('Telugu')),
+    ('ta', _('Tamil')),
+    ('pa', _('Punjabi')),
+    ('mr', _('Marathi')),
+    ('ml', _('Malayalam')),
+    ('kn', _('Kannada')),
+    ('bn', _('Bengali')),
+    ('hi', _('Hindi')),
+]
+LANGUAGE_CODE = 'en'
+
+LOCALE_PATHS = [ os.path.join(BASE_DIR, 'locale'), ]

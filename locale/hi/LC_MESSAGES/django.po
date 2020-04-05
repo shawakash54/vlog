@@ -1,0 +1,163 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-04 12:17+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: vlog-templates/components/newsletter.html:7
+msgid "Subscribe to our newsletter"
+msgstr "हमारे समाचार पत्र के सदस्य बनें"
+
+#: vlog-templates/components/newsletter.html:8
+msgid "Enter your email address"
+msgstr "अपनी ईमेल आईडी दर्ज करें"
+
+#: vlog-templates/components/newsletter.html:9
+msgid "Subscribe"
+msgstr "सदस्यता लें"
+
+#: vlog-templates/components/newsletter.html:11
+msgid "Get articles delivered straight to your inbox:"
+msgstr "अपने इनबॉक्स में सीधे लेख पहुंचाएं:"
+
+#: vlog-templates/components/newsletter.html:17
+msgid "Failed"
+msgstr "विफल"
+
+#: vlog-templates/components/newsletter.html:21
+msgid "Yay"
+msgstr "सफल"
+
+#: vlog-templates/footer.html:9
+msgid "About Us"
+msgstr "हमारे बारे में"
+
+#: vlog-templates/footer.html:10
+msgid "Contact Us"
+msgstr "संपर्क करें"
+
+#: vlog-templates/footer.html:11
+msgid "Connect With Us"
+msgstr "हमसे जुडे"
+
+#: vlog-templates/footer.html:13
+msgid "It's more than a newsletter"
+msgstr "यह एक समाचार पत्र से अधिक है"
+
+#: vlog-templates/footer.html:14
+msgid "it's more than a blog"
+msgstr "यह एक ब्लॉग से अधिक है"
+
+#: vlog-templates/footer.html:15
+msgid "it's more than a place for learning"
+msgstr "यह सीखने के लिए एक जगह से अधिक है"
+
+#: vlog-templates/footer.html:16
+msgid "it's more than a place for gaining knowledge"
+msgstr "यह ज्ञान प्राप्त करने के लिए एक जगह से अधिक है"
+
+#: vlog-templates/footer.html:17
+msgid "it's "
+msgstr "यह "
+
+#: vlog-templates/index.html:15
+msgid "Trending Posts"
+msgstr "ट्रेंडिंग पोस्ट"
+
+#: vlog-templates/index.html:68
+msgid "Recent Posts"
+msgstr "हाल के पोस्ट"
+
+#: vlog-templates/index.html:115
+msgid "Specials"
+msgstr "स्पेशल"
+
+#: vlog-templates/navbar.html:30
+msgid "Home"
+msgstr "होम"
+
+#: vulgar/settings.py:160
+msgid "English"
+msgstr ""
+
+#: vulgar/settings.py:161
+msgid "Urdu"
+msgstr ""
+
+#: vulgar/settings.py:162
+msgid "Nepali"
+msgstr ""
+
+#: vulgar/settings.py:163
+msgid "Telugu"
+msgstr ""
+
+#: vulgar/settings.py:164
+msgid "Tamil"
+msgstr ""
+
+#: vulgar/settings.py:165
+msgid "Punjabi"
+msgstr ""
+
+#: vulgar/settings.py:166
+msgid "Marathi"
+msgstr ""
+
+#: vulgar/settings.py:167
+msgid "Malayalam"
+msgstr ""
+
+#: vulgar/settings.py:168
+msgid "Kannada"
+msgstr ""
+
+#: vulgar/settings.py:169
+msgid "Bengali"
+msgstr ""
+
+#: vulgar/settings.py:170
+msgid "Hindi"
+msgstr ""
+
+#: vulgar/utils.py:52
+msgid "Breaking Trending News, India and World News"
+msgstr "ब्रेकिंग ट्रेंडिंग न्यूज़, इंडिया और वर्ल्ड न्यूज़"
+
+#: vulgar/utils.py:53
+msgid ""
+"provides latest news from India and the world. Get today’s news headlines "
+"from"
+msgstr ""
+"भारत और दुनिया से नवीनतम समाचार प्रदान करता है। आज की समाचार सुर्खियों में प्राप्त करें"
+
+#: vulgar/utils.py:54
+msgid "and exclusive breaking news from India."
+msgstr "और भारत से विशेष ब्रेकिंग न्यूज।"
+
+#: vulgar/utils.py:55
+msgid ""
+"news, live news, news in india, breaking news, today news, current news, "
+"elections, indian news, news website, politics, india news, world news, "
+"business news, bollywood news, cricket news, sports, lifestyle, gadgets, "
+"tech news, news blogs, bedroom, sexual wellness, sex, sex updates, sex news, "
+"adult, adult news"
+msgstr ""
+"समाचार, लाइव समाचार, भारत में समाचार, ब्रेकिंग न्यूज, आज समाचार, वर्तमान समाचार, "
+"चुनाव, भारतीय समाचार, समाचार वेबसाइट, राजनीति, भारत समाचार, विश्व समाचार, "
+"व्यापार समाचार, बॉलीवुड समाचार, क्रिकेट समाचार, खेल, जीवन शैली, गैजेट्स, टेक समाचार, "
+"समाचार ब्लॉग, बेडरूम, यौन कल्याण, सेक्स, सेक्स अपडेट, सेक्स समाचार, वयस्क, वयस्क समाचार "
