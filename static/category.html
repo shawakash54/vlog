@@ -3,17 +3,20 @@
   {% include 'header.html' %}
   {% load static %}
   {% load django_bootstrap_breadcrumbs %}
+  {% load i18n %}
   <body>
   
   <div class="site-wrap">
     {% include 'navbar.html' %}
+    {% get_current_language as LANGUAGE_CODE %}
     
     <div class="py-5 bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <span>Category</span>
-            <h3>{{category}}</h3>
+            {% trans "Category" as category_page_title %}
+            <span>{{ category_page_title }}</span>
+            <h3>{{category.name}}</h3>
             <p>{{category.category_description}}</p>
           </div>
         </div>
@@ -23,30 +26,31 @@
     <div class="site-section bg-white">
       <div class="container">
         {% block breadcrumbs %}
-            {% breadcrumb "Home" "/" %}
-            {% breadcrumb category.name 'category_view' '{{category.slug}}/' %}
+            {% breadcrumb "Home" 'home_page_view' %}
+            {% breadcrumb category.name 'category_view' '{{LANGUAGE_CODE}}/{{category.slug}}/' %}
         {% endblock %}
         {% render_breadcrumbs %}
         <div class="row">
           {% if category %}
-            {% for blog in category.blogs.all %}
+            {% for blog in category.blogs %}
               <div class="col-lg-4 mb-4">
                 <div class="entry2">
-                  <a href="/{{category.slug}}/{{blog.slug}}/"><img src="{{blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
+                  <a href="/{{LANGUAGE_CODE}}/{{category.slug}}/{{blog.blog.slug}}/"><img src="{{blog.blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
                   <div class="excerpt">
-                  {% for blog_category in blog.category.all %}
+                  {% for blog_category in blog.present_category_language %}
                     <span class="post-category text-white bg-secondary mb-3">{{blog_category.name}}</span>
                   {% endfor %}
 
-                  <h2><a href="/{{category.slug}}/{{blog.slug}}/">{{blog.title}}</a></h2>
+                  <h2 class="overflow-hidden height-150"><a href="/{{LANGUAGE_CODE}}/{{category.slug}}/{{blog.blog.slug}}/">{{blog.title}}</a></h2>
                   <div class="post-meta align-items-center text-left clearfix">
                     <figure class="author-figure mb-0 mr-3 float-left"><img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
-                    <span class="d-inline-block mt-1">By <a href="#">Carrol Atkinson</a></span>
+                    <span class="d-inline-block mt-1">By <a href="#">{{blog.creator.auth_user.username}}</a></span>
                     <span>&nbsp;-&nbsp; {{blog.created_at}}</span>
                   </div>
                   
-                    <p>{{blog.description}}</p>
-                    <p><a href="/{{category.slug}}/{{blog.slug}}/">Read More</a></p>
+                    <p class="overflow-hidden height-200">{{blog.description}}...</p>
+                    {% trans "Read More" as category_page_blog_helper %}
+                    <p><a href="/{{LANGUAGE_CODE}}/{{category.slug}}/{{blog.blog.slug}}/">{{category_page_blog_helper}}</a></p>
                   </div>
                 </div>
               </div>

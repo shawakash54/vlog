@@ -90,7 +90,8 @@
                 </div>
                 
                   <p class="overflow-hidden height-200">{{recent_blog.description}}</p>
-                  <p><a href="/{{LANGUAGE_CODE}}/{{recent_blog.blog.primary_category.slug}}/{{recent_blog.blog.slug}}/">Read More</a></p>
+                  {% trans "Read More" as index_page_blog_helper %}
+                  <p><a href="/{{LANGUAGE_CODE}}/{{recent_blog.blog.primary_category.slug}}/{{recent_blog.blog.slug}}/">{{index_page_blog_helper}}</a></p>
                 </div>
               </div>
             </div>

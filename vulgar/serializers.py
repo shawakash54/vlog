@@ -58,3 +58,33 @@ class BlogLanguageSerializer(serializers.ModelSerializer):
 
     def get_created_at(self, model_obj):
         return model_obj.created_at.date
+
+
+class CategoryLanguageSerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField('category_language_slug')
+    created_at = serializers.SerializerMethodField()
+    blogs = serializers.SerializerMethodField('category_language_blogs')
+
+    class Meta:
+        model = CategoryLanguage
+        fields = ('category_description', 'name', 'slug', 'breadcrumb_title', 'created_at', 'blogs')
+        depth = 2
+
+    def category_language_slug(self, model_obj):
+        return model_obj.category.slug
+
+    def category_language_blogs(self, model_obj):
+        language_code = self.context.get("language_code")
+        blogs = BlogLanguage\
+                    .published_objects\
+                    .filter(
+                        blog__category__categorylanguage=model_obj,
+                        language__slug=language_code
+                    )
+        return BlogLanguageSerializer(blogs,
+                                many=True,
+                                context={'language_code': language_code}
+                            ).data
+
+    def get_created_at(self, model_obj):
+        return model_obj.created_at.date

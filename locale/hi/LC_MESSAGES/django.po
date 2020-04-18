@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-04 12:17+0000\n"
+"POT-Creation-Date: 2020-04-18 12:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: vlog-templates/category.html:17
+msgid "Category"
+msgstr "केटगॉरी"
+
+#: vlog-templates/category.html:52 vlog-templates/index.html:93
+msgid "Read More"
+msgstr "अधिक पढ़ें"
 
 #: vlog-templates/components/newsletter.html:7
 msgid "Subscribe to our newsletter"
@@ -74,19 +82,19 @@ msgstr "यह ज्ञान प्राप्त करने के लि�
 msgid "it's "
 msgstr "यह "
 
-#: vlog-templates/index.html:15
+#: vlog-templates/index.html:16
 msgid "Trending Posts"
 msgstr "ट्रेंडिंग पोस्ट"
 
-#: vlog-templates/index.html:68
+#: vlog-templates/index.html:69
 msgid "Recent Posts"
 msgstr "हाल के पोस्ट"
 
-#: vlog-templates/index.html:115
+#: vlog-templates/index.html:119
 msgid "Specials"
 msgstr "स्पेशल"
 
-#: vlog-templates/navbar.html:30
+#: vlog-templates/navbar.html:31
 msgid "Home"
 msgstr "होम"
 

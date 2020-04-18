@@ -519,6 +519,10 @@ h1, h2, h3, h4, h5,
   height: 200px;
 }
 
+.height-300 {
+  height: 300px;
+}
+
 .site-cover {
   background-size: cover;
   background-position: top center;
@@ -749,6 +753,10 @@ h1, h2, h3, h4, h5,
 .entry2 .excerpt {
   padding-left: 20px;
   padding-right: 20px; }
+
+.entry2 .excerpt .overflow-hidden{
+  overflow: hidden;
+}
 
 .entry2 .post-meta {
   color: #b3b3b3;

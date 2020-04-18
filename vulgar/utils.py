@@ -26,7 +26,7 @@ def contact_us_canonical(obj, language_code):
 
 
 def category_page_canonical(obj, language_code):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.slug}/'
+    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.category.slug}/'
 
 
 def article_page_canonical(obj, language_code):
@@ -134,7 +134,16 @@ def contact_us_alternate_language(obj):
 
 
 def category_page_alternate_language(obj):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.slug}/'
+    alternate_language = []
+    category_active_languages = vulgar_models.Language.published_objects.filter(categorylanguage__category__slug=obj.category.slug)
+    for language in category_active_languages:
+        alternate_language.append(
+            {
+                'code': language.slug,
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{obj.category.slug}/'
+            }
+        )
+    return alternate_language
 
 
 def article_page_alternate_language(obj):

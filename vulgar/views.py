@@ -65,7 +65,11 @@ class CategoryPageView(TemplateView):
         template_name = self.template_name
         status = 200
         slug = kwargs.get('slug', None)
-        category = vulgar_models.Category.published_objects.filter(slug=slug)
+        language_code = self.request.LANGUAGE_CODE
+        category = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category__slug=slug,
+                                    language__slug=language_code
+                                )
         if not category:
             status = 404
             template_name = 'error.html'
@@ -74,16 +78,25 @@ class CategoryPageView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryPageView, self).get_context_data(*args, **kwargs)
         slug = kwargs.get('slug', None)
-        category = vulgar_models.Category.published_objects.filter(slug=slug).select_related().last()
-        context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
-        context['category'] = category
+        language_code = self.request.LANGUAGE_CODE
+        category = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category__slug=slug,
+                                    language__slug=language_code
+                                ).select_related().last()
+        context['categories'] = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category__home_page_view=True,
+                                    language__slug=language_code
+                                )
+        context['category'] = vulgar_serializers.CategoryLanguageSerializer(category, context={'language_code': language_code}).data
+        context['constants'] = vulgar_constants
         if not category:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
-            vulgar_utils.log_missing(text = slug, model_type = vulgar_models.Category)
-        context['constants'] = vulgar_constants
-        context['canonical_link'] = vulgar_utils.form_canonical_url('category_page', category)
-        context['meta'] = vulgar_utils.get_meta_info('category_page', category)
+            vulgar_utils.log_missing(text = slug, model_type = vulgar_models.CategoryLanguage)
+        else:
+            context['canonical_link'] = vulgar_utils.form_canonical_url('category_page', category, language_code)
+            context['meta'] = vulgar_utils.get_meta_info('category_page', category, language_code)
+            context['alternate_language'] = vulgar_utils.get_alternate_language('category_page', category)
         return context
 
 
@@ -96,29 +109,57 @@ class PostPageView(TemplateView):
                                 self.get_context_data(*args, **kwargs), status=status)
 
     def get_template_name(self, *args, **kwargs):
+        language_code = self.request.LANGUAGE_CODE
         template_name = self.template_name
         status = 200
         slug = kwargs.get('slug', None)
         category_slug = kwargs.get('category_slug', None)
         if category_slug is None :
-            blog_queryset = vulgar_models.Blog.published_objects.filter(slug=slug)
+            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
+                                blog__slug=slug,
+                                language__slug=language_code
+                            )
         else :
-            blog_queryset = vulgar_models.Blog.published_objects.filter(slug=slug, category__slug=category_slug)
+            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
+                                blog__slug=slug,
+                                language__slug=language_code,
+                                blog__category__slug=category_slug
+                            )
         if not blog_queryset:
             status = 404
             template_name = 'error.html'
         return (status, template_name)
 
     def get_context_data(self, *args, **kwargs):
+        language_code = self.request.LANGUAGE_CODE
         context = super(PostPageView, self).get_context_data(*args, **kwargs)
-        context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
+        context['categories'] = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category__home_page_view=True,
+                                    language__slug=language_code
+                                )
         slug = kwargs.get('slug', None)
         category_slug = kwargs.get('category_slug', None)
         if category_slug is None :
-            blog_queryset = vulgar_models.Blog.published_objects.filter(slug=slug).select_related()
+            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
+                                blog__slug=slug,
+                                language__slug=language_code
+                            ).select_related()
+            present_primary_category = blog_queryset.last().blog.primary_category
+            present_category = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category=present_primary_category,
+                                    language__slug=language_code
+                                ).select_related().last()
         else :
-            present_category = vulgar_models.Category.published_objects.filter(slug=category_slug).last()
-            blog_queryset = vulgar_models.Blog.published_objects.filter(slug=slug, category__slug=category_slug).select_related()
+            present_category = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category__slug=slug,
+                                    language__slug=language_code
+                                ).select_related().last()
+            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
+                                blog__slug=slug,
+                                language__slug=language_code,
+                                blog__category__slug=category_slug
+                            ).select_related()
+        context['constants'] = vulgar_constants
         if blog_queryset and present_category:
             blog = blog_queryset.last()
             context['all_categories'] = vulgar_models.Category.published_objects.filter()
@@ -129,11 +170,10 @@ class PostPageView(TemplateView):
             context['related_blogs'] = self.get_related_blogs(blog)
             context['canonical_link'] = vulgar_utils.form_canonical_url('article_page', blog)
             context['meta'] = vulgar_utils.get_meta_info('article_page', blog)
-            context['constants'] = vulgar_constants
         else:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
-            vulgar_utils.log_missing(text = slug, model_type = vulgar_models.Blog)
+            vulgar_utils.log_missing(text = slug, model_type = vulgar_models.BlogLanguage)
         return context
 
     def get_popular_blogs(self, slug):
@@ -214,6 +254,7 @@ class SubscribeView(APIView):
 
 class NotFoundView(TemplateView):
     template_name = "error.html"
+    status = 404
 
     def get_context_data(self, *args, **kwargs):
         context = super(NotFoundView, self).get_context_data(*args, **kwargs)

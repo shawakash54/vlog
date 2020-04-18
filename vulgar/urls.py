@@ -49,7 +49,7 @@ urlpatterns = [
         url(r'^topic/(?P<slug>[\w-]+)/?$', PostPageView.as_view(), name='article_view'),
         url(r'^(?P<category_slug>[\w-]+)/(?P<slug>[\w-]+)/?$', PostPageView.as_view(), name='article_view'),
     )) + [
-        url(r'(.*)', NotFoundView.as_view()),
+        # url(r'(.*)', NotFoundView.as_view()),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
