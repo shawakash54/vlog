@@ -20,7 +20,7 @@ from vulgar.views import HomePageView, CategoryPageView, PostPageView, DisplayCo
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
-from vulgar.sitemap import Static_Sitemap, HomePage_Sitemap, Category_Sitemap, Article_Sitemap
+from vulgar.sitemap import Static_Sitemap, HomePage_Sitemap, Category_Sitemap, Category_Sitemap_Localized, Article_Sitemap
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import ugettext_lazy as _
 
@@ -29,6 +29,7 @@ sitemaps = {
     'homepage': HomePage_Sitemap(),
     'static': Static_Sitemap(),
     'category': Category_Sitemap(),
+    'category_localized': Category_Sitemap_Localized(),
     'article': Article_Sitemap(),
 }
 
