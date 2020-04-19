@@ -1,13 +1,14 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
   {% include 'header.html' %}
   {% load static %}
-  {% load i18n %}
   <body>
   
   <div class="site-wrap">
     {% include 'navbar.html' %}
-    {% get_current_language as LANGUAGE_CODE %}
+    
     
     <div class="site-section bg-light">
       <div class="container">

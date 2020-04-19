@@ -1,5 +1,7 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
   {% include 'header.html' %}
   {% load static %}
   {% load django_bootstrap_breadcrumbs %}
@@ -14,8 +16,8 @@
         <div class="row same-height justify-content-center">
           <div class="col-md-12 col-lg-10">
             <div class="post-entry text-center">
-              {% for category in blog.category.all %}
-                <a href="/{{category.slug}}/">
+              {% for category in blog.present_category_language.all %}
+                <a href="/{{LANGUAGE_CODE}}/{{category.category.slug}}/">
                   <span class="post-category text-white bg-success mb-3">{{category.name}}</span>
                 <a/>
               {% endfor %}
@@ -35,15 +37,13 @@
       <div class="container">
         {% block breadcrumbs %}
             {% breadcrumb "Home" "/" %}
-            {% breadcrumb present_category 'category_view' present_category.slug %}
-            {% breadcrumb "Article" 'article_view' blog.slug %}
+            {% breadcrumb present_category 'category_view' present_category.category.slug %}
+            {% breadcrumb "Article" 'article_view' blog.blog.slug %}
         {% endblock %}
         {% render_breadcrumbs %}
           
         <div class="row blog-entries element-animate">
-
           <div class="col-md-12 col-lg-8 main-content">
-            
             <div class="post-content-body">
               {% autoescape off %}{{ blog.content }}{% endautoescape %}
             </div>
@@ -51,13 +51,15 @@
               
             <div class="pt-5">
               <p>
-                  Categories: 
-                    {% for category in blog.category.all %}
-                      <a href="/{{category.slug}}/">{{category.name}}</a> 
+                  {% trans "Category" as post_page_helper_1 %}
+                  {{post_page_helper_1}}: 
+                    {% for category in blog.present_category_language.all %}
+                      <a href="/{{LANGUAGE_CODE}}/{{category.category.slug}}/">{{category.name}}</a> 
                     {% endfor %}
                 &nbsp; &nbsp;
-                  Tags:
-                    {% for tag in blog.tags.all %}
+                  {% trans "Tags" as post_page_helper_2 %}
+                  {{post_page_helper_2}}:
+                    {% for tag in blog.tags %}
                       <span class='font-weight-bold'>#{{tag.name}}&nbsp</span>
                     {% endfor %}
               </p>
@@ -97,13 +99,14 @@
             </div>
             <!-- END sidebar-box -->  
             <div class="sidebar-box">
-              <h3 class="heading">Popular Posts</h3>
+              {% trans "Popular Posts" as post_page_helper_3 %}
+              <h3 class="heading">{{post_page_helper_3}}</h3>
               <div class="post-entry-sidebar">
                 <ul>
                   {% for popular_blog in popular_blogs %}
                     <li>
-                      <a href="/{{popular_blog.primary_category.slug}}/{{popular_blog.slug}}/">
-                        <img src="{{popular_blog.thumbnail_image}}" alt="Image placeholder" class="mr-4">
+                      <a href="/{{LANGUAGE_CODE}}/{{popular_blog.blog.primary_category.slug}}/{{popular_blog.blog.slug}}/">
+                        <img src="{{popular_blog.blog.thumbnail_image}}" alt="Image placeholder" class="mr-4">
                         <div class="text">
                           <h4>{{popular_blog.title}}</h4>
                           <div class="post-meta">
@@ -117,19 +120,19 @@
               </div>
             </div>
             <!-- END sidebar-box -->
-
             <div class="sidebar-box">
-              <h3 class="heading">Categories</h3>
+              {% trans "Category" as post_page_helper_4 %}
+              <h3 class="heading">{{post_page_helper_4}}</h3>
               <ul class="categories">
                 {% for category in all_categories %}
-                  <li><a href="/{{category.slug}}/">{{category.name}} <span>{{category.blogs.count}}</span></a></li>
+                  <li><a href="/{{LANGUAGE_CODE}}/{{category.category.slug}}/">{{category.name}} <span>{{category.category.blogs.count}}</span></a></li>
                 {% endfor %}
               </ul>
             </div>
             <!-- END sidebar-box -->
-
             <div class="sidebar-box">
-              <h3 class="heading">Tags</h3>
+              {% trans "Tags" as post_page_helper_5 %}
+              <h3 class="heading">{{post_page_helper_5}}</h3>
               <ul class="tags">
                 {% for tag in tags %}
                   <li><span class="p-2 badge badge-secondary">#{{tag.name}}</span></li>
@@ -138,7 +141,6 @@
             </div>
           </div>
           <!-- END sidebar -->
-
         </div>
       </div>
     </section>
@@ -155,8 +157,8 @@
         <div class="row align-items-stretch retro-layout">
           
           <div class="col-md-5 order-md-2">
-            <a href="/{{related_blogs.0.primary_category.slug}}/{{related_blogs.0.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{related_blogs.0.thumbnail_image}});">
-              {% for related_blog_category in related_blogs.0.category.all %}
+            <a href="/{{LANGUAGE_CODE}}/{{related_blogs.0.blog.primary_category.slug}}/{{related_blogs.0.blog.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{related_blogs.0.blog.thumbnail_image}});">
+              {% for related_blog_category in related_blogs.0.present_category_language.all %}
                 <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
               {% endfor %}
               <div class="text">
@@ -168,8 +170,8 @@
 
           <div class="col-md-7">
             
-            <a href="/{{related_blogs.1.primary_category.slug}}/{{related_blogs.1.slug}}/" class="hentry img-2 v-height mb30 gradient" style="background-image: url({{related_blogs.1.thumbnail_image}});">
-              {% for related_blog_category in related_blogs.1.category.all %}
+            <a href="/{{LANGUAGE_CODE}}/{{related_blogs.1.blog.primary_category.slug}}/{{related_blogs.1.blog.slug}}/" class="hentry img-2 v-height mb30 gradient" style="background-image: url({{related_blogs.1.blog.thumbnail_image}});">
+              {% for related_blog_category in related_blogs.1.present_category_language.all %}
                 <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
               {% endfor %}
               <div class="text text-sm">
@@ -179,8 +181,8 @@
             </a>
             
             <div class="two-col d-block d-md-flex">
-              <a href="/{{related_blogs.2.primary_category.slug}}/{{related_blogs.2.slug}}/" class="hentry v-height img-2 gradient" style="background-image: url({{related_blogs.2.thumbnail_image}});">
-                {% for related_blog_category in related_blogs.2.category.all %}
+              <a href="/{{LANGUAGE_CODE}}/{{related_blogs.2.blog.primary_category.slug}}/{{related_blogs.2.blog.slug}}/" class="hentry v-height img-2 gradient" style="background-image: url({{related_blogs.2.blog.thumbnail_image}});">
+                {% for related_blog_category in related_blogs.2.present_category_language.all %}
                   <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
                 {% endfor %}
                 <div class="text text-sm">
@@ -188,8 +190,8 @@
                   <span>{{related_blogs.2.created_at}}</span>
                 </div>
               </a>
-              <a href="/{{related_blogs.3.primary_category.slug}}/{{related_blogs.3.slug}}/" class="hentry v-height img-2 ml-auto gradient" style="background-image: url({{related_blogs.3.thumbnail_image}});">
-                {% for related_blog_category in related_blogs.3.category.all %}
+              <a href="/{{LANGUAGE_CODE}}/{{related_blogs.3.blog.primary_category.slug}}/{{related_blogs.3.blog.slug}}/" class="hentry v-height img-2 ml-auto gradient" style="background-image: url({{related_blogs.3.blog.thumbnail_image}});">
+                {% for related_blog_category in related_blogs.3.present_category_language.all %}
                   <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
                 {% endfor %}
                 <div class="text text-sm">

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 12:58+0000\n"
+"POT-Creation-Date: 2020-04-19 07:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: vlog-templates/category.html:17
+#: vlog-templates/category.html:17 vlog-templates/post.html:54
+#: vlog-templates/post.html:124
 msgid "Category"
 msgstr "केटगॉरी"
 
-#: vlog-templates/category.html:52 vlog-templates/index.html:93
+#: vlog-templates/category.html:52 vlog-templates/index.html:94
 msgid "Read More"
 msgstr "अधिक पढ़ें"
 
@@ -82,21 +83,29 @@ msgstr "यह ज्ञान प्राप्त करने के लि�
 msgid "it's "
 msgstr "यह "
 
-#: vlog-templates/index.html:16
+#: vlog-templates/index.html:17
 msgid "Trending Posts"
 msgstr "ट्रेंडिंग पोस्ट"
 
-#: vlog-templates/index.html:69
+#: vlog-templates/index.html:70
 msgid "Recent Posts"
 msgstr "हाल के पोस्ट"
 
-#: vlog-templates/index.html:119
+#: vlog-templates/index.html:120
 msgid "Specials"
 msgstr "स्पेशल"
 
 #: vlog-templates/navbar.html:31
 msgid "Home"
 msgstr "होम"
+
+#: vlog-templates/post.html:60 vlog-templates/post.html:134
+msgid "Tags"
+msgstr "टैग"
+
+#: vlog-templates/post.html:102
+msgid "Popular Posts"
+msgstr "लोकप्रिय पोस्ट"
 
 #: vulgar/settings.py:160
 msgid "English"
@@ -169,3 +178,7 @@ msgstr ""
 "चुनाव, भारतीय समाचार, समाचार वेबसाइट, राजनीति, भारत समाचार, विश्व समाचार, "
 "व्यापार समाचार, बॉलीवुड समाचार, क्रिकेट समाचार, खेल, जीवन शैली, गैजेट्स, टेक समाचार, "
 "समाचार ब्लॉग, बेडरूम, यौन कल्याण, सेक्स, सेक्स अपडेट, सेक्स समाचार, वयस्क, वयस्क समाचार "
+
+#, fuzzy
+#~ msgid "Categories"
+#~ msgstr "केटगॉरी"

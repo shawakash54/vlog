@@ -30,7 +30,7 @@ def category_page_canonical(obj, language_code):
 
 
 def article_page_canonical(obj, language_code):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.primary_category.slug}/{obj.slug}/'
+    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.blog.primary_category.slug}/{obj.blog.slug}/'
 
 
 def form_canonical_url(page_type, obj=None, language_code = 'en'):
@@ -147,7 +147,16 @@ def category_page_alternate_language(obj):
 
 
 def article_page_alternate_language(obj):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.primary_category.slug}/{obj.slug}/'
+    alternate_language = []
+    blog_active_languages = vulgar_models.Language.published_objects.filter(bloglanguage__blog__slug=obj.blog.slug)
+    for language in blog_active_languages:
+        alternate_language.append(
+            {
+                'code': language.slug,
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{obj.blog.primary_category.slug}/{obj.blog.slug}/'
+            }
+        )
+    return alternate_language
 
 
 def get_alternate_language(page_type, obj=None):

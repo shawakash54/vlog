@@ -1,13 +1,14 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
   {% include 'header.html' %}
   {% load static %}
-  {% load i18n %}
   <body>
   
   <div class="site-wrap">
     {% include 'navbar.html' %}
-    {% get_current_language as LANGUAGE_CODE %}
+    
     
     <div class="site-section bg-light">
       <div class="container">
@@ -90,7 +91,7 @@
                 </div>
                 
                   <p class="overflow-hidden height-200">{{recent_blog.description}}</p>
-                  <!-- {% trans "Read More" as index_page_blog_helper %} -->
+                  {% trans "Read More" as index_page_blog_helper %}
                   <p><a href="/{{LANGUAGE_CODE}}/{{recent_blog.blog.primary_category.slug}}/{{recent_blog.blog.slug}}/">{{index_page_blog_helper}}</a></p>
                 </div>
               </div>

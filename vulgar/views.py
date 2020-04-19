@@ -151,7 +151,7 @@ class PostPageView(TemplateView):
                                 ).select_related().last()
         else :
             present_category = vulgar_models.CategoryLanguage.published_objects.filter(
-                                    category__slug=slug,
+                                    category__slug=category_slug,
                                     language__slug=language_code
                                 ).select_related().last()
             blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
@@ -162,32 +162,47 @@ class PostPageView(TemplateView):
         context['constants'] = vulgar_constants
         if blog_queryset and present_category:
             blog = blog_queryset.last()
-            context['all_categories'] = vulgar_models.Category.published_objects.filter()
-            context['blog'] = blog
+            context['all_categories'] = vulgar_models.CategoryLanguage.published_objects.filter(language__slug=language_code)
+            context['blog'] =   vulgar_serializers.BlogLanguageSerializer(\
+                                    blog,
+                                    context={'language_code': language_code}
+                                ).data
             context['present_category'] = present_category
             context['tags'] = vulgar_models.Tag.published_objects.filter()
-            context['popular_blogs'] = self.get_popular_blogs(slug)
-            context['related_blogs'] = self.get_related_blogs(blog)
-            context['canonical_link'] = vulgar_utils.form_canonical_url('article_page', blog)
-            context['meta'] = vulgar_utils.get_meta_info('article_page', blog)
+            context['popular_blogs'] = self.get_popular_blogs(slug, language_code)
+            context['related_blogs'] = self.get_related_blogs(blog, language_code)
+            context['canonical_link'] = vulgar_utils.form_canonical_url('article_page', blog, language_code)
+            context['meta'] = vulgar_utils.get_meta_info('article_page', blog, language_code)
+            context['alternate_language'] = vulgar_utils.get_alternate_language('article_page', blog)
         else:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
             vulgar_utils.log_missing(text = slug, model_type = vulgar_models.BlogLanguage)
         return context
 
-    def get_popular_blogs(self, slug):
-        return vulgar_models\
-                        .Tag.published_objects.filter(name__icontains='Popular').first()\
-                        .blogs.all().select_related()\
-                        .order_by('-created_at')[:4]
+    def get_popular_blogs(self, slug, language_code):
+        return vulgar_serializers.BlogLanguageSerializer(\
+                                vulgar_models\
+                                    .Tag.published_objects.filter(name__icontains='Popular').first()\
+                                    .blogs.filter(language__slug=language_code).select_related()\
+                                    .order_by('-created_at')[:4],
+                                many=True,
+                                context={'language_code': language_code}
+                            ).data
 
-    def get_related_blogs(self, blog):
-        categories = blog.category.all()[:4]
+
+    def get_related_blogs(self, blog, language_code):
+        categories = blog.blog.category.all()[:4]
         related_blogs = []
         for category in categories:
-            blog = category.blogs.all().order_by('-created_at')[:1].first()
-            related_blogs.append(blog)
+            blog_obj = vulgar_serializers.BlogLanguageSerializer(\
+                        vulgar_models.BlogLanguage.published_objects.filter(
+                            language__slug=language_code,
+                            blog__category=category,
+                            ).exclude(blog__slug=blog.blog.slug).select_related().order_by('-created_at')[:1].first(),
+                        context={'language_code': language_code}
+                    ).data
+            related_blogs.append(blog_obj)
         return related_blogs
 
 

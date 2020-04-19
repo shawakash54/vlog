@@ -1,14 +1,14 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
   {% include 'header.html' %}
   {% load static %}
   {% load django_bootstrap_breadcrumbs %}
-  {% load i18n %}
   <body>
   
   <div class="site-wrap">
     {% include 'navbar.html' %}
-    {% get_current_language as LANGUAGE_CODE %}
     
     <div class="py-5 bg-light">
       <div class="container">
