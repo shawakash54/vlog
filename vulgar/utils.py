@@ -128,6 +128,12 @@ def home_page_alternate_language(obj):
                 'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/'
             }
         )
+    alternate_language.append(
+        {
+            'code': 'x-default',
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/'
+        }
+    )
     return alternate_language
 
 
@@ -141,6 +147,12 @@ def about_us_alternate_language(obj):
                 'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/about-us/'
             }
         )
+    alternate_language.append(
+        {
+            'code': 'x-default',
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/about-us/'
+        }
+    )
     return alternate_language
 
 
@@ -154,6 +166,12 @@ def contact_us_alternate_language(obj):
                 'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/contact-us/'
             }
         )
+    alternate_language.append(
+        {
+            'code': 'x-default',
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/contact-us/'
+        }
+    )
     return alternate_language
 
 
@@ -167,6 +185,12 @@ def category_page_alternate_language(category_language):
                 'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{category_language.category.slug}/'
             }
         )
+    alternate_language.append(
+        {
+            'code': 'x-default',
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/{category_language.category.slug}/'
+        }
+    )
     return alternate_language
 
 
@@ -180,6 +204,12 @@ def article_page_alternate_language(blog_language):
                 'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/'
             }
         )
+    alternate_language.append(
+        {
+            'code': 'x-default',
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/'
+        }
+    )
     return alternate_language
 
 
