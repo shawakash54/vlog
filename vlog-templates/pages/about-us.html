@@ -1,5 +1,7 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
   {% include 'header.html' %}
   {% load static %}
   {% load django_bootstrap_breadcrumbs %}
@@ -15,8 +17,10 @@
         <div class="row same-height justify-content-center">
           <div class="col-md-12 col-lg-10">
             <div class="post-entry text-center">
-              <h1 class="">About Us</h1>
-              <p class="lead mb-4 text-white">It's more than a newsletter, a blog, a place for learning, a place for gaining knowledge, it's <strong>{{constants.APP_NAME}}.</strong></p>
+              {% trans "About Us" as about_us_page_1 %}
+              {% trans "It's more than a newsletter, a blog, a place for learning, a place for gaining knowledge, it's" as about_us_page_2 %}
+              <h1 class="">{{ about_us_page_1 }}</h1>
+              <p class="lead mb-4 text-white">{{about_us_page_2}}<strong>{{constants.APP_NAME}}.</strong></p>
             </div>
           </div>
         </div>
@@ -26,6 +30,8 @@
     
     <div class="site-section bg-light">
       <div class="container">
+        {% trans "About Us" as about_us_page_3 %}
+        {% trans "Home" as about_us_page_4 %}
         {% block breadcrumbs %}
             {% breadcrumb "Home" "/" %}
             {% breadcrumb "About Us" 'about_us_view' %}
@@ -37,12 +43,18 @@
           </div>
           <div class="col-md-7 mr-auto order-md-1">
             <h2></h2>
-            <p><strong>OUR MISSION</strong> - To be accurate in our reporting, and transparent and thorough in our analysis.</p>
+            {% trans "OUR MISSION" as about_us_page_5 %}
+            {% trans "To be accurate in our reporting, and transparent and thorough in our analysis." as about_us_page_6 %}
+            {% trans "People first approach in everything" as about_us_page_7 %}
+            {% trans "Always listening and taking feedbacks from our readers" as about_us_page_8 %}
+            {% trans "Allowing diversity of voices" as about_us_page_9 %}
+            {% trans "100% Transparency for public interest" as about_us_page_10 %}
+            <p><strong>{{ about_us_page_5 }}</strong> - {{ about_us_page_6 }}</p>
             <ul class="ul-check list-unstyled success">
-              <li>People first approach in everything</li>
-              <li>Always listening and taking feedbacks from our readers</li>
-              <li>Allowing diversity of voices</li>
-              <li>100% Transparency for public interest</li>
+              <li>{{ about_us_page_7 }}</li>
+              <li>{{ about_us_page_8 }}</li>
+              <li>{{ about_us_page_9 }}</li>
+              <li>{{ about_us_page_10 }}</li>
             </ul>
           </div>
         </div>
@@ -53,19 +65,21 @@
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-md-5 text-center">
-            <h2>OUR SELECTION</h2>
-            <p>We bring to you the most open and most transparent articles there can be with a wide range of categories</p>
+            {% trans "OUR SELECTION" as about_us_page_11 %}
+            {% trans "We bring to you the most open and most transparent articles there can be with a wide range of categories" as about_us_page_12 %}
+            <h2>{{ about_us_page_11 }}</h2>
+            <p>{{ about_us_page_12 }}</p>
           </div>
         </div>
         <div class="row">
-            {% if categories %}
-                {% for category in categories %}
+            {% if categories_languages %}
+                {% for category_language in categories_languages %}
                     <div class="col-md-6 col-lg-4 mb-5 text-center">
                         <img src="{{category.image}}" alt="Image" class="img-fluid w-50 rounded-circle mb-4">
-                        <h2 class="mb-3 h5">{{category.name}}</h2>
-                        <p>{{category.category_description}}</p>
+                        <h2 class="mb-3 h5">{{category_language.name}}</h2>
+                        <p>{{category_language.category_description}}</p>
                         <p class="mt-5">
-                        <a href="/{{ category.slug }}" target="_blank" class="p-3"><span class="icon-plane"></span></a>
+                        <a href="/{{ LANGUAGE_CODE }}/{{ category_language.category.slug }}" target="_blank" class="p-3"><span class="icon-plane"></span></a>
                         </p>
                     </div>
                 {% endfor %}

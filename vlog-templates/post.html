@@ -16,16 +16,16 @@
         <div class="row same-height justify-content-center">
           <div class="col-md-12 col-lg-10">
             <div class="post-entry text-center">
-              {% for category in blog.present_category_language.all %}
-                <a href="/{{LANGUAGE_CODE}}/{{category.category.slug}}/">
-                  <span class="post-category text-white bg-success mb-3">{{category.name}}</span>
+              {% for category_language in blog_language.present_category_language.all %}
+                <a href="/{{LANGUAGE_CODE}}/{{category_language.category.slug}}/">
+                  <span class="post-category text-white bg-success mb-3">{{category_language.name}}</span>
                 <a/>
               {% endfor %}
-              <h1 class="mb-4">{{blog.title}}</h1>
+              <h1 class="mb-4">{{blog_language.title}}</h1>
               <div class="post-meta align-items-center text-center">
                 <figure class="author-figure mb-0 mr-3 d-inline-block"><img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
-                <span class="d-inline-block mt-1">By {{blog.creator.auth_user.username}}</span>
-                <span>&nbsp;-&nbsp; {{blog.created_at}}</span>
+                <span class="d-inline-block mt-1">By {{blog_language.creator.auth_user.username}}</span>
+                <span>&nbsp;-&nbsp; {{blog_language.created_at}}</span>
               </div>
             </div>
           </div>
@@ -37,15 +37,15 @@
       <div class="container">
         {% block breadcrumbs %}
             {% breadcrumb "Home" "/" %}
-            {% breadcrumb present_category 'category_view' present_category.category.slug %}
-            {% breadcrumb "Article" 'article_view' blog.blog.slug %}
+            {% breadcrumb present_category_language 'category_view' present_category_language.category.slug %}
+            {% breadcrumb "Article" 'article_view' blog_language.blog.slug %}
         {% endblock %}
         {% render_breadcrumbs %}
           
         <div class="row blog-entries element-animate">
           <div class="col-md-12 col-lg-8 main-content">
             <div class="post-content-body">
-              {% autoescape off %}{{ blog.content }}{% endautoescape %}
+              {% autoescape off %}{{ blog_language.content }}{% endautoescape %}
             </div>
 
               
@@ -53,13 +53,13 @@
               <p>
                   {% trans "Category" as post_page_helper_1 %}
                   {{post_page_helper_1}}: 
-                    {% for category in blog.present_category_language.all %}
-                      <a href="/{{LANGUAGE_CODE}}/{{category.category.slug}}/">{{category.name}}</a> 
+                    {% for category_language in blog_language.present_category_language.all %}
+                      <a href="/{{LANGUAGE_CODE}}/{{category_language.category.slug}}/">{{category_language.name}}</a> 
                     {% endfor %}
                 &nbsp; &nbsp;
                   {% trans "Tags" as post_page_helper_2 %}
                   {{post_page_helper_2}}:
-                    {% for tag in blog.tags %}
+                    {% for tag in blog_language.tags %}
                       <span class='font-weight-bold'>#{{tag.name}}&nbsp</span>
                     {% endfor %}
               </p>
@@ -85,8 +85,8 @@
               <div class="bio text-center">
                 <img src="{% static 'images/person_2.jpg' %}" alt="Image Placeholder" class="img-fluid mb-5">
                 <div class="bio-body">
-                  <h2>{{blog.creator.auth_user.username}}</h2>
-                  <p class="mb-4">{{blog.creator.bio}}</p>
+                  <h2>{{blog_language.creator.auth_user.username}}</h2>
+                  <p class="mb-4">{{blog_language.creator.bio}}</p>
                   <!-- <p><a href="#" class="btn btn-primary btn-sm rounded px-4 py-2">Read my bio</a></p> -->
                   <!-- <p class="social">
                     <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
@@ -103,14 +103,14 @@
               <h3 class="heading">{{post_page_helper_3}}</h3>
               <div class="post-entry-sidebar">
                 <ul>
-                  {% for popular_blog in popular_blogs %}
+                  {% for popular_blog_language in popular_blogs_langugaes %}
                     <li>
-                      <a href="/{{LANGUAGE_CODE}}/{{popular_blog.blog.primary_category.slug}}/{{popular_blog.blog.slug}}/">
-                        <img src="{{popular_blog.blog.thumbnail_image}}" alt="Image placeholder" class="mr-4">
+                      <a href="/{{LANGUAGE_CODE}}/{{popular_blog_language.blog.primary_category.slug}}/{{popular_blog_language.blog.slug}}/">
+                        <img src="{{popular_blog_language.blog.thumbnail_image}}" alt="Image placeholder" class="mr-4">
                         <div class="text">
-                          <h4>{{popular_blog.title}}</h4>
+                          <h4>{{popular_blog_language.title}}</h4>
                           <div class="post-meta">
-                            <span class="mr-2">{{popular_blog.created_at}}</span>
+                            <span class="mr-2">{{popular_blog_language.created_at}}</span>
                           </div>
                         </div>
                       </a>
@@ -124,8 +124,8 @@
               {% trans "Category" as post_page_helper_4 %}
               <h3 class="heading">{{post_page_helper_4}}</h3>
               <ul class="categories">
-                {% for category in all_categories %}
-                  <li><a href="/{{LANGUAGE_CODE}}/{{category.category.slug}}/">{{category.name}} <span>{{category.category.blogs.count}}</span></a></li>
+                {% for category_language in all_categories_languages %}
+                  <li><a href="/{{LANGUAGE_CODE}}/{{category_language.category.slug}}/">{{category_language.name}} <span>{{category_language.category.blogs.count}}</span></a></li>
                 {% endfor %}
               </ul>
             </div>
@@ -157,46 +157,46 @@
         <div class="row align-items-stretch retro-layout">
           
           <div class="col-md-5 order-md-2">
-            <a href="/{{LANGUAGE_CODE}}/{{related_blogs.0.blog.primary_category.slug}}/{{related_blogs.0.blog.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{related_blogs.0.blog.thumbnail_image}});">
-              {% for related_blog_category in related_blogs.0.present_category_language.all %}
-                <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
+            <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.0.blog.primary_category.slug}}/{{related_blogs_languages.0.blog.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{related_blogs_languages.0.blog.thumbnail_image}});">
+              {% for related_blog_category_language in related_blogs_languages.0.present_category_language.all %}
+                <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
               {% endfor %}
               <div class="text">
-                <h2>{{related_blogs.0.title}}</h2>
-                <span>{{related_blogs.0.created_at}}</span>
+                <h2>{{related_blogs_languages.0.title}}</h2>
+                <span>{{related_blogs_languages.0.created_at}}</span>
               </div>
             </a>
           </div>
 
           <div class="col-md-7">
             
-            <a href="/{{LANGUAGE_CODE}}/{{related_blogs.1.blog.primary_category.slug}}/{{related_blogs.1.blog.slug}}/" class="hentry img-2 v-height mb30 gradient" style="background-image: url({{related_blogs.1.blog.thumbnail_image}});">
-              {% for related_blog_category in related_blogs.1.present_category_language.all %}
-                <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
+            <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.1.blog.primary_category.slug}}/{{related_blogs_languages.1.blog.slug}}/" class="hentry img-2 v-height mb30 gradient" style="background-image: url({{related_blogs_languages.1.blog.thumbnail_image}});">
+              {% for related_blog_category_language in related_blogs_languages.1.present_category_language.all %}
+                <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
               {% endfor %}
               <div class="text text-sm">
-                <h2>{{related_blogs.1.title}}</h2>
-                <span>{{related_blogs.1.created_at}}</span>
+                <h2>{{related_blogs_languages.1.title}}</h2>
+                <span>{{related_blogs_languages.1.created_at}}</span>
               </div>
             </a>
             
             <div class="two-col d-block d-md-flex">
-              <a href="/{{LANGUAGE_CODE}}/{{related_blogs.2.blog.primary_category.slug}}/{{related_blogs.2.blog.slug}}/" class="hentry v-height img-2 gradient" style="background-image: url({{related_blogs.2.blog.thumbnail_image}});">
-                {% for related_blog_category in related_blogs.2.present_category_language.all %}
-                  <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
+              <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.2.blog.primary_category.slug}}/{{related_blogs_languages.2.blog.slug}}/" class="hentry v-height img-2 gradient" style="background-image: url({{related_blogs_languages.2.blog.thumbnail_image}});">
+                {% for related_blog_category_language in related_blogs_languages.2.present_category_language.all %}
+                  <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
                 {% endfor %}
                 <div class="text text-sm">
-                  <h2>{{related_blogs.2.title}}</h2>
-                  <span>{{related_blogs.2.created_at}}</span>
+                  <h2>{{related_blogs_languages.2.title}}</h2>
+                  <span>{{related_blogs_languages.2.created_at}}</span>
                 </div>
               </a>
-              <a href="/{{LANGUAGE_CODE}}/{{related_blogs.3.blog.primary_category.slug}}/{{related_blogs.3.blog.slug}}/" class="hentry v-height img-2 ml-auto gradient" style="background-image: url({{related_blogs.3.blog.thumbnail_image}});">
-                {% for related_blog_category in related_blogs.3.present_category_language.all %}
-                  <span class="post-category text-white bg-danger">{{related_blog_category.name}}</span>
+              <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.3.blog.primary_category.slug}}/{{related_blogs_languages.3.blog.slug}}/" class="hentry v-height img-2 ml-auto gradient" style="background-image: url({{related_blogs_languages.3.blog.thumbnail_image}});">
+                {% for related_blog_category_language in related_blogs_languages.3.present_category_language.all %}
+                  <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
                 {% endfor %}
                 <div class="text text-sm">
-                  <h2>{{related_blogs.3.title}}</h2>
-                  <span>{{related_blogs.3.created_at}}</span>
+                  <h2>{{related_blogs_languages.3.title}}</h2>
+                  <span>{{related_blogs_languages.3.created_at}}</span>
                 </div>
               </a>
             </div>  

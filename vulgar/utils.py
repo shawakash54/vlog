@@ -25,12 +25,12 @@ def contact_us_canonical(obj, language_code):
     return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/contact-us/'
 
 
-def category_page_canonical(obj, language_code):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.category.slug}/'
+def category_page_canonical(category_language, language_code):
+    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{category_language.category.slug}/'
 
 
-def article_page_canonical(obj, language_code):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{obj.blog.primary_category.slug}/{obj.blog.slug}/'
+def article_page_canonical(blog_language, language_code):
+    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/'
 
 
 def form_canonical_url(page_type, obj=None, language_code = 'en'):
@@ -45,7 +45,7 @@ def form_canonical_url(page_type, obj=None, language_code = 'en'):
 
 
 def home_page_meta(obj, language_code):
-    categories = vulgar_models.CategoryLanguage.published_objects.filter(
+    categories_languages = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__home_page_view=True,
                                     language__slug=language_code
                                 )
@@ -57,7 +57,7 @@ def home_page_meta(obj, language_code):
         'title': f'{home_page_meta_title} | {vulgar_constants.APP_NAME}',
         'meta_description': f'{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}' + \
                                 f' {home_page_meta_description_part_1}' + \
-                                f'{", ".join(str(category.name) for category in categories)}' + \
+                                f'{", ".join(str(category.name) for category in categories_languages)}' + \
                                 f' {home_page_meta_description_part_2} | {vulgar_constants.APP_NAME}',
         'google_site_verification_code': vulgar_constants.GOOGLE_SITE_VERIFICATION_CODE,
         'search_keywords': home_page_keywords
@@ -65,38 +65,44 @@ def home_page_meta(obj, language_code):
 
 
 def contact_us_meta(obj, language_code):
+    contact_page_meta_title = _("Contact Us for publishing articles, blogs")
+    contact_page_meta_description = _("Contact for publishing news. Queries around news and paid content writing")
+    contact_page_keywords = _('paid article publishing, news coverage, paid content writing, content publishing, news suggestions, news area improvement')
     return {
-        'title': f'Contact Us for publishing articles, blogs | {vulgar_constants.APP_NAME}',
-        'meta_description': f'Contact for publishing news. Queries around news and paid content writing. | {vulgar_constants.APP_NAME}',
+        'title': f'{contact_page_meta_title} | {vulgar_constants.APP_NAME}',
+        'meta_description': f'{contact_page_meta_description} | {vulgar_constants.APP_NAME}',
         'google_site_verification_code': vulgar_constants.GOOGLE_SITE_VERIFICATION_CODE,
-        'search_keywords': vulgar_constants.CONTACT_US_PAGE_KEYWORDS
+        'search_keywords': contact_page_keywords
     }
 
 
 def about_us_meta(obj, language_code):
+    aboutus_page_meta_title = _("About Us")
+    aboutus_page_meta_description = _("About Us - A Newsletter, blog, complete transparency for public interest")
+    aboutus_page_keywords = _('Completely transparent newsletter, paid article writing')
     return {
-        'title': f'About Us | {vulgar_constants.APP_NAME}',
-        'meta_description': f'About Us - A Newsletter, blog, complete transparency for public interest | {vulgar_constants.APP_NAME}',
+        'title': f'{aboutus_page_meta_title} | {vulgar_constants.APP_NAME}',
+        'meta_description': f'{aboutus_page_meta_description} | {vulgar_constants.APP_NAME}',
         'google_site_verification_code': vulgar_constants.GOOGLE_SITE_VERIFICATION_CODE,
-        'search_keywords': vulgar_constants.ABOUT_US_PAGE_KEYWORDS
+        'search_keywords': aboutus_page_keywords
     }
 
 
-def category_page_meta(obj, language_code):
+def category_page_meta(category_language, language_code):
     return {
-        'title': f'{obj.name} | {vulgar_constants.APP_NAME}',
-        'meta_description': f'{obj.meta_description} | {vulgar_constants.APP_NAME}',
+        'title': f'{category_language.name} | {vulgar_constants.APP_NAME}',
+        'meta_description': f'{category_language.meta_description} | {vulgar_constants.APP_NAME}',
         'google_site_verification_code': vulgar_constants.GOOGLE_SITE_VERIFICATION_CODE,
-        'search_keywords': ', '.join(obj.meta_keywords)
+        'search_keywords': ', '.join(category_language.meta_keywords)
     }
 
 
-def article_page_meta(obj, language_code):
+def article_page_meta(blog_language, language_code):
     return {
-        'title': f'{obj.title} | {vulgar_constants.APP_NAME}',
-        'meta_description': f'{obj.meta_description} | {vulgar_constants.APP_NAME}',
+        'title': f'{blog_language.title} | {vulgar_constants.APP_NAME}',
+        'meta_description': f'{blog_language.meta_description} | {vulgar_constants.APP_NAME}',
         'google_site_verification_code': vulgar_constants.GOOGLE_SITE_VERIFICATION_CODE,
-        'search_keywords': ', '.join(obj.meta_keywords)
+        'search_keywords': ', '.join(blog_language.meta_keywords)
     }
 
 
@@ -126,34 +132,52 @@ def home_page_alternate_language(obj):
 
 
 def about_us_alternate_language(obj):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/about-us/'
-
-
-def contact_us_alternate_language(obj):
-    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/contact-us/'
-
-
-def category_page_alternate_language(obj):
     alternate_language = []
-    category_active_languages = vulgar_models.Language.published_objects.filter(categorylanguage__category__slug=obj.category.slug)
-    for language in category_active_languages:
+    active_languages = vulgar_models.Language.published_objects.all()
+    for language in active_languages:
         alternate_language.append(
             {
                 'code': language.slug,
-                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{obj.category.slug}/'
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/about-us/'
             }
         )
     return alternate_language
 
 
-def article_page_alternate_language(obj):
+def contact_us_alternate_language(obj):
     alternate_language = []
-    blog_active_languages = vulgar_models.Language.published_objects.filter(bloglanguage__blog__slug=obj.blog.slug)
+    active_languages = vulgar_models.Language.published_objects.all()
+    for language in active_languages:
+        alternate_language.append(
+            {
+                'code': language.slug,
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/contact-us/'
+            }
+        )
+    return alternate_language
+
+
+def category_page_alternate_language(category_language):
+    alternate_language = []
+    category_active_languages = vulgar_models.Language.published_objects.filter(categorylanguage__category__slug=category_language.category.slug)
+    for language in category_active_languages:
+        alternate_language.append(
+            {
+                'code': language.slug,
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{category_language.category.slug}/'
+            }
+        )
+    return alternate_language
+
+
+def article_page_alternate_language(blog_language):
+    alternate_language = []
+    blog_active_languages = vulgar_models.Language.published_objects.filter(bloglanguage__blog__slug=blog_language.blog.slug)
     for language in blog_active_languages:
         alternate_language.append(
             {
                 'code': language.slug,
-                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{obj.blog.primary_category.slug}/{obj.blog.slug}/'
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/'
             }
         )
     return alternate_language

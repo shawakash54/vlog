@@ -20,12 +20,12 @@ class HomePageView(TemplateView):
         language_code = self.request.LANGUAGE_CODE
         context['canonical_link'] = vulgar_utils.form_canonical_url('home_page', None)
         context['alternate_language'] = vulgar_utils.get_alternate_language('home_page', None)
-        context['categories'] = vulgar_models.CategoryLanguage.published_objects.filter(
+        context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__home_page_view=True,
                                     language__slug=language_code
                                 )
         context['meta'] = vulgar_utils.get_meta_info('home_page', None, language_code)
-        context['trending'] = vulgar_serializers.BlogLanguageSerializer(\
+        context['trending_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Trending').first()\
                                     .blogs.filter(language__slug=language_code).select_related()\
@@ -33,7 +33,7 @@ class HomePageView(TemplateView):
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
-        context['recent'] = vulgar_serializers.BlogLanguageSerializer(\
+        context['recent_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Recent').first()\
                                     .blogs.filter(language__slug=language_code).select_related()\
@@ -41,7 +41,7 @@ class HomePageView(TemplateView):
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
-        context['special'] = vulgar_serializers.BlogLanguageSerializer(\
+        context['special_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Special').first()\
                                     .blogs.filter(language__slug=language_code).select_related()\
@@ -66,11 +66,11 @@ class CategoryPageView(TemplateView):
         status = 200
         slug = kwargs.get('slug', None)
         language_code = self.request.LANGUAGE_CODE
-        category = vulgar_models.CategoryLanguage.published_objects.filter(
+        category_language = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__slug=slug,
                                     language__slug=language_code
                                 )
-        if not category:
+        if not category_language:
             status = 404
             template_name = 'error.html'
         return (status, template_name)
@@ -79,24 +79,24 @@ class CategoryPageView(TemplateView):
         context = super(CategoryPageView, self).get_context_data(*args, **kwargs)
         slug = kwargs.get('slug', None)
         language_code = self.request.LANGUAGE_CODE
-        category = vulgar_models.CategoryLanguage.published_objects.filter(
+        category_language = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__slug=slug,
                                     language__slug=language_code
                                 ).select_related().last()
-        context['categories'] = vulgar_models.CategoryLanguage.published_objects.filter(
+        context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__home_page_view=True,
                                     language__slug=language_code
                                 )
-        context['category'] = vulgar_serializers.CategoryLanguageSerializer(category, context={'language_code': language_code}).data
+        context['category_language'] = vulgar_serializers.CategoryLanguageSerializer(category_language, context={'language_code': language_code}).data
         context['constants'] = vulgar_constants
-        if not category:
+        if not category_language:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
             vulgar_utils.log_missing(text = slug, model_type = vulgar_models.CategoryLanguage)
         else:
-            context['canonical_link'] = vulgar_utils.form_canonical_url('category_page', category, language_code)
-            context['meta'] = vulgar_utils.get_meta_info('category_page', category, language_code)
-            context['alternate_language'] = vulgar_utils.get_alternate_language('category_page', category)
+            context['canonical_link'] = vulgar_utils.form_canonical_url('category_page', category_language, language_code)
+            context['meta'] = vulgar_utils.get_meta_info('category_page', category_language, language_code)
+            context['alternate_language'] = vulgar_utils.get_alternate_language('category_page', category_language)
         return context
 
 
@@ -133,10 +133,10 @@ class PostPageView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         language_code = self.request.LANGUAGE_CODE
         context = super(PostPageView, self).get_context_data(*args, **kwargs)
-        context['categories'] = vulgar_models.CategoryLanguage.published_objects.filter(
-                                    category__home_page_view=True,
-                                    language__slug=language_code
-                                )
+        context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
+                                            category__home_page_view=True,
+                                            language__slug=language_code
+                                        )
         slug = kwargs.get('slug', None)
         category_slug = kwargs.get('category_slug', None)
         if category_slug is None :
@@ -145,35 +145,35 @@ class PostPageView(TemplateView):
                                 language__slug=language_code
                             ).select_related()
             present_primary_category = blog_queryset.last().blog.primary_category
-            present_category = vulgar_models.CategoryLanguage.published_objects.filter(
-                                    category=present_primary_category,
-                                    language__slug=language_code
-                                ).select_related().last()
+            present_category_language = vulgar_models.CategoryLanguage.published_objects.filter(
+                                            category=present_primary_category,
+                                            language__slug=language_code
+                                        ).select_related().last()
         else :
-            present_category = vulgar_models.CategoryLanguage.published_objects.filter(
-                                    category__slug=category_slug,
-                                    language__slug=language_code
-                                ).select_related().last()
+            present_category_language = vulgar_models.CategoryLanguage.published_objects.filter(
+                                            category__slug=category_slug,
+                                            language__slug=language_code
+                                        ).select_related().last()
             blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
                                 blog__slug=slug,
                                 language__slug=language_code,
                                 blog__category__slug=category_slug
                             ).select_related()
         context['constants'] = vulgar_constants
-        if blog_queryset and present_category:
-            blog = blog_queryset.last()
-            context['all_categories'] = vulgar_models.CategoryLanguage.published_objects.filter(language__slug=language_code)
-            context['blog'] =   vulgar_serializers.BlogLanguageSerializer(\
-                                    blog,
+        if blog_queryset and present_category_language:
+            blog_language = blog_queryset.last()
+            context['all_categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(language__slug=language_code)
+            context['blog_language'] =   vulgar_serializers.BlogLanguageSerializer(\
+                                    blog_language,
                                     context={'language_code': language_code}
                                 ).data
-            context['present_category'] = present_category
+            context['present_category_language'] = present_category_language
             context['tags'] = vulgar_models.Tag.published_objects.filter()
-            context['popular_blogs'] = self.get_popular_blogs(slug, language_code)
-            context['related_blogs'] = self.get_related_blogs(blog, language_code)
-            context['canonical_link'] = vulgar_utils.form_canonical_url('article_page', blog, language_code)
-            context['meta'] = vulgar_utils.get_meta_info('article_page', blog, language_code)
-            context['alternate_language'] = vulgar_utils.get_alternate_language('article_page', blog)
+            context['popular_blogs_langugaes'] = self.get_popular_blogs(slug, language_code)
+            context['related_blogs_languages'] = self.get_related_blogs(blog_language, language_code)
+            context['canonical_link'] = vulgar_utils.form_canonical_url('article_page', blog_language, language_code)
+            context['meta'] = vulgar_utils.get_meta_info('article_page', blog_language, language_code)
+            context['alternate_language'] = vulgar_utils.get_alternate_language('article_page', blog_language)
         else:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
@@ -191,19 +191,19 @@ class PostPageView(TemplateView):
                             ).data
 
 
-    def get_related_blogs(self, blog, language_code):
-        categories = blog.blog.category.all()[:4]
-        related_blogs = []
+    def get_related_blogs(self, blog_language, language_code):
+        categories = blog_language.blog.category.all()[:4]
+        related_blogs_languages = []
         for category in categories:
-            blog_obj = vulgar_serializers.BlogLanguageSerializer(\
+            blog_language_obj = vulgar_serializers.BlogLanguageSerializer(\
                         vulgar_models.BlogLanguage.published_objects.filter(
                             language__slug=language_code,
                             blog__category=category,
-                            ).exclude(blog__slug=blog.blog.slug).select_related().order_by('-created_at')[:1].first(),
+                            ).exclude(blog__slug=blog_language.blog.slug).select_related().order_by('-created_at')[:1].first(),
                         context={'language_code': language_code}
                     ).data
-            related_blogs.append(blog_obj)
-        return related_blogs
+            related_blogs_languages.append(blog_language_obj)
+        return related_blogs_languages
 
 
 class AboutUsPageView(TemplateView):
@@ -211,16 +211,20 @@ class AboutUsPageView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(AboutUsPageView, self).get_context_data(*args, **kwargs)
-        context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
+        language_code = self.request.LANGUAGE_CODE
+        context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
+                                            category__home_page_view=True,
+                                            language__slug=language_code
+                                        )
         context['canonical_link'] = vulgar_utils.form_canonical_url('about_us')
         context['meta'] = vulgar_utils.get_meta_info('about_us', None)
         context['constants'] = vulgar_constants
+        context['alternate_language'] = vulgar_utils.get_alternate_language('about_us', None)
         return context
 
 
 def DisplayContactUsPage(request):
     context = {}
-    context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['canonical_link'] = vulgar_utils.form_canonical_url('contact_us')
     context['meta'] = vulgar_utils.get_meta_info('contact_us', None)
     context['constants'] = vulgar_constants
@@ -247,6 +251,13 @@ def DisplayContactUsPage(request):
                 'status': 'error',
                 'errors': serializer.errors
             }
+    else:
+        language_code = request.LANGUAGE_CODE
+        context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
+                                            category__home_page_view=True,
+                                            language__slug=language_code
+                                        )
+        context['alternate_language'] = vulgar_utils.get_alternate_language('contact_us', None)
     return render(request, 'pages/contact-us.html', context)
 
 

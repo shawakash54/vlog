@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% include 'components/newsletter.html' %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <div class="site-footer">
     <div class="container">
@@ -20,13 +21,13 @@
             <div class="col-md-3 ml-auto">
                 <!-- <h3 class="footer-heading mb-4">Navigation</h3> -->
                 <ul class="list-unstyled float-left mr-5">
-                    <li><a href="/about-us/" target="_blank">{{ footer_about_us }}</a></li>
-                    <li><a href="/contact-us/" target="_blank">{{ footer_contact_us }}</a></li>
+                    <li><a href="/{{ LANGUAGE_CODE }}/about-us/" target="_blank">{{ footer_about_us }}</a></li>
+                    <li><a href="/{{ LANGUAGE_CODE }}/contact-us/" target="_blank">{{ footer_contact_us }}</a></li>
                 </ul>
-                {% if categories %}
+                {% if categories_languages %}
                     <ul class="list-unstyled float-left">
-                        {% for category in categories %}
-                            <li><a href="/{{ category.slug }}/" target="_blank">{{category.name}}</a></li>
+                        {% for category_language in categories_languages %}
+                            <li><a href="/{{ LANGUAGE_CODE }}/{{ category_language.slug }}/" target="_blank">{{category_language.name}}</a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -39,7 +40,7 @@
                     <a href="#" target="_blank"><span class="icon-twitter p-2"></span></a>
                     <a href="#" target="_blank"><span class="icon-instagram p-2"></span></a>
                     <a href="#" target="_blank"><span class="icon-rss p-2"></span></a>
-                    <a href="/contact-us/" target="_blank"><span class="icon-envelope p-2"></span></a>
+                    <a href="/{{ LANGUAGE_CODE }}/contact-us/" target="_blank"><span class="icon-envelope p-2"></span></a>
                     </p>
                 </div>
             </div>

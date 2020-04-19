@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-19 07:31+0000\n"
+"POT-Creation-Date: 2020-04-19 11:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,35 +51,41 @@ msgstr "विफल"
 msgid "Yay"
 msgstr "सफल"
 
-#: vlog-templates/footer.html:9
+#: vlog-templates/error.html:16
+msgid "Back to Home"
+msgstr "वापस होम"
+
+#: vlog-templates/footer.html:10 vlog-templates/pages/about-us.html:20
+#: vlog-templates/pages/about-us.html:33 vulgar/utils.py:80
 msgid "About Us"
 msgstr "हमारे बारे में"
 
-#: vlog-templates/footer.html:10
+#: vlog-templates/footer.html:11 vlog-templates/pages/contact-us.html:19
+#: vlog-templates/pages/contact-us.html:33
 msgid "Contact Us"
 msgstr "संपर्क करें"
 
-#: vlog-templates/footer.html:11
+#: vlog-templates/footer.html:12
 msgid "Connect With Us"
 msgstr "हमसे जुडे"
 
-#: vlog-templates/footer.html:13
+#: vlog-templates/footer.html:14
 msgid "It's more than a newsletter"
 msgstr "यह एक समाचार पत्र से अधिक है"
 
-#: vlog-templates/footer.html:14
+#: vlog-templates/footer.html:15
 msgid "it's more than a blog"
 msgstr "यह एक ब्लॉग से अधिक है"
 
-#: vlog-templates/footer.html:15
+#: vlog-templates/footer.html:16
 msgid "it's more than a place for learning"
 msgstr "यह सीखने के लिए एक जगह से अधिक है"
 
-#: vlog-templates/footer.html:16
+#: vlog-templates/footer.html:17
 msgid "it's more than a place for gaining knowledge"
 msgstr "यह ज्ञान प्राप्त करने के लिए एक जगह से अधिक है"
 
-#: vlog-templates/footer.html:17
+#: vlog-templates/footer.html:18
 msgid "it's "
 msgstr "यह "
 
@@ -95,9 +101,94 @@ msgstr "हाल के पोस्ट"
 msgid "Specials"
 msgstr "स्पेशल"
 
-#: vlog-templates/navbar.html:31
+#: vlog-templates/navbar.html:31 vlog-templates/pages/about-us.html:34
+#: vlog-templates/pages/contact-us.html:32
 msgid "Home"
 msgstr "होम"
+
+#: vlog-templates/pages/about-us.html:21
+#, fuzzy
+#| msgid "it's more than a place for gaining knowledge"
+msgid ""
+"It's more than a newsletter, a blog, a place for learning, a place for "
+"gaining knowledge, it's"
+msgstr "यह ज्ञान प्राप्त करने के लिए एक जगह से अधिक है"
+
+#: vlog-templates/pages/about-us.html:46
+msgid "OUR MISSION"
+msgstr "हमारा लक्ष्य"
+
+#: vlog-templates/pages/about-us.html:47
+msgid ""
+"To be accurate in our reporting, and transparent and thorough in our "
+"analysis."
+msgstr "हमारी रिपोर्टिंग में सटीक, और पारदर्शी और पूरी तरह से हमारे मेंविश्लेषण।"
+
+#: vlog-templates/pages/about-us.html:48
+msgid "People first approach in everything"
+msgstr "लोग पहले हर चीज में संपर्क करते हैं"
+
+#: vlog-templates/pages/about-us.html:49
+msgid "Always listening and taking feedbacks from our readers"
+msgstr "हमेशा अपने पाठकों से प्रतिक्रिया सुनते और लेते रहे"
+
+#: vlog-templates/pages/about-us.html:50
+msgid "Allowing diversity of voices"
+msgstr "आवाज़ों की विविधता विविधता"
+
+#: vlog-templates/pages/about-us.html:51
+#, python-format
+msgid "100%% Transparency for public interest"
+msgstr "जनहित के लिए 100%% पारदर्शिता"
+
+#: vlog-templates/pages/about-us.html:68
+msgid "OUR SELECTION"
+msgstr "हमारा चयन"
+
+#: vlog-templates/pages/about-us.html:69
+msgid ""
+"We bring to you the most open and most transparent articles there can be "
+"with a wide range of categories"
+msgstr ""
+"हम आपके लिए सबसे खुले और सबसे पारदर्शी लेख ला सकते हैंश्रेणियों की एक विस्तृत श्रृंखला के साथ"
+
+#: vlog-templates/pages/contact-us.html:20
+msgid "Write to us at"
+msgstr "पर हमें लिखें"
+
+#: vlog-templates/pages/contact-us.html:45
+msgid "First Name"
+msgstr "पहला नाम"
+
+#: vlog-templates/pages/contact-us.html:46
+msgid "Last Name"
+msgstr "अंतिम नाम"
+
+#: vlog-templates/pages/contact-us.html:47
+msgid "Email"
+msgstr "ईमेल"
+
+#: vlog-templates/pages/contact-us.html:48
+#, fuzzy
+#| msgid "Contact Us"
+msgid "Contact Number"
+msgstr "संपर्क करें"
+
+#: vlog-templates/pages/contact-us.html:49
+msgid "Subject"
+msgstr "विषय"
+
+#: vlog-templates/pages/contact-us.html:50
+msgid "Message"
+msgstr "संदेश"
+
+#: vlog-templates/pages/contact-us.html:51
+msgid "Write your notes or questions here"
+msgstr "अपने नोट्स या प्रश्न यहाँ लिखें"
+
+#: vlog-templates/pages/contact-us.html:52
+msgid "Send Message"
+msgstr "मेसेज भेजें"
 
 #: vlog-templates/post.html:60 vlog-templates/post.html:134
 msgid "Tags"
@@ -178,6 +269,33 @@ msgstr ""
 "चुनाव, भारतीय समाचार, समाचार वेबसाइट, राजनीति, भारत समाचार, विश्व समाचार, "
 "व्यापार समाचार, बॉलीवुड समाचार, क्रिकेट समाचार, खेल, जीवन शैली, गैजेट्स, टेक समाचार, "
 "समाचार ब्लॉग, बेडरूम, यौन कल्याण, सेक्स, सेक्स अपडेट, सेक्स समाचार, वयस्क, वयस्क समाचार "
+
+#: vulgar/utils.py:68
+msgid "Contact Us for publishing articles, blogs"
+msgstr "लेख, ब्लॉग प्रकाशित करने के लिए हमसे संपर्क करें"
+
+#: vulgar/utils.py:69
+msgid ""
+"Contact for publishing news. Queries around news and paid content writing"
+msgstr ""
+"समाचार प्रकाशित करने के लिए संपर्क करें समाचार और भुगतान की गई सामग्री के बारे में प्रश्न"
+
+#: vulgar/utils.py:70
+msgid ""
+"paid article publishing, news coverage, paid content writing, content "
+"publishing, news suggestions, news area improvement"
+msgstr ""
+"भुगतान लेख प्रकाशन, समाचार कवरेज, भुगतान सामग्री लेखन, सामग्रीप्रकाशन, समाचार सुझाव, "
+"समाचार क्षेत्र में सुधार"
+
+#: vulgar/utils.py:81
+msgid ""
+"About Us - A Newsletter, blog, complete transparency for public interest"
+msgstr "हमारे बारे में - एक न्यूज़लैटर, ब्लॉग, सार्वजनिक हित के लिए पूरी पारदर्शिता"
+
+#: vulgar/utils.py:82
+msgid "Completely transparent newsletter, paid article writing"
+msgstr "पूरी तरह से पारदर्शी समाचार पत्र, सशुल्क लेख लेखन"
 
 #, fuzzy
 #~ msgid "Categories"

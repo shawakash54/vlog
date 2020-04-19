@@ -19,21 +19,21 @@
             </div>
         </div>
         <div class="row align-items-stretch retro-layout-2">
-          {% if trending %}
-            {% for trending_blog in trending %}
+          {% if trending_blog_languages %}
+            {% for trending_blog_language in trending_blog_languages %}
               {% if forloop.counter != 3 %}
                 {% if forloop.counter == 1 or forloop.counter == 4 %}
                   <div class="col-md-4">
                 {% endif %}
-                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog.blog.primary_category.slug}}/{{trending_blog.blog.slug}}/" class="h-entry mb-30 v-height gradient" style="background-image: url({{trending_blog.blog.thumbnail_image}});">
+                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog_language.blog.primary_category.slug}}/{{trending_blog_language.blog.slug}}/" class="h-entry mb-30 v-height gradient" style="background-image: url({{trending_blog_language.blog.thumbnail_image}});">
 
                     <div class="text">
                       <div class="post-categories mb-2">
-                        {% for trending_blog_category in trending_blog.present_category_language.all %}
+                        {% for trending_blog_category in trending_blog_language.present_category_language.all %}
                           <span class="post-category bg-info">{{trending_blog_category.name}}</span>
                         {% endfor %}
                       </div>
-                      <h2>{{trending_blog.title}}</h2>
+                      <h2>{{trending_blog_language.title}}</h2>
                       <!-- <span class="date">{{trending_blog.created_at}}</span> -->
                     </div>
                   </a>
@@ -43,15 +43,15 @@
               {% endif %}
               {% if forloop.counter == 3 %}
                 <div class="col-md-4">
-                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog.blog.primary_category.slug}}/{{trending_blog.blog.slug}}/" class="h-entry img-5 h-100 gradient" style="background-image: url({{trending_blog.blog.thumbnail_image}});">
+                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog_language.blog.primary_category.slug}}/{{trending_blog_language.blog.slug}}/" class="h-entry img-5 h-100 gradient" style="background-image: url({{trending_blog_language.blog.thumbnail_image}});">
                     
                     <div class="text">
                         <div class="post-categories mb-2">
-                          {% for trending_blog_category in trending_blog.present_category_language.all %}
+                          {% for trending_blog_category in trending_blog_language.present_category_language.all %}
                             <span class="post-category bg-danger">{{trending_blog_category.name}}</span>
                           {% endfor %}
                         </div>
-                      <h2>{{trending_blog.title}}</h2>
+                      <h2>{{trending_blog_language.title}}</h2>
                       <!-- <span class="date">{{trending_blog.created_at}}</span> -->
                     </div>
                   </a>
@@ -72,27 +72,27 @@
           </div>
         </div>
         <div class="row">
-          {% for recent_blog in recent %}
+          {% for recent_blog_language in recent_blog_languages %}
             <div class="col-lg-4 mb-4">
               <div class="entry2">
-                <a href="/{{LANGUAGE_CODE}}/{{recent_blog.blog.primary_category.slug}}/{{recent_blog.blog.slug}}/">
-                  <img src="{{recent_blog.blog.thumbnail_image}}" alt="Image" class="img-fluid rounded">
+                <a href="/{{LANGUAGE_CODE}}/{{recent_blog_language.blog.primary_category.slug}}/{{recent_blog_language.blog.slug}}/">
+                  <img src="{{recent_blog_language.blog.thumbnail_image}}" alt="Image" class="img-fluid rounded">
                 </a>
                 <div class="excerpt">
-                {% for recent_blog_category in recent_blog.present_category_language.all %}
+                {% for recent_blog_category in recent_blog_language.present_category_language.all %}
                   <span class="post-category text-white bg-secondary mb-3">{{recent_blog_category.name}}</span>
                 {% endfor %}
 
-                <h2 class="overflow-hidden height-150"><a href="/{{LANGUAGE_CODE}}/{{recent_blog.blog.primary_category.slug}}/{{recent_blog.blog.slug}}/">{{recent_blog.title}}</a></h2>
+                <h2 class="overflow-hidden height-150"><a href="/{{LANGUAGE_CODE}}/{{recent_blog_language.blog.primary_category.slug}}/{{recent_blog_language.blog.slug}}/">{{recent_blog_language.title}}</a></h2>
                 <div class="post-meta align-items-center text-left clearfix">
                   <figure class="author-figure mb-0 mr-3 float-left"><img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
-                  <span class="d-inline-block mt-1">By <a href="#">{{recent_blog.creator.auth_user.username}}</a></span>
-                  <span>&nbsp;-&nbsp;{{recent_blog.created_at}}</span>
+                  <span class="d-inline-block mt-1">By <a href="#">{{recent_blog_language.creator.auth_user.username}}</a></span>
+                  <span>&nbsp;-&nbsp;{{recent_blog_language.created_at}}</span>
                 </div>
                 
-                  <p class="overflow-hidden height-200">{{recent_blog.description}}</p>
+                  <p class="overflow-hidden height-200">{{recent_blog_language.description}}</p>
                   {% trans "Read More" as index_page_blog_helper %}
-                  <p><a href="/{{LANGUAGE_CODE}}/{{recent_blog.blog.primary_category.slug}}/{{recent_blog.blog.slug}}/">{{index_page_blog_helper}}</a></p>
+                  <p><a href="/{{LANGUAGE_CODE}}/{{recent_blog_language.blog.primary_category.slug}}/{{recent_blog_language.blog.slug}}/">{{index_page_blog_helper}}</a></p>
                 </div>
               </div>
             </div>
@@ -122,16 +122,16 @@
             </div>
         </div>
         <div class="row align-items-stretch retro-layout">
-          {% for special_blog in special %}
+          {% for special_blog_language in special_blog_languages %}
             {% if forloop.counter == 1 %}
               <div class="col-md-5 order-md-2">
-                <a href="/{{LANGUAGE_CODE}}/{{special_blog.blog.primary_category.slug}}/{{special_blog.blog.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{special_blog.blog.thumbnail_image}});">
-                  {% for special_blog_category in special_blog.present_category_language.all %}
+                <a href="/{{LANGUAGE_CODE}}/{{special_blog_language.blog.primary_category.slug}}/{{special_blog_language.blog.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{special_blog_language.blog.thumbnail_image}});">
+                  {% for special_blog_category in special_blog_language.present_category_language.all %}
                     <span class="post-category text-white bg-danger">{{special_blog_category.name}}</span>
                   {% endfor %}
                   <div class="text">
-                    <h2>{{special_blog.title}}</h2>
-                    <span>{{special_blog.created_at}}</span>
+                    <h2>{{special_blog_language.title}}</h2>
+                    <span>{{special_blog_language.created_at}}</span>
                   </div>
                 </a>
               </div>
@@ -144,13 +144,13 @@
               {% if forloop.counter == 2 or forloop.counter == 4 %}
                 <div class="two-col d-block d-md-flex mb-3">
               {% endif %}
-                  <a href="/{{LANGUAGE_CODE}}/{{special_blog.blog.primary_category.slug}}/{{special_blog.blog.slug}}/" class="hentry v-height img-2 gradient mr-4" style="background-image: url({{special_blog.blog.thumbnail_image}});">
-                    {% for special_blog_category in special_blog.present_category_language.all %}
+                  <a href="/{{LANGUAGE_CODE}}/{{special_blog_language.blog.primary_category.slug}}/{{special_blog_language.blog.slug}}/" class="hentry v-height img-2 gradient mr-4" style="background-image: url({{special_blog_language.blog.thumbnail_image}});">
+                    {% for special_blog_category in special_blog_language.present_category_language.all %}
                       <span class="post-category text-white bg-danger">{{special_blog_category.name}}</span>
                     {% endfor %}
                     <div class="text text-sm">
-                      <h2>{{special_blog.title}}</h2>
-                      <span>{{special_blog.created_at}}</span>
+                      <h2>{{special_blog_language.title}}</h2>
+                      <span>{{special_blog_language.created_at}}</span>
                     </div>
                   </a>
                 {% if forloop.counter == 3 or forloop.counter == 5 %}

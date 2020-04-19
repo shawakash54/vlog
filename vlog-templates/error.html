@@ -1,5 +1,7 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
   {% include 'header.html' %}
   {% load static %}
     <body>
@@ -11,7 +13,8 @@
                         <div class="col-md-12 text-center">
                             <span class="display-1 d-block">{{status}}</span>
                             <div class="mb-4 lead">{{message}}</div>
-                            <a href="/" class="btn btn-link">Back to Home</a>
+                            {% trans "Back to Home" as error_page_1 %}
+                            <a href="/" class="btn btn-link">{{ error_page_1 }}</a>
                         </div>
                     </div>
                 </div>

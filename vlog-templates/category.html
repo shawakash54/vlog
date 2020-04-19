@@ -16,8 +16,8 @@
           <div class="col-md-6">
             {% trans "Category" as category_page_title %}
             <span>{{ category_page_title }}</span>
-            <h3>{{category.name}}</h3>
-            <p>{{category.category_description}}</p>
+            <h3>{{category_language.name}}</h3>
+            <p>{{category_language.category_description}}</p>
           </div>
         </div>
       </div>
@@ -27,30 +27,30 @@
       <div class="container">
         {% block breadcrumbs %}
             {% breadcrumb "Home" 'home_page_view' %}
-            {% breadcrumb category.name 'category_view' '{{LANGUAGE_CODE}}/{{category.slug}}/' %}
+            {% breadcrumb category_language.name 'category_view' '{{LANGUAGE_CODE}}/{{category_language.slug}}/' %}
         {% endblock %}
         {% render_breadcrumbs %}
         <div class="row">
-          {% if category %}
-            {% for blog in category.blogs %}
+          {% if category_language %}
+            {% for blog_language in category_language.blogs %}
               <div class="col-lg-4 mb-4">
                 <div class="entry2">
-                  <a href="/{{LANGUAGE_CODE}}/{{category.slug}}/{{blog.blog.slug}}/"><img src="{{blog.blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
+                  <a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/"><img src="{{blog_language.blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
                   <div class="excerpt">
-                  {% for blog_category in blog.present_category_language %}
+                  {% for blog_category in blog_language.present_category_language %}
                     <span class="post-category text-white bg-secondary mb-3">{{blog_category.name}}</span>
                   {% endfor %}
 
-                  <h2 class="overflow-hidden height-150"><a href="/{{LANGUAGE_CODE}}/{{category.slug}}/{{blog.blog.slug}}/">{{blog.title}}</a></h2>
+                  <h2 class="overflow-hidden height-150"><a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/">{{blog_language.title}}</a></h2>
                   <div class="post-meta align-items-center text-left clearfix">
                     <figure class="author-figure mb-0 mr-3 float-left"><img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
-                    <span class="d-inline-block mt-1">By <a href="#">{{blog.creator.auth_user.username}}</a></span>
-                    <span>&nbsp;-&nbsp; {{blog.created_at}}</span>
+                    <span class="d-inline-block mt-1">By <a href="#">{{blog_language.creator.auth_user.username}}</a></span>
+                    <span>&nbsp;-&nbsp; {{blog_language.created_at}}</span>
                   </div>
                   
-                    <p class="overflow-hidden height-200">{{blog.description}}...</p>
+                    <p class="overflow-hidden height-200">{{blog_language.description}}...</p>
                     {% trans "Read More" as category_page_blog_helper %}
-                    <p><a href="/{{LANGUAGE_CODE}}/{{category.slug}}/{{blog.blog.slug}}/">{{category_page_blog_helper}}</a></p>
+                    <p><a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/">{{category_page_blog_helper}}</a></p>
                   </div>
                 </div>
               </div>

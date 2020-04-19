@@ -30,9 +30,9 @@
             <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
                 {% trans "Home" as navbar_title_1 %}
                 <li><a href="/{{LANGUAGE_CODE}}/">{{ navbar_title_1 }}</a></li>
-            {% if categories %}
-                {% for category in categories %}
-                <li><a href="/{{LANGUAGE_CODE}}/{{ category.category.slug }}/">{{ category.name }}</a></li>
+            {% if categories_languages %}
+                {% for category_language in categories_languages %}
+                <li><a href="/{{LANGUAGE_CODE}}/{{ category_language.category.slug }}/">{{ category_language.name }}</a></li>
                 {% endfor %}
             {% endif %}
             <!-- Search Button -->
