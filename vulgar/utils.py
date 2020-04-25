@@ -222,3 +222,245 @@ def get_alternate_language(page_type, obj=None):
         'article_page': article_page_alternate_language
     }
     return switcher.get(page_type)(obj)
+
+
+def build_meta_tag(attribute_type, attribute_value, content):
+    return {
+        'attribute_type': attribute_type,
+        'attribute_value': attribute_value,
+        'content': content
+    }
+
+
+def build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_languages, article_attrs, article_tags):
+    meta_tags = [
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:title', content = title),
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:description', content = description),
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:image', content = image),
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:image:alt', content = image_alt),
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:url', content = url),
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:site_name', content = site_name),
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:type', content = object_type),
+        build_meta_tag(attribute_type = 'property', attribute_value = 'og:locale', content = locale),
+    ]
+    for language in alternate_languages:
+        meta_tags.append(build_meta_tag(attribute_type = 'property', attribute_value = 'og:locale:alternate', content = f'{language}_{vulgar_constants.COUNTRY_CODE}'))
+    for article_attr, article_attr_val in article_attrs.items():
+        meta_tags.append(build_meta_tag(attribute_type = 'property', attribute_value = f'og:article:{article_attr}', content = article_attr_val))
+    for tag in article_tags:
+        meta_tags.append(build_meta_tag(attribute_type = 'property', attribute_value = f'og:article:tag', content = tag))
+    return meta_tags
+
+
+def build_custom_twitter_meta_tags(title, description, card, image, image_alt, twitter_id):
+    return [
+        build_meta_tag(attribute_type = 'name', attribute_value = 'twitter:title', content = title),
+        build_meta_tag(attribute_type = 'name', attribute_value = 'twitter:description', content = description),
+        build_meta_tag(attribute_type = 'name', attribute_value = 'twitter:image', content = image),
+        build_meta_tag(attribute_type = 'name', attribute_value = 'twitter:card', content = card),
+        build_meta_tag(attribute_type = 'name', attribute_value = 'twitter:image:alt', content = image_alt),
+        build_meta_tag(attribute_type = 'name', attribute_value = 'twitter:site', content = twitter_id),
+    ]
+
+
+def home_page_social_media_meta_tags(obj, language_code):
+    title_1 = _("Breaking Trending News, India and World News")
+    title = f'{title_1} | {vulgar_constants.APP_NAME}'
+    categories_languages = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category__home_page_view=True,
+                                    language__slug=language_code
+                                )
+    home_page_meta_description_part_1 = _("provides latest news from India and the world. Get today’s news headlines from")
+    home_page_meta_description_part_2 = _("and exclusive breaking news from India.")
+    description = f'{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}' + \
+                    f' {home_page_meta_description_part_1}' + \
+                    f'{", ".join(str(category.name) for category in categories_languages)}' + \
+                    f' {home_page_meta_description_part_2} | {vulgar_constants.APP_NAME}'
+    media = vulgar_models.Media.objects.filter(
+                                    title=vulgar_constants.APP_NAME
+                                ).last()
+    image = media.url
+    image_alt = media.alt_tag
+    url = form_canonical_url('home_page', obj, language_code)
+    site_name = vulgar_constants.APP_NAME
+    card = 'summary_large_image'
+    object_type = 'website'
+    locale = f'{language_code}_{vulgar_constants.COUNTRY_CODE}'
+    twitter_id = vulgar_constants.TWITTER_ID
+    alternate_language = []
+    active_languages = vulgar_models.Language.published_objects.all()
+    for language in active_languages:
+        alternate_language.append(
+            language.slug
+        )
+    article_attrs = {}
+    article_tags = []
+
+    open_graph_meta_tags = build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_language, article_attrs, article_tags)
+    custom_twitter_meta_tags = build_custom_twitter_meta_tags(title, description, card, image, image_alt, twitter_id)
+
+    meta_tags = {
+        'open_graph_meta_tags': open_graph_meta_tags,
+        'custom_twitter_meta_tags': custom_twitter_meta_tags,
+        'fb_app_id': vulgar_constants.FB_APP_ID,
+        'twitter_site': vulgar_constants.TWITTER_SITE
+    }
+    return meta_tags
+
+
+def about_us_social_media_meta_tags(obj, language_code):
+    title_1 = _("About Us")
+    title = f'{title_1} | {vulgar_constants.APP_NAME}'
+    aboutus_page_description = _("About Us - A Newsletter, blog, complete transparency for public interest")
+    description = f'{aboutus_page_description} | {vulgar_constants.APP_NAME}'
+    media = vulgar_models.Media.objects.filter(
+                title=vulgar_constants.APP_NAME
+            ).last()
+    image = media.url
+    image_alt = media.alt_tag
+    url = form_canonical_url('about_us', obj, language_code)
+    site_name = vulgar_constants.APP_NAME
+    card = 'summary_large_image'
+    object_type = 'website'
+    locale = f'{language_code}_{vulgar_constants.COUNTRY_CODE}'
+    twitter_id = vulgar_constants.TWITTER_ID
+    alternate_language = []
+    active_languages = vulgar_models.Language.published_objects.all()
+    for language in active_languages:
+        alternate_language.append(
+            language.slug
+        )
+    article_attrs = {}
+    article_tags = []
+
+    open_graph_meta_tags = build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_language, article_attrs, article_tags)
+    custom_twitter_meta_tags = build_custom_twitter_meta_tags(title, description, card, image, image_alt, twitter_id)
+
+    meta_tags = {
+        'open_graph_meta_tags': open_graph_meta_tags,
+        'custom_twitter_meta_tags': custom_twitter_meta_tags,
+        'fb_app_id': vulgar_constants.FB_APP_ID,
+        'twitter_site': vulgar_constants.TWITTER_SITE
+    }
+    return meta_tags
+
+
+def contact_us_social_media_meta_tags(obj, language_code):
+    title_1 = _("Contact Us for publishing articles, blogs")
+    title = f'{title_1} | {vulgar_constants.APP_NAME}'
+    contact_us_page_description = _("Contact for publishing news. Queries around news and paid content writing")
+    description = f'{contact_us_page_description} | {vulgar_constants.APP_NAME}'
+    media = vulgar_models.Media.objects.filter(
+                title=vulgar_constants.APP_NAME
+            ).last()
+    image = media.url
+    image_alt = media.alt_tag
+    url = form_canonical_url('contact_us', obj, language_code)
+    site_name = vulgar_constants.APP_NAME
+    card = 'summary_large_image'
+    object_type = 'website'
+    locale = f'{language_code}_{vulgar_constants.COUNTRY_CODE}'
+    twitter_id = vulgar_constants.TWITTER_ID
+    alternate_language = []
+    active_languages = vulgar_models.Language.published_objects.all()
+    for language in active_languages:
+        alternate_language.append(
+            language.slug
+        )
+    article_attrs = {}
+    article_tags = []
+
+    open_graph_meta_tags = build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_language, article_attrs, article_tags)
+    custom_twitter_meta_tags = build_custom_twitter_meta_tags(title, description, card, image, image_alt, twitter_id)
+
+    meta_tags = {
+        'open_graph_meta_tags': open_graph_meta_tags,
+        'custom_twitter_meta_tags': custom_twitter_meta_tags,
+        'fb_app_id': vulgar_constants.FB_APP_ID,
+        'twitter_site': vulgar_constants.TWITTER_SITE
+    }
+    return meta_tags
+
+
+def category_page_social_media_meta_tags(category_language, language_code):
+    title = f'{category_language.name} | {vulgar_constants.APP_NAME}'
+    description = f'{category_language.category_description} | {vulgar_constants.APP_NAME}'
+    media = category_language.category.social_media_image
+    image = media.url
+    image_alt = media.alt_tag
+    url = form_canonical_url('category_page', category_language, language_code)
+    site_name = vulgar_constants.APP_NAME
+    card = 'summary_large_image'
+    object_type = 'website'
+    locale = f'{language_code}_{vulgar_constants.COUNTRY_CODE}'
+    twitter_id = vulgar_constants.TWITTER_ID
+    alternate_language = []
+    category_active_languages = vulgar_models.Language.published_objects.filter(categorylanguage__category__slug=category_language.category.slug)
+    for language in category_active_languages:
+        alternate_language.append(
+            language.slug
+        )
+    article_attrs = {}
+    article_tags = []
+
+    open_graph_meta_tags = build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_language, article_attrs, article_tags)
+    custom_twitter_meta_tags = build_custom_twitter_meta_tags(title, description, card, image, image_alt, twitter_id)
+
+    meta_tags = {
+        'open_graph_meta_tags': open_graph_meta_tags,
+        'custom_twitter_meta_tags': custom_twitter_meta_tags,
+        'fb_app_id': vulgar_constants.FB_APP_ID,
+        'twitter_site': vulgar_constants.TWITTER_SITE
+    }
+    return meta_tags
+
+
+def article_page_social_media_meta_tags(blog_language, language_code):
+    title = f'{blog_language.title} | {vulgar_constants.APP_NAME}'
+    description = f'{blog_language.description} | {vulgar_constants.APP_NAME}'
+    media = blog_language.blog.social_media_image
+    image = media.url
+    image_alt = media.alt_tag
+    url = form_canonical_url('article_page', blog_language, language_code)
+    site_name = vulgar_constants.APP_NAME
+    card = 'summary_large_image'
+    object_type = 'website'
+    locale = f'{language_code}_{vulgar_constants.COUNTRY_CODE}'
+    twitter_id = vulgar_constants.TWITTER_ID
+    alternate_language = []
+    blog_active_languages = vulgar_models.Language.published_objects.filter(bloglanguage__blog__slug=blog_language.blog.slug)
+    for language in blog_active_languages:
+        alternate_language.append(
+            language.slug
+        )
+    tags = blog_language.tags
+    article_attrs = {
+        'published_time': blog_language.blog.published_date_from.date,
+        'expiration_time': blog_language.blog.published_date_to.date,
+        'section': blog_language.blog.primary_category.slug
+    }
+    article_tags = []
+    for tag in tags.all():
+        article_tags.append(tag.name)
+
+    open_graph_meta_tags = build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_language, article_attrs, article_tags)
+    custom_twitter_meta_tags = build_custom_twitter_meta_tags(title, description, card, image, image_alt, twitter_id)
+
+    meta_tags = {
+        'open_graph_meta_tags': open_graph_meta_tags,
+        'custom_twitter_meta_tags': custom_twitter_meta_tags,
+        'fb_app_id': vulgar_constants.FB_APP_ID,
+        'twitter_site': vulgar_constants.TWITTER_SITE
+    }
+    return meta_tags
+
+
+def get_social_media_meta_tags(page_type, obj=None, language_code = 'en'):
+    switcher = {
+        'home_page': home_page_social_media_meta_tags,
+        'about_us': about_us_social_media_meta_tags,
+        'contact_us': contact_us_social_media_meta_tags,
+        'category_page': category_page_social_media_meta_tags,
+        'article_page': article_page_social_media_meta_tags
+    }
+    return switcher.get(page_type)(obj, language_code)

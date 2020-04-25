@@ -50,6 +50,7 @@ class HomePageView(TemplateView):
                                 context={'language_code': language_code}
                             ).data
         context['constants'] = vulgar_constants
+        context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('home_page', None, language_code)
         return context
 
 
@@ -97,6 +98,7 @@ class CategoryPageView(TemplateView):
             context['canonical_link'] = vulgar_utils.form_canonical_url('category_page', category_language, language_code)
             context['meta'] = vulgar_utils.get_meta_info('category_page', category_language, language_code)
             context['alternate_language'] = vulgar_utils.get_alternate_language('category_page', category_language)
+            context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('category_page', category_language, language_code)
         return context
 
 
@@ -174,6 +176,7 @@ class PostPageView(TemplateView):
             context['canonical_link'] = vulgar_utils.form_canonical_url('article_page', blog_language, language_code)
             context['meta'] = vulgar_utils.get_meta_info('article_page', blog_language, language_code)
             context['alternate_language'] = vulgar_utils.get_alternate_language('article_page', blog_language)
+            context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('article_page', blog_language, language_code)
         else:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
@@ -220,6 +223,7 @@ class AboutUsPageView(TemplateView):
         context['meta'] = vulgar_utils.get_meta_info('about_us', None)
         context['constants'] = vulgar_constants
         context['alternate_language'] = vulgar_utils.get_alternate_language('about_us', None)
+        context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('about_us', None, language_code)
         return context
 
 
@@ -258,6 +262,7 @@ def DisplayContactUsPage(request):
                                             language__slug=language_code
                                         )
         context['alternate_language'] = vulgar_utils.get_alternate_language('contact_us', None)
+        context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('contact_us', None, language_code)
     return render(request, 'pages/contact-us.html', context)
 
 
@@ -284,7 +289,7 @@ class NotFoundView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NotFoundView, self).get_context_data(*args, **kwargs)
-        context['message'] = 'The page you are looking for was not found.'
+        context['message'] = _('The page you are looking for was not found.')
         context['status'] = '404'
         context['constants'] = vulgar_constants
         return context

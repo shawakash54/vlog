@@ -76,7 +76,7 @@ class MediaTypeChoice(Enum):
 
 
 class MediaType(BaseModel):
-    media_type = models.CharField(max_length=100,
+    media_type = models.CharField(max_length=100, db_index=True,
                                     choices=[(media_type.value, media_type.value) for media_type in MediaTypeChoice])
     def __str__(self):
         return self.media_type
@@ -103,6 +103,11 @@ class Media(BaseModel):
 class Category(BaseModel):
     slug = models.CharField(max_length=1000, default='', db_index=True)
     image = models.ForeignKey(Media, on_delete=models.PROTECT, blank=True, null=True)
+    social_media_image = models.ForeignKey(Media, on_delete=models.PROTECT, 
+                                                related_name='categories_social_media', 
+                                                blank=True, 
+                                                null=True,
+                                                help_text="Minimum dimension - 1200×630 pixels, aspect ratio - 1.91:1, Size < 1MB")
     home_page_view = models.BooleanField(default=False)
     published_status = models.CharField(max_length=100,
                                             choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
@@ -185,6 +190,11 @@ class Blog(BaseModel):
     page = models.ForeignKey(Page, on_delete=models.PROTECT, blank=True, null=True)
     hero_image = models.ForeignKey(Media, on_delete=models.PROTECT, related_name='blogs_hero', blank=True, null=True)
     thumbnail_image = models.ForeignKey(Media, on_delete=models.PROTECT, related_name='blogs_thumbnail', blank=True, null=True)
+    social_media_image = models.ForeignKey(Media, on_delete=models.PROTECT, 
+                                                related_name='blogs_social_media', 
+                                                blank=True, 
+                                                null=True,
+                                                help_text="Minimum dimension - 1200×630 pixels, aspect ratio - 1.91:1, Size < 1MB")
     published_status = models.CharField(max_length=100,
                                             choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
                                             default='Active')

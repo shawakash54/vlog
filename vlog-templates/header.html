@@ -28,6 +28,24 @@
     {% endfor %}
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700|Playfair+Display:400,700,900" rel="stylesheet">
 
+    <!-- Open Graph Meta Tags -->
+    {% for open_graph_meta_tag in social_meta_tags.open_graph_meta_tags %}
+        <meta property="{{open_graph_meta_tag.attribute_value}}" content="{{open_graph_meta_tag.content}}">
+    {% endfor %}
+
+
+    <!-- Open Twitter Custom Meta Tags -->
+    {% for custom_twitter_meta_tag in social_meta_tags.custom_twitter_meta_tags %}
+        <meta name="{{custom_twitter_meta_tag.attribute_value}}" content="{{custom_twitter_meta_tag.content}}">
+    {% endfor %}
+
+    <!-- Twitter Site -->
+    <meta name="twitter:site" content="{{social_meta_tags.twitter_site}}">
+
+    <!-- FB App ID -->
+    <meta property="fb:app_id" content="{{social_meta_tags.fb_app_id}}">
+
+
     {% load static %}
     {% csrf_token %}
 
