@@ -1,6 +1,8 @@
 asgiref==3.2.5
 beautifulsoup4==4.8.2
 bleach==3.1.1
+boto3==1.12.46
+botocore==1.15.46
 cachetools==4.0.0
 certifi==2019.11.28
 chardet==3.0.4
@@ -20,7 +22,9 @@ django-flat-responsive==2.0
 django-flat-theme==1.1.4
 django-js-asset==1.2.2
 django-model-utils==4.0.0
+django-storages==1.9.1
 djangorestframework==3.11.0
+docutils==0.15.2
 filebrowser-safe==0.5.0
 future==0.18.2
 futures==3.1.1
@@ -33,6 +37,7 @@ goslate==1.5.1
 grappelli-safe==0.5.2
 httplib2==0.17.0
 idna==2.9
+jmespath==0.9.5
 Mezzanine==4.3.1
 oauthlib==3.1.0
 Pillow==7.0.0
@@ -42,11 +47,14 @@ protobuf==3.11.3
 psycopg2==2.8.4
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
+python-dateutil==2.8.1
+python-decouple==3.3
 python-utils==2.4.0
 pytz==2019.3
 requests==2.23.0
 requests-oauthlib==1.3.0
 rsa==4.0
+s3transfer==0.3.3
 six==1.14.0
 soupsieve==2.0
 sqlparse==0.3.1

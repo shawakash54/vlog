@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from django.utils.translation import gettext_lazy as _
+from decouple import config as decouple_config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,9 +83,36 @@ TEMPLATES = [
         },
     },
 ]
+USE_S3 = decouple_config('USE_S3', "False") == 'True'
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+if USE_S3:
+    # aws settings
+    AWS_S3_ACCESS_KEY_ID = decouple_config('AWS_ACCESS_KEY_ID')
+    AWS_S3_SECRET_ACCESS_KEY = decouple_config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = decouple_config('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # s3 static settings
+    STATIC_LOCATION = 'static'
+    STATIC_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
+    # s3 public media settings
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
+    # AWS_S3_SECURE_URLS = False
+    AWS_S3_REGION_NAME = "ap-south-1"
+    AWS_S3_SIGNATURE_VERSION = "s3v4"
+    AWS_S3_ADDRESSING_STYLE = "path"
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, './vlog-templates/'),
@@ -143,8 +171,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-STATIC_URL = '/static/'
 
 CKEDITOR_CONFIGS = {
     'default': {

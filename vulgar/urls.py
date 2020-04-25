@@ -51,7 +51,7 @@ urlpatterns = [
         url(r'^(?P<category_slug>[\w-]+)/(?P<slug>[\w-]+)/?$', PostPageView.as_view(), name='article_view'),
     )) + [
         # url(r'(.*)', NotFoundView.as_view()),
-    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 handler404 = not_found

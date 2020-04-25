@@ -5,7 +5,9 @@ from cities_light.models import City, Country
 from django.contrib.contenttypes.models import ContentType
 from django.template.defaultfilters import slugify
 from django_better_admin_arrayfield.models.fields import ArrayField
-
+from django.db import models
+import os
+from uuid import uuid4
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True,)
@@ -67,9 +69,40 @@ class Page(BaseModel):
         return self.title
 
 
+class MediaTypeChoice(Enum): 
+    doc = 'document'
+    img = 'image'
+    vid = 'video'
+
+
+class MediaType(BaseModel):
+    media_type = models.CharField(max_length=100,
+                                    choices=[(media_type.value, media_type.value) for media_type in MediaTypeChoice])
+    def __str__(self):
+        return self.media_type
+
+
+class Media(BaseModel):
+    title = models.CharField(max_length=100, db_index=True)
+    photo = models.FileField()
+    alt_tag = models.CharField(max_length=100, db_index=True)
+    media_type = models.ForeignKey(MediaType, on_delete=models.PROTECT)
+    url = models.CharField(max_length=1000, default='', blank=True, null=True, db_index=True)
+
+    def __str__(self):
+        return self.title
+
+
+    def save(self, *args, **kwargs):
+        file_extension = os.path.splitext(self.photo.name)[1]
+        self.photo.name = slugify(self.title) + file_extension
+        self.url = self.photo.url
+        super(Media, self).save(*args, **kwargs)
+
+
 class Category(BaseModel):
     slug = models.CharField(max_length=1000, default='', db_index=True)
-    image = models.CharField(max_length=1000, default='')
+    image = models.ForeignKey(Media, on_delete=models.PROTECT, blank=True, null=True)
     home_page_view = models.BooleanField(default=False)
     published_status = models.CharField(max_length=100,
                                             choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
@@ -150,8 +183,8 @@ class Blog(BaseModel):
         Category, on_delete=models.PROTECT, blank=True, null=True)
     slug = models.CharField(max_length=1000, default='', db_index=True)
     page = models.ForeignKey(Page, on_delete=models.PROTECT, blank=True, null=True)
-    hero_image = models.CharField(max_length=1000, default='')
-    thumbnail_image = models.CharField(max_length=1000, default='')
+    hero_image = models.ForeignKey(Media, on_delete=models.PROTECT, related_name='blogs_hero', blank=True, null=True)
+    thumbnail_image = models.ForeignKey(Media, on_delete=models.PROTECT, related_name='blogs_thumbnail', blank=True, null=True)
     published_status = models.CharField(max_length=100,
                                             choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
                                             default='Active')
