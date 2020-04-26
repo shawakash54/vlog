@@ -42,13 +42,11 @@
         {% endblock %}
         {% render_breadcrumbs %}
           
-        <div class="row blog-entries element-animate">
+        <div class="row blog-entries element-animate mr-0">
           <div class="col-md-12 col-lg-8 main-content">
             <div class="post-content-body">
               {% autoescape off %}{{ blog_language.content }}{% endautoescape %}
             </div>
-
-              
             <div class="pt-5">
               <p>
                   {% trans "Category" as post_page_helper_1 %}
@@ -64,11 +62,8 @@
                     {% endfor %}
               </p>
             </div>
-
             {% include 'comments.html' %}
-
           </div>
-
           <!-- END main-content -->
 
           <div class="col-md-12 col-lg-4 sidebar">

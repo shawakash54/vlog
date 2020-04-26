@@ -1,5 +1,7 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
   {% include 'header.html' %}
   {% load static %}
   {% load django_bootstrap_breadcrumbs %}
@@ -14,8 +16,10 @@
           <div class="row same-height justify-content-center">
             <div class="col-md-12 col-lg-10">
               <div class="post-entry text-center">
-                <h1 class="">Contact Us</h1>
-                <p class="lead mb-4 text-white">Write to us at {{constants.CONTACT_US_EMAIL}}</p>
+                {% trans "Contact Us" as contact_us_page_1 %}
+                {% trans "Write to us at" as contact_us_page_2 %}
+                <h1 class="">{{ contact_us_page_1 }}</h1>
+                <p class="lead mb-4 text-white">{{ contact_us_page_2 }} {{constants.CONTACT_US_EMAIL}}</p>
               </div>
             </div>
           </div>
@@ -25,6 +29,8 @@
       
       <div class="site-section bg-light">
         <div class="container">
+          {% trans "Home" as contact_us_page_3 %}
+          {% trans "Contact Us" as contact_us_page_4 %}
           {% block breadcrumbs %}
             {% breadcrumb "Home" "/" %}
             {% breadcrumb "Contact Us" 'contact_us_view' %}
@@ -36,15 +42,22 @@
               
 
               <form action="/contact-us/" id="contactForm" name="register" method='POST' class="p-5 bg-white">
-              
+                {% trans "First Name" as contact_us_page_5 %}
+                {% trans "Last Name" as contact_us_page_6 %}
+                {% trans "Email" as contact_us_page_7 %}
+                {% trans "Contact Number" as contact_us_page_8 %}
+                {% trans "Subject" as contact_us_page_9 %}
+                {% trans "Message" as contact_us_page_10 %}
+                {% trans "Write your notes or questions here" as contact_us_page_11 %}
+                {% trans "Send Message" as contact_us_page_12 %}
                 {% csrf_token %}
                 <div class="row form-group">
                   <div class="col-md-6 mb-3 mb-md-0">
-                    <label class="text-black" for="first_name">First Name *</label>
+                    <label class="text-black" for="first_name">{{ contact_us_page_5 }} *</label>
                     <input type="text" name="first_name" id="first_name" class="form-control" required>
                   </div>
                   <div class="col-md-6">
-                    <label class="text-black" for="last_name">Last Name</label>
+                    <label class="text-black" for="last_name">{{ contact_us_page_6 }}</label>
                     <input type="text" name="last_name" id="last_name" class="form-control">
                   </div>
                 </div>
@@ -52,12 +65,12 @@
                 <div class="row form-group">
                   
                   <div class="col-md-6">
-                    <label class="text-black" for="email_id">Email *</label> 
+                    <label class="text-black" for="email_id">{{ contact_us_page_7 }} *</label> 
                     <input type="email" name="email_id" id="email_id" class="form-control" required>
                   </div>
 
                   <div class="col-md-6">
-                    <label class="text-black" for="contact_number">Contact Number</label>
+                    <label class="text-black" for="contact_number">{{ contact_us_page_8 }}</label>
                     <input type="number" name="contact_number" id="contact_number" class="form-control">
                   </div>
                 </div>
@@ -65,21 +78,21 @@
                 <div class="row form-group">
                   
                   <div class="col-md-12">
-                    <label class="text-black" for="subject">Subject</label> 
+                    <label class="text-black" for="subject">{{ contact_us_page_9 }}</label> 
                     <input type="text" name="subject" id="subject" class="form-control">
                   </div>
                 </div>
 
                 <div class="row form-group">
                   <div class="col-md-12">
-                    <label class="text-black" for="message">Message *</label> 
-                    <textarea name="message" id="message" cols="30" rows="7" class="form-control" placeholder="Write your notes or questions here..." required></textarea>
+                    <label class="text-black" for="message">{{ contact_us_page_10 }} *</label> 
+                    <textarea name="message" id="message" cols="30" rows="7" class="form-control" placeholder="{{ contact_us_page_11 }}..." required></textarea>
                   </div>
                 </div>
 
                 <div class="row form-group">
                   <div class="col-md-12">
-                    <input type="submit" value="Send Message" class="btn btn-primary py-2 px-4 text-white">
+                    <input type="submit" value="{{ contact_us_page_12 }}" class="btn btn-primary py-2 px-4 text-white">
                   </div>
                 </div>
 

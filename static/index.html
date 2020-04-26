@@ -8,8 +8,6 @@
   
   <div class="site-wrap">
     {% include 'navbar.html' %}
-    
-    
     <div class="site-section bg-light">
       <div class="container">
         <div class="row mb-3">
@@ -25,7 +23,12 @@
                 {% if forloop.counter == 1 or forloop.counter == 4 %}
                   <div class="col-md-4">
                 {% endif %}
-                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog_language.blog.primary_category.slug}}/{{trending_blog_language.blog.slug}}/" class="h-entry mb-30 v-height gradient" style="background-image: url({{trending_blog_language.blog.thumbnail_image}});">
+                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog_language.blog.primary_category.slug}}/{{trending_blog_language.blog.slug}}/" 
+                      class="h-entry mb-30 v-height gradient" 
+                      aria-label="{{trending_blog_language.blog.thumbnail_image.alt_tag}}" 
+                      title="{{trending_blog_language.blog.thumbnail_image.title}}" 
+                      alt="{{trending_blog_language.blog.thumbnail_image.alt_tag}}" 
+                      style="background-image: url({{trending_blog_language.blog.thumbnail_image.url}});">
 
                     <div class="text">
                       <div class="post-categories mb-2">
@@ -43,7 +46,12 @@
               {% endif %}
               {% if forloop.counter == 3 %}
                 <div class="col-md-4">
-                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog_language.blog.primary_category.slug}}/{{trending_blog_language.blog.slug}}/" class="h-entry img-5 h-100 gradient" style="background-image: url({{trending_blog_language.blog.thumbnail_image}});">
+                  <a href="/{{LANGUAGE_CODE}}/{{trending_blog_language.blog.primary_category.slug}}/{{trending_blog_language.blog.slug}}/" 
+                      class="h-entry img-5 h-100 gradient" 
+                      aria-label="{{trending_blog_language.blog.thumbnail_image.alt_tag}}" 
+                      title="{{trending_blog_language.blog.thumbnail_image.title}}" 
+                      alt="{{trending_blog_language.blog.thumbnail_image.alt_tag}}"
+                      style="background-image: url({{trending_blog_language.blog.thumbnail_image.url}});">
                     
                     <div class="text">
                         <div class="post-categories mb-2">
@@ -76,7 +84,12 @@
             <div class="col-lg-4 mb-4">
               <div class="entry2">
                 <a href="/{{LANGUAGE_CODE}}/{{recent_blog_language.blog.primary_category.slug}}/{{recent_blog_language.blog.slug}}/">
-                  <img src="{{recent_blog_language.blog.thumbnail_image}}" alt="Image" class="img-fluid rounded">
+                  <img 
+                      src="{{recent_blog_language.blog.thumbnail_image.url}}" 
+                      aria-label="{{recent_blog_language.blog.thumbnail_image.alt_tag}}" 
+                      title="{{recent_blog_language.blog.thumbnail_image.title}}" 
+                      alt="{{recent_blog_language.blog.thumbnail_image.alt_tag}}"
+                      class="img-fluid rounded">
                 </a>
                 <div class="excerpt">
                 {% for recent_blog_category in recent_blog_language.present_category_language.all %}
@@ -125,7 +138,12 @@
           {% for special_blog_language in special_blog_languages %}
             {% if forloop.counter == 1 %}
               <div class="col-md-5 order-md-2">
-                <a href="/{{LANGUAGE_CODE}}/{{special_blog_language.blog.primary_category.slug}}/{{special_blog_language.blog.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{special_blog_language.blog.thumbnail_image}});">
+                <a href="/{{LANGUAGE_CODE}}/{{special_blog_language.blog.primary_category.slug}}/{{special_blog_language.blog.slug}}/" 
+                    class="hentry img-1 h-100 gradient" 
+                    aria-label="{{special_blog_language.blog.thumbnail_image.alt_tag}}" 
+                    title="{{special_blog_language.blog.thumbnail_image.title}}" 
+                    alt="{{special_blog_language.blog.thumbnail_image.alt_tag}}"
+                    style="background-image: url({{special_blog_language.blog.thumbnail_image.url}});">
                   {% for special_blog_category in special_blog_language.present_category_language.all %}
                     <span class="post-category text-white bg-danger">{{special_blog_category.name}}</span>
                   {% endfor %}
@@ -144,7 +162,12 @@
               {% if forloop.counter == 2 or forloop.counter == 4 %}
                 <div class="two-col d-block d-md-flex mb-3">
               {% endif %}
-                  <a href="/{{LANGUAGE_CODE}}/{{special_blog_language.blog.primary_category.slug}}/{{special_blog_language.blog.slug}}/" class="hentry v-height img-2 gradient mr-4" style="background-image: url({{special_blog_language.blog.thumbnail_image}});">
+                  <a href="/{{LANGUAGE_CODE}}/{{special_blog_language.blog.primary_category.slug}}/{{special_blog_language.blog.slug}}/" 
+                      class="hentry v-height img-2 gradient mr-4" 
+                      aria-label="{{special_blog_language.blog.thumbnail_image.alt_tag}}" 
+                      title="{{special_blog_language.blog.thumbnail_image.title}}" 
+                      alt="{{special_blog_language.blog.thumbnail_image.alt_tag}}"
+                      style="background-image: url({{special_blog_language.blog.thumbnail_image.url}});">
                     {% for special_blog_category in special_blog_language.present_category_language.all %}
                       <span class="post-category text-white bg-danger">{{special_blog_category.name}}</span>
                     {% endfor %}

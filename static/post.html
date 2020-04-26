@@ -42,13 +42,11 @@
         {% endblock %}
         {% render_breadcrumbs %}
           
-        <div class="row blog-entries element-animate">
+        <div class="row blog-entries element-animate mr-0">
           <div class="col-md-12 col-lg-8 main-content">
             <div class="post-content-body">
               {% autoescape off %}{{ blog_language.content }}{% endautoescape %}
             </div>
-
-              
             <div class="pt-5">
               <p>
                   {% trans "Category" as post_page_helper_1 %}
@@ -64,11 +62,8 @@
                     {% endfor %}
               </p>
             </div>
-
             {% include 'comments.html' %}
-
           </div>
-
           <!-- END main-content -->
 
           <div class="col-md-12 col-lg-4 sidebar">
@@ -106,7 +101,12 @@
                   {% for popular_blog_language in popular_blogs_langugaes %}
                     <li>
                       <a href="/{{LANGUAGE_CODE}}/{{popular_blog_language.blog.primary_category.slug}}/{{popular_blog_language.blog.slug}}/">
-                        <img src="{{popular_blog_language.blog.thumbnail_image}}" alt="Image placeholder" class="mr-4">
+                        <img 
+                          src="{{popular_blog_language.blog.thumbnail_image.url}}" 
+                          aria-label="{{popular_blog_language.blog.thumbnail_image.alt_tag}}" 
+                          alt="{{popular_blog_language.blog.thumbnail_image.alt_tag}}"
+                          title="{{popular_blog_language.blog.thumbnail_image.title}}"  
+                          class="mr-4">
                         <div class="text">
                           <h4>{{popular_blog_language.title}}</h4>
                           <div class="post-meta">
@@ -157,7 +157,12 @@
         <div class="row align-items-stretch retro-layout">
           
           <div class="col-md-5 order-md-2">
-            <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.0.blog.primary_category.slug}}/{{related_blogs_languages.0.blog.slug}}/" class="hentry img-1 h-100 gradient" style="background-image: url({{related_blogs_languages.0.blog.thumbnail_image}});">
+            <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.0.blog.primary_category.slug}}/{{related_blogs_languages.0.blog.slug}}/" 
+                class="hentry img-1 h-100 gradient" 
+                aria-label="{{related_blogs_languages.0.blog.thumbnail_image.alt_tag}}" 
+                alt="{{related_blogs_languages.0.blog.thumbnail_image.alt_tag}}"
+                title="{{related_blogs_languages.0.blog.thumbnail_image.title}}"  
+                style="background-image: url({{related_blogs_languages.0.blog.thumbnail_image.url}});">
               {% for related_blog_category_language in related_blogs_languages.0.present_category_language.all %}
                 <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
               {% endfor %}
@@ -170,7 +175,12 @@
 
           <div class="col-md-7">
             
-            <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.1.blog.primary_category.slug}}/{{related_blogs_languages.1.blog.slug}}/" class="hentry img-2 v-height mb30 gradient" style="background-image: url({{related_blogs_languages.1.blog.thumbnail_image}});">
+            <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.1.blog.primary_category.slug}}/{{related_blogs_languages.1.blog.slug}}/" 
+                class="hentry img-2 v-height mb30 gradient" 
+                aria-label="{{related_blogs_languages.1.blog.thumbnail_image.alt_tag}}" 
+                alt="{{related_blogs_languages.1.blog.thumbnail_image.alt_tag}}"
+                title="{{related_blogs_languages.1.blog.thumbnail_image.title}}"  
+                style="background-image: url({{related_blogs_languages.1.blog.thumbnail_image.url}});">
               {% for related_blog_category_language in related_blogs_languages.1.present_category_language.all %}
                 <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
               {% endfor %}
@@ -181,7 +191,12 @@
             </a>
             
             <div class="two-col d-block d-md-flex">
-              <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.2.blog.primary_category.slug}}/{{related_blogs_languages.2.blog.slug}}/" class="hentry v-height img-2 gradient" style="background-image: url({{related_blogs_languages.2.blog.thumbnail_image}});">
+              <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.2.blog.primary_category.slug}}/{{related_blogs_languages.2.blog.slug}}/" 
+                  class="hentry v-height img-2 gradient" 
+                  aria-label="{{related_blogs_languages.2.blog.thumbnail_image.alt_tag}}" 
+                  alt="{{related_blogs_languages.2.blog.thumbnail_image.alt_tag}}"
+                  title="{{related_blogs_languages.2.blog.thumbnail_image.title}}"  
+                  style="background-image: url({{related_blogs_languages.2.blog.thumbnail_image.url}});">
                 {% for related_blog_category_language in related_blogs_languages.2.present_category_language.all %}
                   <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
                 {% endfor %}
@@ -190,7 +205,12 @@
                   <span>{{related_blogs_languages.2.created_at}}</span>
                 </div>
               </a>
-              <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.3.blog.primary_category.slug}}/{{related_blogs_languages.3.blog.slug}}/" class="hentry v-height img-2 ml-auto gradient" style="background-image: url({{related_blogs_languages.3.blog.thumbnail_image}});">
+              <a href="/{{LANGUAGE_CODE}}/{{related_blogs_languages.3.blog.primary_category.slug}}/{{related_blogs_languages.3.blog.slug}}/" 
+                  class="hentry v-height img-2 ml-auto gradient" 
+                  aria-label="{{related_blogs_languages.3.blog.thumbnail_image.alt_tag}}" 
+                  alt="{{related_blogs_languages.3.blog.thumbnail_image.alt_tag}}"
+                  title="{{related_blogs_languages.3.blog.thumbnail_image.title}}"  
+                  style="background-image: url({{related_blogs_languages.3.blog.thumbnail_image}});">
                 {% for related_blog_category_language in related_blogs_languages.3.present_category_language.all %}
                   <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
                 {% endfor %}

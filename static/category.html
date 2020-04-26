@@ -35,7 +35,14 @@
             {% for blog_language in category_language.blogs %}
               <div class="col-lg-4 mb-4">
                 <div class="entry2">
-                  <a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/"><img src="{{blog_language.blog.thumbnail_image}}" alt="Image" class="img-fluid rounded"></a>
+                  <a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/">
+                    <img 
+                      src="{{blog_language.blog.thumbnail_image.url}}" 
+                      aria-label="{{blog_language.blog.thumbnail_image.alt_tag}}" 
+                      alt="{{blog_language.blog.thumbnail_image.alt_tag}}"
+                      title="{{blog_language.blog.thumbnail_image.title}}"  
+                      class="img-fluid rounded">
+                  </a>
                   <div class="excerpt">
                   {% for blog_category in blog_language.present_category_language %}
                     <span class="post-category text-white bg-secondary mb-3">{{blog_category.name}}</span>

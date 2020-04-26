@@ -27,7 +27,7 @@
                 {% if categories_languages %}
                     <ul class="list-unstyled float-left">
                         {% for category_language in categories_languages %}
-                            <li><a href="/{{ LANGUAGE_CODE }}/{{ category_language.slug }}/" target="_blank">{{category_language.name}}</a></li>
+                            <li><a href="/{{ LANGUAGE_CODE }}/{{ category_language.slug }}" target="_blank">{{category_language.name}}</a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -69,6 +69,7 @@
 <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script async src="https://platform-api.sharethis.com/js/sharethis.js#property=5ea53bd759ff750012e54bce&product=sticky-share-buttons"></script>
 
 
 <script>
