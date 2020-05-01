@@ -250,7 +250,7 @@ h1, h2, h3, h4, h5,
   width: 100%;
   background: #fff; }
   .navbar-custom {
-    background: #ffeead;
+    background: #2A3439;
   }
   .site-navbar .site-logo a {
     font-size: 1.5rem; }
@@ -269,7 +269,7 @@ h1, h2, h3, h4, h5,
       .site-navbar .site-navigation .site-menu > li > a {
         padding: 10px 0px;
         font-weight: 700;
-        color: #000;
+        color: rgb(243, 243, 243);
         text-decoration: none !important; }
         .site-navbar .site-navigation .site-menu > li > a:hover {
           color: #2f89fc; }
