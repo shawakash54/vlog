@@ -15,6 +15,8 @@ db.sqlite3
 media
 
 pg_data/
+logs/*
+db_dumps
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.

@@ -1,0 +1,5 @@
+FROM nginx:latest
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY vulgar.conf /etc/nginx/conf.d/default.conf

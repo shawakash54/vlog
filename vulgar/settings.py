@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = decouple_config('SECRET_KEY', '343##$$NDWDIENVINIVNIEINVINEINVIENIVN2323')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = decouple_config('DEBUG', True)
+DEBUG = decouple_config('DEBUG', False, cast=bool)
 
 
 ALLOWED_HOSTS = [decouple_config('HOST', '127.0.0.1')]
@@ -210,3 +210,23 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': lambda _request: DEBUG
     }
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': decouple_config('LOG_DIRECTORY', os.path.join(BASE_DIR, "./logs")) + "/django-logs",
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
