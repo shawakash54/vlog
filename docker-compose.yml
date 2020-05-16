@@ -1,0 +1,20 @@
+version : '3'
+services:
+  vulgar:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - backend
+    restart: always
+  db:
+    build:
+      context: ./devops/dockerfiles/.
+      dockerfile: Dockerfile_postgres
+    networks:
+      - backend
+
+networks:
+  bridge-network:
+    driver: bridge
+  backend:

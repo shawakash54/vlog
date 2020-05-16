@@ -1,0 +1,24 @@
+version : '3'
+services:
+  vulgar:
+    command: ["python", "/usr/src/app/manage.py", "runserver_plus", "0.0.0.0:8000"]
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 8000:8000
+    stdin_open: true
+    tty: true
+    env_file: ./devops/development/.env
+    depends_on:
+      - db
+  db:
+    env_file: ./devops/development/.env
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data_volume:/var/lib/postgresql/data
+      - ./db_dumps:/root/db_backup
+    restart: always
+
+volumes:
+  pg_data_volume:

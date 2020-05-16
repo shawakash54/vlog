@@ -22,13 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$o@kc1&gfkzin^=)@(*-=na@q8eh-@i(0ckz%rdr+8*_6!$mbb'
+SECRET_KEY = decouple_config('SECRET_KEY', '343##$$NDWDIENVINIVNIEINVINEINVIENIVN2323')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = decouple_config('DEBUG', False)
 
-ALLOWED_HOSTS = ['5d541ef5.ngrok.io', '127.0.0.1']
-
+ALLOWED_HOSTS = [decouple_config('HOST', '127.0.0.1')]
 
 # Application definition
 
@@ -50,7 +49,6 @@ INSTALLED_APPS = [
     'django_bootstrap_breadcrumbs',
     'cities_light',
     'django_better_admin_arrayfield',
-    'autotranslate',
 ]
 
 MIDDLEWARE = [
@@ -98,6 +96,7 @@ if USE_S3:
     STATIC_LOCATION = 'static'
     STATIC_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
     STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
+    # STATICFILES_STORAGE = 'myproject.storage.S3Storage'
     # s3 public media settings
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
@@ -127,11 +126,11 @@ WSGI_APPLICATION = 'vulgar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'vulgar2',
-        "USER": "vulgar",
-        "PASSWORD": "vulgar",
-        "HOST": "localhost",
-        "PORT": "5432",
+        'NAME': decouple_config('VULGAR_DB_NAME', 'vulgar'),
+        'USER': decouple_config('VULGAR_DB_USER', 'vulgar'),
+        'PASSWORD': decouple_config('VULGAR_DB_PASSWORD', 'vulgar'),
+        'HOST': decouple_config('VULGAR_DB_HOST', 'localhost'),
+        'PORT': decouple_config('VULGAR_DB_PORT', '5432'),
     }
 }
 
@@ -198,3 +197,6 @@ LANGUAGES = [
 LANGUAGE_CODE = 'en'
 
 LOCALE_PATHS = [ os.path.join(BASE_DIR, 'locale'), ]
+
+
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['IN']
