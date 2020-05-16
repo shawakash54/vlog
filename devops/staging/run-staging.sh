@@ -10,4 +10,7 @@ from django.contrib.auth.models import User
 user = User.objects.create_user('vulgar', password='vulgar')
 END
 
-exec gunicorn -w 4 vulgar.wsgi -b 0.0.0.0:8000
+# Number of workers should be 2-4 per core in the server(2*CPU)+1
+# We can also set --threads=2
+# gunicorn --worker-class=gevent --worker-connections=1000 --workers=3
+exec gunicorn --worker-class=gevent --worker-connections=1000 --workers=3 vulgar.wsgi -b 0.0.0.0:8000
