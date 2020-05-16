@@ -11,34 +11,65 @@
 </div>
 
 <header class="site-navbar fixed-top position-sticky navbar-custom" role="banner">
-    <div class="container-fluid">
+    <div class="container">
     <div class="row align-items-center">
         
-        <div class="col-12 search-form-wrap js-search-form">
+        <!-- <div class="col-12 search-form-wrap js-search-form">
         <form method="get" action="#">
             <input type="text" id="s" class="form-control" placeholder="Search...">
             <button class="search-btn" type="submit"><span class="icon-search"></span></button>
         </form>
-        </div>
+        </div> -->
 
         <div class="col-4 site-logo">
-        <a href="/{{LANGUAGE_CODE}}/" class="text-black h2 mb-0">{{constants.APP_NAME}}</a>
+            <a href="/{{LANGUAGE_CODE}}/" class="text-white h2 mb-0">{{constants.APP_NAME}}</a>
         </div>
 
         <div class="col-8 text-right">
-        <nav class="site-navigation" role="navigation">
-            <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
-                {% trans "Home" as navbar_title_1 %}
-                <li><a href="/{{LANGUAGE_CODE}}/">{{ navbar_title_1 }}</a></li>
-            {% if categories_languages %}
-                {% for category_language in categories_languages %}
-                <li><a href="/{{LANGUAGE_CODE}}/{{ category_language.category.slug }}/">{{ category_language.name }}</a></li>
-                {% endfor %}
-            {% endif %}
-            <!-- Search Button -->
-            <!-- <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li> -->
-            </ul>
-        </nav>
+            <nav class="site-navigation" role="navigation">
+                <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-0">
+                    {% trans "Home" as navbar_title_1 %}
+                    <li><a href="/{{LANGUAGE_CODE}}/">{{ navbar_title_1 }}</a></li>
+                {% if categories_languages %}
+                    {% for category_language in categories_languages %}
+                    <li><a href="/{{LANGUAGE_CODE}}/{{ category_language.category.slug }}/">{{ category_language.name }}</a></li>
+                    {% endfor %}
+                {% endif %}
+                <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> English</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown09">
+                            <a class="dropdown-item" href="#it"><span class="flag-icon flag-icon-it"> </span>  Italian</a>
+                            <a class="dropdown-item" href="#in"><span class="flag-icon flag-icon-in"> </span>  India</a>
+                            <a class="dropdown-item" href="#it"><span class="flag-icon flag-icon-it"> </span>  Italian</a>
+                            <a class="dropdown-item" href="#ru"><span class="flag-icon flag-icon-ru"> </span>  Russian</a>
+                        </div>
+                    </li> -->
+                <!-- Search Button -->
+                <!-- <li class="d-none d-lg-inline-block"><a href="#" class="js-search-toggle"><span class="icon-search"></span></a></li> -->
+                </ul>
+                <!-- <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block mb-2">
+                    {% trans "Home" as navbar_title_1 %}
+                    <li><a href="/{{LANGUAGE_CODE}}/">{{ navbar_title_1 }}</a></li>
+                {% if categories_languages %}
+                    {% for category_language in categories_languages %}
+                    <li class=><a href="/{{LANGUAGE_CODE}}/{{ category_language.category.slug }}/">{{ category_language.name }}</a></li>
+                    {% endfor %}
+                {% endif %}
+                </ul> -->
+                <!-- <div class="language-dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle mr-30" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Language</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 23px, 0px);">
+                            <a class="dropdown-item" href="#">USA</a>
+                            <a class="dropdown-item" href="#">UK</a>
+                            <a class="dropdown-item" href="#">Bangla</a>
+                            <a class="dropdown-item" href="#">Hindi</a>
+                            <a class="dropdown-item" href="#">Spanish</a>
+                            <a class="dropdown-item" href="#">Latin</a>
+                        </div>
+                    </div>
+                </div> -->
+            </nav>
         <a href="#" class="site-menu-toggle js-menu-toggle text-black d-inline-block d-lg-none"><span class="icon-menu h3"></span></a></div>
         </div>
     </div>

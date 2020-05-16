@@ -6,6 +6,6 @@ WORKDIR /usr/src/app
 RUN apt-get -q --fix-missing update && apt-get -qy --fix-missing install netcat wkhtmltopdf
 RUN pip install --upgrade pip
 RUN pip install gunicorn gevent
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
+COPY requirements/base.txt /tmp/base.txt
+RUN pip install -r /tmp/base.txt
 COPY . .

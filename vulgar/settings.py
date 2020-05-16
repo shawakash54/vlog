@@ -25,7 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = decouple_config('SECRET_KEY', '343##$$NDWDIENVINIVNIEINVINEINVIENIVN2323')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = decouple_config('DEBUG', False)
+DEBUG = decouple_config('DEBUG', True)
+
 
 ALLOWED_HOSTS = [decouple_config('HOST', '127.0.0.1')]
 
@@ -200,3 +201,12 @@ LOCALE_PATHS = [ os.path.join(BASE_DIR, 'locale'), ]
 
 
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['IN']
+
+if DEBUG:
+    # Django Debug Toolbar
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    INTERNAL_IPS = ['127.0.0.1']
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': lambda _request: DEBUG
+    }

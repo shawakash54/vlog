@@ -1,7 +1,7 @@
 version : '3'
 services:
   vulgar:
-    command: ["python", "/usr/src/app/manage.py", "runserver_plus", "0.0.0.0:8000"]
+    command: ["./devops/development/run-dev.sh"]
     volumes:
       - .:/usr/src/app
     ports:
