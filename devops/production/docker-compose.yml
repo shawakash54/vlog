@@ -1,0 +1,31 @@
+version : '3'
+services:
+  vulgar:
+    command: ["./devops/production/run-prod.sh"]
+    volumes:
+      - .:/usr/src/app
+      - static_files:/usr/src/app/static
+      - media_files:/usr/src/app/media
+    ports:
+      - 8000:8000
+    stdin_open: true
+    tty: true
+    env_file: ./devops/production/.env
+    depends_on:
+      - nginx
+  nginx:
+    build:
+      context: ./devops/dockerfiles/nginx/.
+      dockerfile: Dockerfile_nginx
+    volumes:
+      - static_files:/static_files
+      - media_files:/media_files
+    ports:
+      - 80:80
+    networks:
+      - backend
+    
+
+volumes:
+  static_files:
+  media_files:
