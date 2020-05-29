@@ -1,5 +1,9 @@
 FROM nginx:latest
 
 RUN rm /etc/nginx/conf.d/default.conf
+RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.default
+RUN rm -rf /var/cache/nginx
+RUN mkdir /var/cache/nginx
+RUN chmod -R 777 /var/cache/nginx
 
-COPY vulgar.conf /etc/nginx/conf.d/default.conf
+COPY vulgar.conf /etc/nginx/nginx.conf
