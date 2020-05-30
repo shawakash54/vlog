@@ -45,7 +45,7 @@ class BlogLanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogLanguage
         fields = ('blog', 'creator', 'language', 'title', 'breadcrumb_title', 'tags', 'description', 'content', 'present_category_language', 'created_at')
-        depth = 2
+        depth = 1
 
     def category_language(self, model_obj):
         language_code = self.context.get("language_code")
@@ -68,7 +68,7 @@ class CategoryLanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoryLanguage
         fields = ('category_description', 'name', 'slug', 'breadcrumb_title', 'created_at', 'blogs')
-        depth = 2
+        depth = 1
 
     def category_language_slug(self, model_obj):
         return model_obj.category.slug
@@ -80,7 +80,11 @@ class CategoryLanguageSerializer(serializers.ModelSerializer):
                     .filter(
                         blog__category__categorylanguage=model_obj,
                         language__slug=language_code
-                    )
+                    )\
+                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                    .prefetch_related('language__country', 'tags', 'blog__category', )
         return BlogLanguageSerializer(blogs,
                                 many=True,
                                 context={'language_code': language_code}

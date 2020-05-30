@@ -2,6 +2,7 @@ import vulgar.models as vulgar_models
 from django.contrib.contenttypes.models import ContentType
 import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
+from vulgar.decorators import query_debugger
 
 
 def log_missing(text, model_type):
@@ -263,15 +264,12 @@ def build_custom_twitter_meta_tags(title, description, card, image, image_alt, t
     ]
 
 
-def home_page_social_media_meta_tags(obj, language_code):
+def home_page_social_media_meta_tags(obj, language_code, query_set):
     title_1 = _("Breaking Trending News, India and World News")
     title = f'{title_1} | {vulgar_constants.APP_NAME}'
-    categories_languages = vulgar_models.CategoryLanguage.published_objects.filter(
-                                    category__home_page_view=True,
-                                    language__slug=language_code
-                                )
-    home_page_meta_description_part_1 = _("provides latest news from India and the world. Get today’s news headlines from")
-    home_page_meta_description_part_2 = _("and exclusive breaking news from India.")
+    categories_languages = query_set
+    home_page_meta_description_part_1 = _("provides latest news from India and the world. Get today’s news headlines from ")
+    home_page_meta_description_part_2 = _("and exclusive breaking news from India. ")
     description = f'{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}' + \
                     f' {home_page_meta_description_part_1}' + \
                     f'{", ".join(str(category.name) for category in categories_languages)}' + \
@@ -308,7 +306,7 @@ def home_page_social_media_meta_tags(obj, language_code):
     return meta_tags
 
 
-def about_us_social_media_meta_tags(obj, language_code):
+def about_us_social_media_meta_tags(obj, language_code, query_set):
     title_1 = _("About Us")
     title = f'{title_1} | {vulgar_constants.APP_NAME}'
     aboutus_page_description = _("About Us - A Newsletter, blog, complete transparency for public interest")
@@ -345,7 +343,7 @@ def about_us_social_media_meta_tags(obj, language_code):
     return meta_tags
 
 
-def contact_us_social_media_meta_tags(obj, language_code):
+def contact_us_social_media_meta_tags(obj, language_code, query_set):
     title_1 = _("Contact Us for publishing articles, blogs")
     title = f'{title_1} | {vulgar_constants.APP_NAME}'
     contact_us_page_description = _("Contact for publishing news. Queries around news and paid content writing")
@@ -382,7 +380,7 @@ def contact_us_social_media_meta_tags(obj, language_code):
     return meta_tags
 
 
-def category_page_social_media_meta_tags(category_language, language_code):
+def category_page_social_media_meta_tags(category_language, language_code, query_set):
     title = f'{category_language.name} | {vulgar_constants.APP_NAME}'
     description = f'{category_language.category_description} | {vulgar_constants.APP_NAME}'
     media = category_language.category.social_media_image
@@ -415,7 +413,7 @@ def category_page_social_media_meta_tags(category_language, language_code):
     return meta_tags
 
 
-def article_page_social_media_meta_tags(blog_language, language_code):
+def article_page_social_media_meta_tags(blog_language, language_code, query_set):
     title = f'{blog_language.title} | {vulgar_constants.APP_NAME}'
     description = f'{blog_language.description} | {vulgar_constants.APP_NAME}'
     media = blog_language.blog.social_media_image
@@ -455,7 +453,7 @@ def article_page_social_media_meta_tags(blog_language, language_code):
     return meta_tags
 
 
-def get_social_media_meta_tags(page_type, obj=None, language_code = 'en'):
+def get_social_media_meta_tags(page_type, obj=None, language_code = 'en', query_set = None):
     switcher = {
         'home_page': home_page_social_media_meta_tags,
         'about_us': about_us_social_media_meta_tags,
@@ -463,4 +461,4 @@ def get_social_media_meta_tags(page_type, obj=None, language_code = 'en'):
         'category_page': category_page_social_media_meta_tags,
         'article_page': article_page_social_media_meta_tags
     }
-    return switcher.get(page_type)(obj, language_code)
+    return switcher.get(page_type)(obj, language_code, query_set)

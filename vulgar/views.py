@@ -10,6 +10,7 @@ from django.http import Http404
 import vulgar.utils as vulgar_utils
 import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
+from vulgar.decorators import query_debugger
 
 
 class HomePageView(TemplateView):
@@ -23,12 +24,16 @@ class HomePageView(TemplateView):
         context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__home_page_view=True,
                                     language__slug=language_code
-                                )
+                                ).select_related('category', 'language')
         context['meta'] = vulgar_utils.get_meta_info('home_page', None, language_code)
         context['trending_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Trending').first()\
-                                    .blogs.filter(language__slug=language_code).select_related()\
+                                    .blogs.filter(language__slug=language_code)\
+                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
                                     .order_by('-created_at')[:5],
                                 many=True,
                                 context={'language_code': language_code}
@@ -36,7 +41,11 @@ class HomePageView(TemplateView):
         context['recent_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Recent').first()\
-                                    .blogs.filter(language__slug=language_code).select_related()\
+                                    .blogs.filter(language__slug=language_code)\
+                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
                                     .order_by('-created_at')[:5],
                                 many=True,
                                 context={'language_code': language_code}
@@ -44,13 +53,17 @@ class HomePageView(TemplateView):
         context['special_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Special').first()\
-                                    .blogs.filter(language__slug=language_code).select_related()\
+                                    .blogs.filter(language__slug=language_code)\
+                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
                                     .order_by('-created_at')[:5],
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
         context['constants'] = vulgar_constants
-        context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('home_page', None, language_code)
+        context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('home_page', None, language_code, context['categories_languages'])
         return context
 
 
@@ -58,32 +71,29 @@ class CategoryPageView(TemplateView):
     template_name = "category.html"
 
     def get(self, request, *args, **kwargs):
-        status, template_name = self.get_template_name(*args, **kwargs)
+        status, template_name, category_language = self.get_template_name(*args, **kwargs)
         return TemplateResponse(request, template_name,
-                                self.get_context_data(*args, **kwargs), status=status)
+                                self.get_context_data(category_language, *args, **kwargs), status=status)
 
     def get_template_name(self, *args, **kwargs):
         template_name = self.template_name
         status = 200
         slug = kwargs.get('slug', None)
         language_code = self.request.LANGUAGE_CODE
+        category_language = None
         category_language = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__slug=slug,
                                     language__slug=language_code
-                                )
+                                ).select_related('category', 'language').last()
         if not category_language:
             status = 404
             template_name = 'error.html'
-        return (status, template_name)
+        return (status, template_name, category_language)
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, category_language, *args, **kwargs):
         context = super(CategoryPageView, self).get_context_data(*args, **kwargs)
         slug = kwargs.get('slug', None)
         language_code = self.request.LANGUAGE_CODE
-        category_language = vulgar_models.CategoryLanguage.published_objects.filter(
-                                    category__slug=slug,
-                                    language__slug=language_code
-                                ).select_related().last()
         context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
                                     category__home_page_view=True,
                                     language__slug=language_code
@@ -106,9 +116,9 @@ class PostPageView(TemplateView):
     template_name = "post.html"
 
     def get(self, request, *args, **kwargs):
-        status, template_name = self.get_template_name(*args, **kwargs)
+        status, template_name, blog_language = self.get_template_name(*args, **kwargs)
         return TemplateResponse(request, template_name,
-                                self.get_context_data(*args, **kwargs), status=status)
+                                self.get_context_data(blog_language, *args, **kwargs), status=status)
 
     def get_template_name(self, *args, **kwargs):
         language_code = self.request.LANGUAGE_CODE
@@ -116,61 +126,56 @@ class PostPageView(TemplateView):
         status = 200
         slug = kwargs.get('slug', None)
         category_slug = kwargs.get('category_slug', None)
+        blog_language = None
         if category_slug is None :
-            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
+            blog_language = vulgar_models.BlogLanguage.published_objects.filter(
                                 blog__slug=slug,
                                 language__slug=language_code
-                            )
+                            ).select_related('blog', 'language', 'creator', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user').last()
         else :
-            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
+            blog_language = vulgar_models.BlogLanguage.published_objects.filter(
                                 blog__slug=slug,
                                 language__slug=language_code,
                                 blog__category__slug=category_slug
-                            )
-        if not blog_queryset:
+                            ).select_related('blog', 'language', 'creator', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user').last()
+        if not blog_language:
             status = 404
             template_name = 'error.html'
-        return (status, template_name)
+        return (status, template_name, blog_language)
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, blog_language, *args, **kwargs):
         language_code = self.request.LANGUAGE_CODE
         context = super(PostPageView, self).get_context_data(*args, **kwargs)
         context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
                                             category__home_page_view=True,
                                             language__slug=language_code
-                                        )
+                                        ).select_related('category', 'language')
         slug = kwargs.get('slug', None)
         category_slug = kwargs.get('category_slug', None)
         if category_slug is None :
-            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
-                                blog__slug=slug,
-                                language__slug=language_code
-                            ).select_related()
-            present_primary_category = blog_queryset.last().blog.primary_category
+            present_primary_category = blog_language.blog.primary_category
             present_category_language = vulgar_models.CategoryLanguage.published_objects.filter(
                                             category=present_primary_category,
                                             language__slug=language_code
-                                        ).select_related().last()
+                                        ).select_related('category', 'language', 'category__image', 'category__social_media_image').last()
         else :
             present_category_language = vulgar_models.CategoryLanguage.published_objects.filter(
                                             category__slug=category_slug,
                                             language__slug=language_code
-                                        ).select_related().last()
-            blog_queryset = vulgar_models.BlogLanguage.published_objects.filter(
-                                blog__slug=slug,
-                                language__slug=language_code,
-                                blog__category__slug=category_slug
-                            ).select_related()
+                                        ).select_related('category', 'language', 'category__image', 'category__social_media_image').last()
         context['constants'] = vulgar_constants
-        if blog_queryset and present_category_language:
-            blog_language = blog_queryset.last()
+        if blog_language and present_category_language:
             context['all_categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(language__slug=language_code)
             context['blog_language'] =   vulgar_serializers.BlogLanguageSerializer(\
                                     blog_language,
                                     context={'language_code': language_code}
                                 ).data
             context['present_category_language'] = present_category_language
-            context['tags'] = vulgar_models.Tag.published_objects.filter()
+            context['tags'] = blog_language.tags.all()
             context['popular_blogs_langugaes'] = self.get_popular_blogs(slug, language_code)
             context['related_blogs_languages'] = self.get_related_blogs(blog_language, language_code)
             context['canonical_link'] = vulgar_utils.form_canonical_url('article_page', blog_language, language_code)
@@ -187,7 +192,11 @@ class PostPageView(TemplateView):
         return vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Popular').first()\
-                                    .blogs.filter(language__slug=language_code).select_related()\
+                                    .blogs.filter(language__slug=language_code)\
+                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
                                     .order_by('-created_at')[:4],
                                 many=True,
                                 context={'language_code': language_code}
@@ -202,7 +211,13 @@ class PostPageView(TemplateView):
                         vulgar_models.BlogLanguage.published_objects.filter(
                             language__slug=language_code,
                             blog__category=category,
-                            ).exclude(blog__slug=blog_language.blog.slug).select_related().order_by('-created_at')[:1].first(),
+                            ).exclude(blog__slug=blog_language.blog.slug)\
+                            .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                            .prefetch_related('language__country', 'tags', 'blog__category', )\
+                            .order_by('-created_at')[:4],
+                        many=True,
                         context={'language_code': language_code}
                     ).data
             related_blogs_languages.append(blog_language_obj)
