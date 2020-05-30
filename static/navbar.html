@@ -74,3 +74,19 @@
         </div>
     </div>
 </header>
+<div class="container language-container">
+    <div class="row">
+        {% for alternate_languag in alternate_language %}
+            {% if alternate_languag.code != LANGUAGE_CODE and not forloop.last %}
+                <div class="col language-container-link">
+                    <a href="{{alternate_languag.link}}">{{alternate_languag.display_name}}</a>
+                </div>
+            {% endif %}
+            {% if alternate_languag.code == LANGUAGE_CODE %}
+                <div class="col language-container-link">
+                    <span>{{alternate_languag.display_name}}</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

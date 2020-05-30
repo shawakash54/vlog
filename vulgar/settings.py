@@ -182,17 +182,21 @@ CKEDITOR_CONFIGS = {
 
 BREADCRUMBS_TEMPLATE = "components/breadcrumbs.html"
 
+# LANGUAGES = [
+#     ('en', _('English')),
+#     ('ur', _('Urdu')),
+#     ('ne', _('Nepali')),
+#     ('te', _('Telugu')),
+#     ('ta', _('Tamil')),
+#     ('pa', _('Punjabi')),
+#     ('mr', _('Marathi')),
+#     ('ml', _('Malayalam')),
+#     ('kn', _('Kannada')),
+#     ('bn', _('Bengali')),
+#     ('hi', _('Hindi')),
+# ]
 LANGUAGES = [
     ('en', _('English')),
-    ('ur', _('Urdu')),
-    ('ne', _('Nepali')),
-    ('te', _('Telugu')),
-    ('ta', _('Tamil')),
-    ('pa', _('Punjabi')),
-    ('mr', _('Marathi')),
-    ('ml', _('Malayalam')),
-    ('kn', _('Kannada')),
-    ('bn', _('Bengali')),
     ('hi', _('Hindi')),
 ]
 LANGUAGE_CODE = 'en'

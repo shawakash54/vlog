@@ -133,13 +133,15 @@ def home_page_alternate_language(obj):
         alternate_language.append(
             {
                 'code': language.slug,
-                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/'
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/',
+                'display_name': language.display_name
             }
         )
     alternate_language.append(
         {
             'code': 'x-default',
-            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/'
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/',
+            'display_name': language.display_name
         }
     )
     return alternate_language
@@ -152,13 +154,15 @@ def about_us_alternate_language(obj):
         alternate_language.append(
             {
                 'code': language.slug,
-                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/about-us/'
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/about-us/',
+                'display_name': language.display_name
             }
         )
     alternate_language.append(
         {
             'code': 'x-default',
-            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/about-us/'
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/about-us/',
+            'display_name': language.display_name
         }
     )
     return alternate_language
@@ -171,13 +175,15 @@ def contact_us_alternate_language(obj):
         alternate_language.append(
             {
                 'code': language.slug,
-                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/contact-us/'
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/contact-us/',
+                'display_name': language.display_name
             }
         )
     alternate_language.append(
         {
             'code': 'x-default',
-            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/contact-us/'
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/contact-us/',
+            'display_name': language.display_name
         }
     )
     return alternate_language
@@ -190,13 +196,15 @@ def category_page_alternate_language(category_language):
         alternate_language.append(
             {
                 'code': language.slug,
-                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{category_language.category.slug}/'
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{category_language.category.slug}/',
+                'display_name': language.display_name
             }
         )
     alternate_language.append(
         {
             'code': 'x-default',
-            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/{category_language.category.slug}/'
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/{category_language.category.slug}/',
+            'display_name': language.display_name
         }
     )
     return alternate_language
@@ -209,13 +217,15 @@ def article_page_alternate_language(blog_language):
         alternate_language.append(
             {
                 'code': language.slug,
-                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/'
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/',
+                'display_name': language.display_name
             }
         )
     alternate_language.append(
         {
             'code': 'x-default',
-            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/'
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/{blog_language.blog.primary_category.slug}/{blog_language.blog.slug}/',
+            'display_name': language.display_name
         }
     )
     return alternate_language

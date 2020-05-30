@@ -47,6 +47,7 @@ class Language(BaseModel):
                                             default='Active')
     objects = models.Manager()
     published_objects = PublishedManager() 
+    display_name = models.CharField(max_length=1000, db_index=True, default="")
 
     def save(self, *args, **kwargs):
         if not self.slug:
