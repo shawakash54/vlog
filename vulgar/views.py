@@ -6,10 +6,11 @@ from django.shortcuts import render
 import vulgar.serializers as vulgar_serializers
 from rest_framework.views import APIView
 from rest_framework import status
-from django.http import Http404
+from django.http import Http404, HttpResponse
 import vulgar.utils as vulgar_utils
 import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_GET
 
 
 class HomePageView(TemplateView):
@@ -307,6 +308,16 @@ class NotFoundView(TemplateView):
         context['status'] = '404'
         context['constants'] = vulgar_constants
         return context
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "",
+        vulgar_utils.get_sitemap_url(),
+        vulgar_utils.get_host_url()
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
 
 
 def server_error(request):

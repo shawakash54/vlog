@@ -13,6 +13,14 @@ def log_missing(text, model_type):
     obj.save()
 
 
+def get_host_url():
+    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}'
+
+
+def get_sitemap_url():
+    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/sitemap.xml'
+
+
 def home_page_canonical(obj, language_code):
     return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/'
 
