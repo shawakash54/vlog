@@ -2,7 +2,6 @@ import vulgar.models as vulgar_models
 from django.contrib.contenttypes.models import ContentType
 import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
-from vulgar.decorators import query_debugger
 
 
 def log_missing(text, model_type):

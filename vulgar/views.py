@@ -10,7 +10,6 @@ from django.http import Http404
 import vulgar.utils as vulgar_utils
 import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
-from vulgar.decorators import query_debugger
 
 
 class HomePageView(TemplateView):
