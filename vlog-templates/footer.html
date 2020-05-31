@@ -27,7 +27,7 @@
                 {% if categories_languages %}
                     <ul class="list-unstyled float-left">
                         {% for category_language in categories_languages %}
-                            <li><a href="/{{ LANGUAGE_CODE }}/{{ category_language.slug }}" target="_blank">{{category_language.name}}</a></li>
+                            <li><a href="/{{ LANGUAGE_CODE }}/{{ category_language.category.slug }}" target="_blank">{{category_language.name}}</a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}
