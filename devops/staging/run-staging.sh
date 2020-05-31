@@ -7,7 +7,7 @@ python manage.py migrate --fake-initial
 # Create a user if doesn't exist
 python manage.py shell << END
 from django.contrib.auth.models import User
-user = User.objects.create_user('trikonindia', password='trikonindia')
+user = User.objects.create_user('trikonindia', password='trikonindia', is_superuser=True, is_staff=True)
 END
 
 # Number of workers should be 2-4 per core in the server(2*CPU)+1

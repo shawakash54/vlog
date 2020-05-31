@@ -2,6 +2,7 @@ import vulgar.models as vulgar_models
 from django.contrib.contenttypes.models import ContentType
 import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
+import validators
 
 
 def log_missing(text, model_type):
@@ -251,6 +252,10 @@ def build_meta_tag(attribute_type, attribute_value, content):
 
 
 def build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_languages, article_attrs, article_tags):
+    valid=validators.url(image)
+    if not valid:
+        image = f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}{image}'
+
     meta_tags = [
         build_meta_tag(attribute_type = 'property', attribute_value = 'og:title', content = title),
         build_meta_tag(attribute_type = 'property', attribute_value = 'og:description', content = description),

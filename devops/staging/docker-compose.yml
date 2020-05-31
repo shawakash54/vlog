@@ -13,7 +13,6 @@ services:
     env_file: ./devops/staging/.env
     depends_on:
       - db
-      - nginx
   db:
     env_file: ./devops/staging/.env
     ports:

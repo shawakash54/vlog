@@ -11,8 +11,6 @@ services:
     stdin_open: true
     tty: true
     env_file: ./devops/production/.env
-    depends_on:
-      - nginx
   nginx:
     build:
       context: ./devops/dockerfiles/nginx/.
