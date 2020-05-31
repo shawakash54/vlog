@@ -10,3 +10,5 @@ TWITTER_SITE = ''
 TWITTER_ID = ''
 COUNTRY_CODE = 'IN'
 SHARE_THIS_API_URL = 'https://platform-api.sharethis.com/js/sharethis.js#property=5ea53bd759ff750012e54bce&product=sticky-share-buttons'
+FULLSTORY_ORG = "VK6V5"
+FULLSTORY_NS = "FS"
