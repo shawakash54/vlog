@@ -1,0 +1,274 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-31 09:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: vlog-templates/category.html:17 vlog-templates/post.html:53
+#: vlog-templates/post.html:125
+msgid "Category"
+msgstr "বিভাগ"
+
+#: vlog-templates/category.html:59 vlog-templates/index.html:107
+msgid "Read More"
+msgstr "আরও পড়ুন"
+
+#: vlog-templates/components/newsletter.html:7
+msgid "Subscribe to our newsletter"
+msgstr "আমাদের নিউজলেটার সদস্যতা"
+
+#: vlog-templates/components/newsletter.html:8
+msgid "Enter your email address"
+msgstr "ইমেইল অ্যাড্রেস দিন"
+
+#: vlog-templates/components/newsletter.html:9
+msgid "Subscribe"
+msgstr "সাবস্ক্রাইব"
+
+#: vlog-templates/components/newsletter.html:11
+msgid "Get articles delivered straight to your inbox:"
+msgstr "নিবন্ধগুলি সরাসরি আপনার ইনবক্সে সরবরাহ করুন:"
+
+#: vlog-templates/components/newsletter.html:17
+msgid "Failed"
+msgstr "ব্যর্থ হয়েছে"
+
+#: vlog-templates/components/newsletter.html:21
+msgid "সাফল্য"
+msgstr ""
+
+#: vlog-templates/error.html:16
+msgid "Back to Home"
+msgstr "বাড়িতে ফিরে যাও"
+
+#: vlog-templates/footer.html:10 vlog-templates/pages/about-us.html:20
+#: vlog-templates/pages/about-us.html:33 vulgar/utils.py:89 vulgar/utils.py:338
+msgid "About Us"
+msgstr "আমাদের সম্পর্কে"
+
+#: vlog-templates/footer.html:11 vlog-templates/pages/contact-us.html:19
+#: vlog-templates/pages/contact-us.html:33
+msgid "Contact Us"
+msgstr "যোগাযোগ করুন"
+
+#: vlog-templates/footer.html:12
+msgid "Connect With Us"
+msgstr "আমাদের সাথে যোগাযোগ করুন"
+
+#: vlog-templates/footer.html:14
+msgid "It's more than a newsletter"
+msgstr "এটি নিউজলেটারের চেয়ে বেশি"
+
+#: vlog-templates/footer.html:15
+msgid "it's more than a blog"
+msgstr "এটি একটি ব্লগের চেয়ে বেশি"
+
+#: vlog-templates/footer.html:16
+msgid "it's more than a place for learning"
+msgstr "এটি শেখার জায়গার চেয়ে বেশি"
+
+#: vlog-templates/footer.html:17
+msgid "it's more than a place for gaining knowledge"
+msgstr "এটি জ্ঞান অর্জনের চেয়ে আরও বেশি জায়গা"
+
+#: vlog-templates/footer.html:18
+msgid "it's "
+msgstr "এটা"
+
+#: vlog-templates/index.html:15
+msgid "Trending Posts"
+msgstr "ট্রেন্ডিং পোস্ট"
+
+#: vlog-templates/index.html:78
+msgid "Recent Posts"
+msgstr "সাম্প্রতিক পোস্ট"
+
+#: vlog-templates/index.html:133
+msgid "Specials"
+msgstr "স্পেশালস"
+
+#: vlog-templates/navbar.html:31 vlog-templates/navbar.html:51
+#: vlog-templates/pages/about-us.html:34
+#: vlog-templates/pages/contact-us.html:32
+msgid "Home"
+msgstr ""
+
+#: vlog-templates/pages/about-us.html:21
+msgid ""
+"It's more than a newsletter, a blog, a place for learning, a place for "
+"gaining knowledge, it's"
+msgstr "এটি নিউজলেটার, ব্লগ, শেখার জন্য জায়গা, জ্ঞান অর্জনের জন্য জায়গা, এর চেয়ে বেশি"
+
+#: vlog-templates/pages/about-us.html:46
+msgid "OUR MISSION"
+msgstr "আমাদের লক্ষ্য"
+
+#: vlog-templates/pages/about-us.html:47
+msgid ""
+"To be accurate in our reporting, and transparent and thorough in our "
+"analysis."
+msgstr "আমাদের প্রতিবেদনে সঠিক হতে, এবং আমাদের বিশ্লেষণে স্বচ্ছ এবং পুঙ্খানুপুঙ্খভাবে"
+
+#: vlog-templates/pages/about-us.html:48
+msgid "People first approach in everything"
+msgstr "মানুষ সবকিছুর মধ্যে প্রথম রাখে"
+
+#: vlog-templates/pages/about-us.html:49
+msgid "Always listening and taking feedbacks from our readers"
+msgstr "সর্বদা শুনতে এবং আমাদের পাঠকদের কাছ থেকে প্রতিক্রিয়া গ্রহণ করা"
+
+#: vlog-templates/pages/about-us.html:50
+msgid "Allowing diversity of voices"
+msgstr "কণ্ঠের বৈচিত্র্যের অনুমতি দেওয়া"
+
+#: vlog-templates/pages/about-us.html:51
+#, python-format
+msgid "100%% Transparency for public interest"
+msgstr "জনস্বার্থের জন্য 100 %% স্বচ্ছতা"
+
+#: vlog-templates/pages/about-us.html:68
+msgid "OUR SELECTION"
+msgstr "আমাদের নির্বাচন"
+
+#: vlog-templates/pages/about-us.html:69
+msgid ""
+"We bring to you the most open and most transparent articles there can be "
+"with a wide range of categories"
+msgstr "আমরা আপনার জন্য সর্বাধিক উন্মুক্ত এবং সর্বাধিক স্বচ্ছ নিবন্ধগুলি নিয়ে আসছি যেখানে বিস্তৃত বিভিন্ন ধরণের বিভাগ থাকতে পারে"
+
+#: vlog-templates/pages/contact-us.html:20
+msgid "Write to us at"
+msgstr "আমাদের এ লিখুন"
+
+#: vlog-templates/pages/contact-us.html:45
+msgid "First Name"
+msgstr "নামের প্রথম অংশ"
+
+#: vlog-templates/pages/contact-us.html:46
+msgid "Last Name"
+msgstr "নামের শেষাংশ"
+
+#: vlog-templates/pages/contact-us.html:47
+msgid "Email"
+msgstr "ইমেইল"
+
+#: vlog-templates/pages/contact-us.html:48
+msgid "Contact Number"
+msgstr "যোগাযোগের নম্বর"
+
+#: vlog-templates/pages/contact-us.html:49
+msgid "Subject"
+msgstr "বিষয়"
+
+#: vlog-templates/pages/contact-us.html:50
+msgid "Message"
+msgstr "বার্তা"
+
+#: vlog-templates/pages/contact-us.html:51
+msgid "Write your notes or questions here"
+msgstr "আপনার নোট বা প্রশ্ন এখানে লিখুন"
+
+#: vlog-templates/pages/contact-us.html:52
+msgid "Send Message"
+msgstr "বার্তা পাঠান"
+
+#: vlog-templates/post.html:59 vlog-templates/post.html:135
+msgid "Tags"
+msgstr "ট্যাগ"
+
+#: vlog-templates/post.html:98
+msgid "Popular Posts"
+msgstr "জনপ্রিয় পোস্ট"
+
+#: vulgar/settings.py:199
+msgid "English"
+msgstr "ইংরেজি"
+
+#: vulgar/settings.py:200
+msgid "Hindi"
+msgstr "হিন্দি"
+
+#: vulgar/utils.py:61 vulgar/utils.py:296
+msgid "Breaking Trending News, India and World News"
+msgstr "ব্রেকিং ট্রেন্ডিং নিউজ, ভারত এবং ওয়ার্ল্ড নিউজ"
+
+#: vulgar/utils.py:62
+msgid ""
+"provides latest news from India and the world. Get today’s news headlines "
+"from"
+msgstr "ভারত এবং বিশ্বের সর্বশেষ সংবাদ সরবরাহ করে। আজকের সংবাদ শিরোনামগুলি থেকে পান "
+
+#: vulgar/utils.py:63
+msgid "and exclusive breaking news from India."
+msgstr "এবং ভারত থেকে একচেটিয়া ব্রেকিং নিউজ।"
+
+#: vulgar/utils.py:64
+msgid ""
+"news, live news, news in india, breaking news, today news, current news, "
+"elections, indian news, news website, politics, india news, world news, "
+"business news, bollywood news, cricket news, sports, lifestyle, gadgets, "
+"tech news, news blogs, bedroom, sexual wellness, sex, sex updates, sex news, "
+"adult, adult news"
+msgstr ""
+"খবর, লাইভ নিউজ, ভারতে খবর, ব্রেকিং নিউজ, আজকের সংবাদ, বর্তমান সংবাদ,"
+"নির্বাচন, ইন্ডিয়ান নিউজ, নিউজ ওয়েবসাইট, রাজনীতি, ইন্ডিয়া নিউজ, ওয়ার্ল্ড নিউজ,"
+"ব্যবসায়ের সংবাদ, বলিউডের সংবাদ, ক্রিকেটের সংবাদ, ক্রীড়া, জীবনধারা, গ্যাজেটস,"
+"প্রযুক্তিগত সংবাদ, নিউজ ব্লগ, শয়নকক্ষ, যৌন সুস্থতা, লিঙ্গ, সেক্স আপডেট, সেক্স নিউজ,"
+"প্রাপ্তবয়স্ক, প্রাপ্তবয়স্কদের খবর"
+
+#: vulgar/utils.py:77 vulgar/utils.py:375
+msgid "Contact Us for publishing articles, blogs"
+msgstr "নিবন্ধ, ব্লগ প্রকাশের জন্য আমাদের সাথে যোগাযোগ করুন"
+
+#: vulgar/utils.py:78 vulgar/utils.py:377
+msgid ""
+"Contact for publishing news. Queries around news and paid content writing"
+msgstr "সংবাদ প্রকাশের জন্য যোগাযোগ করুন। সংবাদ এবং প্রদত্ত সামগ্রী লিখনের চারপাশে অনুসন্ধানগুলি"
+
+#: vulgar/utils.py:79
+msgid ""
+"paid article publishing, news coverage, paid content writing, content "
+"publishing, news suggestions, news area improvement"
+msgstr ""
+"প্রদত্ত নিবন্ধ প্রকাশনা, নিউজ কভারেজ, অর্থ প্রদানের লিখিত সামগ্রী, সামগ্রী"
+"প্রকাশনা, সংবাদ পরামর্শ, সংবাদ ক্ষেত্রের উন্নতি"
+
+#: vulgar/utils.py:90 vulgar/utils.py:340
+msgid ""
+"About Us - A Newsletter, blog, complete transparency for public interest"
+msgstr ""
+"আমাদের সম্পর্কে - একটি নিউজলেটার, ব্লগ, জনস্বার্থের জন্য সম্পূর্ণ স্বচ্ছতা"
+
+#: vulgar/utils.py:91
+msgid "Completely transparent newsletter, paid article writing"
+msgstr "সম্পূর্ণ স্বচ্ছ নিউজলেটার, নিবন্ধের নিবন্ধ লেখা"
+
+#: vulgar/utils.py:299
+msgid ""
+"provides latest news from India and the world. Get today’s news headlines "
+"from "
+msgstr ""
+"ভারত এবং বিশ্বের সর্বশেষ সংবাদ সরবরাহ করে। আজকের খবরের শিরোনামগুলি পান"
+"থেকে"
+
+#: vulgar/utils.py:300
+msgid "and exclusive breaking news from India. "
+msgstr "এবং ভারত থেকে একচেটিয়া ব্রেকিং নিউজ।"
+
+#: vulgar/views.py:307
+msgid "The page you are looking for was not found."
+msgstr "আপনি যে পৃষ্ঠার সন্ধান করছেন তা পাওয়া যায় নি।"
