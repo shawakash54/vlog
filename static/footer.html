@@ -27,7 +27,7 @@
                 {% if categories_languages %}
                     <ul class="list-unstyled float-left">
                         {% for category_language in categories_languages %}
-                            <li><a href="/{{ LANGUAGE_CODE }}/{{ category_language.slug }}" target="_blank">{{category_language.name}}</a></li>
+                            <li><a href="/{{ LANGUAGE_CODE }}/{{ category_language.category.slug }}" target="_blank">{{category_language.name}}</a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -36,10 +36,10 @@
                 <div>
                     <h3 class="footer-heading mb-4">{{ footer_connect_us }}</h3>
                     <p>
-                    <a href="#" target="_blank"><span class="icon-facebook pt-2 pr-2 pb-2 pl-0"></span></a>
-                    <a href="#" target="_blank"><span class="icon-twitter p-2"></span></a>
-                    <a href="#" target="_blank"><span class="icon-instagram p-2"></span></a>
-                    <a href="#" target="_blank"><span class="icon-rss p-2"></span></a>
+                    <a href="https://www.facebook.com/trikonindia/" target="_blank"><span class="icon-facebook pt-2 pr-2 pb-2 pl-0"></span></a>
+                    <a href="https://twitter.com/IndiaTrikon" target="_blank"><span class="icon-twitter p-2"></span></a>
+                    <a href="https://www.instagram.com/trikonindia/" target="_blank"><span class="icon-instagram p-2"></span></a>
+                    <!-- <a href="#" target="_blank"><span class="icon-rss p-2"></span></a> -->
                     <a href="/{{ LANGUAGE_CODE }}/contact-us/" target="_blank"><span class="icon-envelope p-2"></span></a>
                     </p>
                 </div>

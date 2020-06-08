@@ -11,6 +11,7 @@ import vulgar.utils as vulgar_utils
 import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
+import itertools
 
 
 class HomePageView(TemplateView):
@@ -221,7 +222,7 @@ class PostPageView(TemplateView):
                         context={'language_code': language_code}
                     ).data
             related_blogs_languages.append(blog_language_obj)
-        return related_blogs_languages
+        return list(itertools.chain.from_iterable(related_blogs_languages))
 
 
 class AboutUsPageView(TemplateView):

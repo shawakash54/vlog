@@ -211,7 +211,7 @@
                   aria-label="{{related_blogs_languages.3.blog.thumbnail_image.alt_tag}}" 
                   alt="{{related_blogs_languages.3.blog.thumbnail_image.alt_tag}}"
                   title="{{related_blogs_languages.3.blog.thumbnail_image.title}}"  
-                  style="background-image: url({{related_blogs_languages.3.blog.thumbnail_image}});">
+                  style="background-image: url({{related_blogs_languages.3.blog.thumbnail_image.url}});">
                 {% for related_blog_category_language in related_blogs_languages.3.present_category_language.all %}
                   <span class="post-category text-white bg-danger">{{related_blog_category_language.name}}</span>
                 {% endfor %}
