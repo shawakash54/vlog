@@ -64,6 +64,7 @@ class CategoryLanguageSerializer(serializers.ModelSerializer):
     slug = serializers.SerializerMethodField('category_language_slug')
     created_at = serializers.SerializerMethodField()
     blogs = serializers.SerializerMethodField('category_language_blogs')
+    # category_image = serializers.SerializerMethodField('category_language_image')
 
     class Meta:
         model = CategoryLanguage
@@ -72,6 +73,9 @@ class CategoryLanguageSerializer(serializers.ModelSerializer):
 
     def category_language_slug(self, model_obj):
         return model_obj.category.slug
+
+    def category_language_image(self, model_obj):
+        return model_obj.category.image.url
 
     def category_language_blogs(self, model_obj):
         language_code = self.context.get("language_code")

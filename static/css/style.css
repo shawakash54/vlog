@@ -29,6 +29,43 @@ h1, h2, h3, h4, h5,
   font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   line-height: 1.5;
   color: #000; }
+  .category-heading {
+    color: #1d2537;
+    margin: 0;
+    font-weight: 600;
+    font-size: 30px;
+  }
+  .category-cation {
+    color: #fff;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    z-index: 3;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    padding-top: 1px;
+    font-size: 16px !important;
+    width: 27px !important;
+    height: 27px !important;
+    padding-top: 12px !important;
+    box-sizing: border-box;
+  }
+  .lifestyle-span {
+    background-color: #f2388a;
+    display: inline-block;
+    border-radius: 6px;
+    margin-right: 15px;
+    width: 27px;
+    height: 27px;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
 
 .border-2 {
   border-width: 2px; }
@@ -514,8 +551,8 @@ h1, h2, h3, h4, h5,
 .muted, .entry2 p {
   color: #666666; }
 
-.height-150 {
-  height: 150px;
+.height-100 {
+  height: 100px;
 }
 
 .height-80 {
@@ -526,8 +563,27 @@ h1, h2, h3, h4, h5,
   height: 200px;
 }
 
+.height-80 {
+  height: 80px;
+}
+
 .height-300 {
   height: 300px;
+}
+
+.category-blog-image {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+@media (max-width: 767.98px) {
+  .category-blog-image {
+    padding-left: inherit;
+    padding-right: inherit;
+  }
+}
+
+.category-blog-desc {
+  background-color: #F5F7FA;
 }
 
 .site-cover {
@@ -763,14 +819,16 @@ h1, h2, h3, h4, h5,
 
 .entry2 h2 {
   font-size: 16px;
-  margin-bottom: 30px;
   font-weight: 700; }
   .entry2 h2 a {
     color: #000; }
 
 .entry2 .excerpt {
   padding-left: 20px;
-  padding-right: 20px; }
+  padding-right: 20px;
+  padding-top:5px;
+  padding-bottom:5px; 
+  border-radius: 25px;}
 
 .entry2 .excerpt .overflow-hidden{
   overflow: hidden;
