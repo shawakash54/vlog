@@ -12,6 +12,7 @@ import vulgar.constants as vulgar_constants
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 import itertools
+import random
 
 
 class HomePageView(TemplateView):
@@ -183,11 +184,17 @@ class PostPageView(TemplateView):
             context['meta'] = vulgar_utils.get_meta_info('article_page', blog_language, language_code)
             context['alternate_language'] = vulgar_utils.get_alternate_language('article_page', blog_language)
             context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('article_page', blog_language, language_code)
+            context['background_image'] = f'images/background-image-{self.generate_random_number(1,10)}.jpeg'
         else:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
             vulgar_utils.log_missing(text = slug, model_type = vulgar_models.BlogLanguage)
         return context
+
+    def generate_random_number(self, a, b):
+        if b is None:
+            a, b = 0, a
+        return random.randint(a, b)
 
     def get_popular_blogs(self, slug, language_code):
         return vulgar_serializers.BlogLanguageSerializer(\

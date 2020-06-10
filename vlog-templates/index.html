@@ -13,7 +13,12 @@
         <div class="row">
             <div class="col-12">
               {% trans "Trending Posts" as home_page_title_1 %}
-              <h2>{{ home_page_title_1 }}</h2>
+              <!-- <h2>{{ home_page_title_1 }}</h2> -->
+              <h3 class="category-heading mb-2">
+                <i class="category-cation">{{ home_page_title_1.0 }}</i>
+                <span class="lifestyle-span"></span>
+                {{ home_page_title_1 }}
+              </h3>
             </div>
         </div>
         <div class="row align-items-stretch retro-layout-2">
@@ -76,12 +81,17 @@
         <div class="row">
           <div class="col-12">
             {% trans "Recent Posts" as home_page_title_2 %}
-            <h2>{{ home_page_title_2 }}</h2>
+            <!-- <h2>{{ home_page_title_2 }}</h2> -->
+            <h3 class="category-heading mb-2">
+              <i class="category-cation">{{ home_page_title_2.0 }}</i>
+              <span class="lifestyle-span"></span>
+              {{ home_page_title_2 }}
+            </h3>
           </div>
         </div>
         <div class="row">
           {% for recent_blog_language in recent_blog_languages %}
-            <div class="col-lg-4 mb-4">
+            <div class="col-lg-4 mb-1">
               <div class="entry2 ">
                 <a href="/{{LANGUAGE_CODE}}/{{recent_blog_language.blog.primary_category.slug}}/{{recent_blog_language.blog.slug}}/">
                   <img 
@@ -96,7 +106,7 @@
                   <span class="post-category text-white bg-secondary mb-3">{{recent_blog_category.name}}</span>
                 {% endfor %}
 
-                <h2 class="overflow-hidden height-80"><a href="/{{LANGUAGE_CODE}}/{{recent_blog_language.blog.primary_category.slug}}/{{recent_blog_language.blog.slug}}/">{{recent_blog_language.title}}</a></h2>
+                <h2 class="overflow-hidden"><a href="/{{LANGUAGE_CODE}}/{{recent_blog_language.blog.primary_category.slug}}/{{recent_blog_language.blog.slug}}/">{{recent_blog_language.title}}</a></h2>
                 <!-- <div class="post-meta align-items-center text-left clearfix">
                   <figure class="author-figure mb-0 mr-3 float-left"><img src="{% static 'images/person_1.jpg' %}" alt="Image" class="img-fluid"></figure>
                   <span class="d-inline-block mt-1">By <a href="#">{{recent_blog_language.creator.auth_user.username}}</a></span>
@@ -132,7 +142,12 @@
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Politics</h2>
+                <!-- <h2>Politics</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">P</i>
+                  <span class="lifestyle-span"></span>
+                  Politics
+                </h3>
               </div>
             </div>
             <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
@@ -160,7 +175,12 @@
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Economy</h2>
+                <!-- <h2>Economy</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">E</i>
+                  <span class="lifestyle-span"></span>
+                  Economy
+                </h3>
               </div>
             </div>
             <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
@@ -194,7 +214,12 @@
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Sports</h2>
+                <!-- <h2>Sports</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">S</i>
+                  <span class="lifestyle-span"></span>
+                  Sports
+                </h3>
               </div>
             </div>
             <div id="carouselExampleControls3" class="carousel slide" data-ride="carousel">
@@ -229,7 +254,12 @@
           <div class="col-md-4 col-sm-12 col-xs-12">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Highlighted</h2>
+                <!-- <h2>Highlighted</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">H</i>
+                  <span class="lifestyle-span"></span>
+                  Highlighted
+                </h3>
               </div>
             </div>
             <a href="/en/politics/pandemic-politics-pits-trump-public-health-officials-politics-2/" class="h-entry mb-30 v-height-2 gradient" aria-label="pandemic-politics" title="Pandemic Politics" alt="pandemic-politics" style="background-image: url(/media/pandemic-politics.jpg);">
@@ -252,7 +282,12 @@
           <div class="col-md-8 col-sm-12 col-xs-12">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Don't Miss</h2>
+                <!-- <h2>Don't Miss</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">D</i>
+                  <span class="lifestyle-span"></span>
+                  Don't Miss
+                </h3>
               </div>
             </div>
             <a href="/en/politics/pandemic-politics-pits-trump-public-health-officials-politics-2/" class="h-entry mb-30 v-height-2 gradient" aria-label="pandemic-politics" title="Pandemic Politics" alt="pandemic-politics" style="background-image: url(/media/pandemic-politics.jpg);">
@@ -282,7 +317,12 @@
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Sexual Wellness</h2>
+                <!-- <h2>Sexual Wellness</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">S</i>
+                  <span class="lifestyle-span"></span>
+                  Sexual Wellness
+                </h3>
               </div>
             </div>
             <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
@@ -310,7 +350,12 @@
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Entertainment</h2>
+                <!-- <h2>Entertainment</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">E</i>
+                  <span class="lifestyle-span"></span>
+                  Entertainment
+                </h3>
               </div>
             </div>
             <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
@@ -344,7 +389,12 @@
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
               <div class="col-12">
-                <h2>Fashion</h2>
+                <!-- <h2>Fashion</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">F</i>
+                  <span class="lifestyle-span"></span>
+                  Fashion
+                </h3>
               </div>
             </div>
             <div id="carouselExampleControls3" class="carousel slide" data-ride="carousel">
@@ -378,7 +428,12 @@
         <div class="row mb-3">
             <div class="col-12">
               {% trans "Specials" as home_page_title_3 %}
-              <h2>{{constants.APP_NAME}} {{ home_page_title_3 }}</h2>
+              <!-- <h2>{{constants.APP_NAME}} {{ home_page_title_3 }}</h2> -->
+              <h3 class="category-heading mb-2">
+                <i class="category-cation">TI</i>
+                <span class="lifestyle-span"></span>
+                {{constants.APP_NAME}} {{ home_page_title_3 }}
+              </h3>
             </div>
         </div>
         <div class="row align-items-stretch retro-layout">

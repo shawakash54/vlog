@@ -938,7 +938,7 @@ h1, h2, h3, h4, h5,
       padding-left: 15px; } }
 
 .sidebar-box {
-  margin-bottom: 4em;
+  margin-bottom: 1em;
   font-size: 15px;
   width: 100%;
   float: left;
@@ -1180,6 +1180,10 @@ h1, h2, h3, h4, h5,
       display: table; }
       .post-entry-sidebar ul li a img {
         width: 90px; }
+      .post-entry-sidebar ul li a img, .article-page-image {
+          height: 130px;
+          width: 180px;
+        }
       .post-entry-sidebar ul li a img, .post-entry-sidebar ul li a .text {
         display: table-cell;
         vertical-align: middle; }
@@ -1379,3 +1383,23 @@ h1, h2, h3, h4, h5,
 .carousel-text-color {
   color: white;
 }
+
+.post-content-override {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+.newsletter-box {
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.article-page-popular-text {
+  font-size: 12px;
+  color: black;
+}
+
+.article-page-popular-text span:hover {
+  color: #046df4;
+  text-decoration: none; }

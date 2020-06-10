@@ -1,3 +1,4 @@
+{% load static %}
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160832830-1"></script>
@@ -31,7 +32,8 @@
             g._v="1.2.0";
         })(window,document,window['_fs_namespace'],'script','user');
     </script>
-
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/trikonindia.png' %}"/>
 
     <title>{{meta.title}}</title>
     <meta charset="utf-8">

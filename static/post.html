@@ -11,7 +11,7 @@
 
     {% include 'navbar.html' %}
 
-    <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url({% static 'images/img_2.jpg' %});">
+    <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url({% static background_image %});">
       <div class="container">
         <div class="row same-height justify-content-center">
           <div class="col-md-12 col-lg-10">
@@ -44,7 +44,7 @@
           
         <div class="row blog-entries element-animate mr-0">
           <div class="col-md-12 col-lg-8 main-content">
-            <div class="post-content-body">
+            <div class="post-content-body post-content-override">
               {% autoescape off %}{{ blog_language.content }}{% endautoescape %}
             </div>
             <div class="pt-2">
@@ -107,9 +107,9 @@
                           aria-label="{{popular_blog_language.blog.thumbnail_image.alt_tag}}" 
                           alt="{{popular_blog_language.blog.thumbnail_image.alt_tag}}"
                           title="{{popular_blog_language.blog.thumbnail_image.title}}"  
-                          class="mr-4">
-                        <div class="text">
-                          <h4>{{popular_blog_language.title}}</h4>
+                          class="mr-4 article-page-image">
+                        <div class="text article-page-popular-text">
+                          <span>{{popular_blog_language.title}}</span>
                           <div class="post-meta">
                             <span class="mr-2">{{popular_blog_language.created_at}}</span>
                           </div>
@@ -145,7 +145,7 @@
         </div>
       </div>
     </section>
-    <div class="sharethis-inline-follow-buttons mb-3"></div>
+    <!-- <div class="sharethis-inline-follow-buttons mb-3"></div> -->
     <div class="site-section bg-light">
       <div class="container">
 
