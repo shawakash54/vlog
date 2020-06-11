@@ -21,7 +21,7 @@
               </h3>
             </div>
         </div>
-        <div class="row align-items-stretch retro-layout-2">
+        <div class="row align-items-stretch retro-layout-2" id="trending_posts">
           {% if trending_blog_languages %}
             {% for trending_blog_language in trending_blog_languages %}
               {% if forloop.counter != 3 %}
@@ -79,6 +79,7 @@
     <div class="site-section">
       <div class="container">
         <div class="row">
+          <span class="anchor-padding" id="recent_posts"></span>
           <div class="col-12">
             {% trans "Recent Posts" as home_page_title_2 %}
             <!-- <h2>{{ home_page_title_2 }}</h2> -->
@@ -136,7 +137,7 @@
       </div>
     </div>
 
-    <div class="site-section">
+    <div class="site-section bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
@@ -251,7 +252,8 @@
     <div class="site-section">
       <div class="container">
         <div class="row align-items-stretch retro-layout-2">
-          <div class="col-md-4 col-sm-12 col-xs-12">
+          <span class="anchor-padding" id="highlighted_posts"></span>
+          <div class="col-md-4 col-sm-12 col-xs-12" >
             <div class="row mb-3">
               <div class="col-12">
                 <!-- <h2>Highlighted</h2> -->
@@ -280,10 +282,11 @@
             </a>
           </div>
           <div class="col-md-8 col-sm-12 col-xs-12">
-            <div class="row mb-3">
+            <span class="anchor-padding" id="dont_miss_posts"></span>
+            <div class="row mb-3" >
               <div class="col-12">
                 <!-- <h2>Don't Miss</h2> -->
-                <h3 class="category-heading mb-2">
+                <h3 class="category-heading mb-2" >
                   <i class="category-cation">D</i>
                   <span class="lifestyle-span"></span>
                   Don't Miss
@@ -311,7 +314,7 @@
       </div>
     </div>
 
-    <div class="site-section">
+    <div class="site-section bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
@@ -423,8 +426,9 @@
       </div>
     </div>
 
-    <div class="site-section bg-light">
+    <div class="site-section">
       <div class="container">
+        <span class="anchor-padding" id="trikonindia_specials_posts"></span>
         <div class="row mb-3">
             <div class="col-12">
               {% trans "Specials" as home_page_title_3 %}
@@ -530,6 +534,12 @@
     <div class="sharethis-inline-follow-buttons mb-3"></div>
 
     {% include 'footer.html' %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom bottom-nav-bar">
+      <a href="#recent_posts" >Recent Posts</a>
+      <a href="#highlighted_posts" >Highlighted</a>
+      <a href="#dont_miss_posts" >Don't Miss</a>
+      <a href="#trikonindia_specials_posts" >TrikonIndia Specials</a>
+    </nav>
 
   </body>
 </html>
