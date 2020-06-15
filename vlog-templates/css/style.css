@@ -1435,3 +1435,7 @@ h1, h2, h3, h4, h5,
     visibility: hidden;
   }
 }
+
+.h-270 {
+  height: 270px;
+}

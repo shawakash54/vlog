@@ -1,10 +1,15 @@
 /* Base */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   line-height: 1.7;
   color: gray;
   font-weight: 300;
   font-size: 1rem;
   background: #fff;
+  scroll-behavior: smooth;
   font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
 
 ::-moz-selection {
@@ -1403,3 +1408,34 @@ h1, h2, h3, h4, h5,
 .article-page-popular-text span:hover {
   color: #046df4;
   text-decoration: none; }
+
+.bottom-nav-bar {
+  font-size: 10px;
+  font-weight: 800;
+  height: 40px;
+}
+
+.bottom-nav-bar a {
+  color: white;
+}
+
+.bottom-nav-bar a:hover {
+  color: #046df4;
+  text-decoration: none; }
+
+.anchor-padding {
+  display: block;
+  height: 42px; /*same height as header*/
+  margin-top: -42px; /*same height as header*/
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .bottom-nav-bar{
+    visibility: hidden;
+  }
+}
+
+.h-270 {
+  height: 270px;
+}

@@ -52,6 +52,12 @@ class HomePageView(TemplateView):
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
+        context['politics_category_language'], context['politics_category_blog_languages'] = self.get_category_blogs('politics', language_code)
+        context['economy_category_language'], context['economy_category_blog_languages'] = self.get_category_blogs('economy', language_code)
+        context['sports_category_language'], context['sports_category_blog_languages'] = self.get_category_blogs('sports', language_code)
+        context['sexual_wellness_category_language'], context['sexual_wellness_category_blog_languages'] = self.get_category_blogs('sexual-wellness', language_code)
+        context['entertainment_category_language'], context['entertainment_category_blog_languages'] = self.get_category_blogs('entertainment', language_code)
+        context['health_category_language'], context['health_category_blog_languages'] = self.get_category_blogs('health', language_code)
         context['special_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models\
                                     .Tag.published_objects.filter(name__icontains='Special').first()\
@@ -64,9 +70,55 @@ class HomePageView(TemplateView):
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
+        context['highlighted_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
+                                vulgar_models\
+                                    .Tag.published_objects.filter(name__icontains='Highlighted').first()\
+                                    .blogs.filter(language__slug=language_code)\
+                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
+                                    .order_by('-created_at')[:2],
+                                many=True,
+                                context={'language_code': language_code}
+                            ).data
+        context['dmiss_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
+                                vulgar_models\
+                                    .Tag.published_objects.filter(name__icontains="Don't Miss").first()\
+                                    .blogs.filter(language__slug=language_code)\
+                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                    'blog__social_media_image', 'creator__auth_user', )\
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
+                                    .order_by('-created_at')[:2],
+                                many=True,
+                                context={'language_code': language_code}
+                            ).data
         context['constants'] = vulgar_constants
         context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('home_page', None, language_code, context['categories_languages'])
         return context
+
+    def get_category_blogs(self, category_slug, language_code):
+        category = vulgar_models.CategoryLanguage.published_objects.filter(
+                    category__slug=category_slug,
+                    language__slug=language_code
+                ).last()
+        category_blogs = vulgar_serializers.BlogLanguageSerializer(\
+                                vulgar_models.BlogLanguage\
+                                    .published_objects\
+                                    .filter(
+                                        blog__category__categorylanguage=category,
+                                        language__slug=language_code
+                                    )\
+                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                                    'blog__hero_image', 'blog__thumbnail_image', \
+                                                                    'blog__social_media_image', 'creator__auth_user', )\
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )[:5],
+                                many=True,
+                                context={'language_code': language_code}
+                            ).data
+        return [category, category_blogs]
+        
 
 
 class CategoryPageView(TemplateView):

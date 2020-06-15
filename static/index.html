@@ -8,6 +8,7 @@
   
   <div class="site-wrap">
     {% include 'navbar.html' %}
+    <!-- Trending Posts -->
     <div class="site-section bg-light">
       <div class="container">
         <div class="row">
@@ -21,7 +22,7 @@
               </h3>
             </div>
         </div>
-        <div class="row align-items-stretch retro-layout-2">
+        <div class="row align-items-stretch retro-layout-2" id="trending_posts">
           {% if trending_blog_languages %}
             {% for trending_blog_language in trending_blog_languages %}
               {% if forloop.counter != 3 %}
@@ -76,9 +77,11 @@
       </div>
     </div>
 
+    <!-- Recent Posts -->
     <div class="site-section">
       <div class="container">
         <div class="row">
+          <span class="anchor-padding" id="recent_posts"></span>
           <div class="col-12">
             {% trans "Recent Posts" as home_page_title_2 %}
             <!-- <h2>{{ home_page_title_2 }}</h2> -->
@@ -136,7 +139,8 @@
       </div>
     </div>
 
-    <div class="site-section">
+    <!-- Politics, Economics, Sports Carousel -->
+    <div class="site-section bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
@@ -144,287 +148,385 @@
               <div class="col-12">
                 <!-- <h2>Politics</h2> -->
                 <h3 class="category-heading mb-2">
-                  <i class="category-cation">P</i>
+                  <i class="category-cation">{{ politics_category_language.name.0 }}</i>
                   <span class="lifestyle-span"></span>
-                  Politics
+                  {{ politics_category_language.name }}
                 </h3>
               </div>
             </div>
-            <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
+            <div id="politicsCategoryCarousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Third slide">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
-            <div class="row mb-3">
-              <div class="col-12">
-                <!-- <h2>Economy</h2> -->
-                <h3 class="category-heading mb-2">
-                  <i class="category-cation">E</i>
-                  <span class="lifestyle-span"></span>
-                  Economy
-                </h3>
-              </div>
-            </div>
-            <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="First slide">
-                  <div class="post-content caro image-text">
-                    <div class="entry-title">
-                      <a href="category" class="caticon carousel-text-color"><span class="post-category text-white bg-secondary mb-3">Politics</span></a>
-                      <h4><a href="link" class="title carousel-text-color">UK debates banning Donald Trump</a></h4>
+                {% for politics_blog_language in politics_category_blog_languages %}
+                  {% if forloop.counter == 1 %}
+                  <div class="carousel-item active">
+                  {% endif %}
+                  {% if forloop.counter > 1 %}
+                  <div class="carousel-item ">
+                  {% endif %}
+                    <img class="d-block w-100 h-270" src="{{politics_blog_language.blog.hero_image.url}}" alt="{{ politics_blog_language.blog.hero_image.alt_tag }}">
+                    <div class="post-content caro image-text">
+                      <div class="entry-title">
+                        {% for political_blog_category in politics_blog_language.present_category_language.all %}
+                          <a href="/{{LANGUAGE_CODE}}/{{political_blog_category.category.slug}}" class="caticon carousel-text-color">
+                            <span class="post-category text-white bg-secondary mb-3">
+                              {{ political_blog_category.name }}
+                            </span>
+                          </a>
+                        {% endfor %}
+                        <h5>
+                          <a href="/{{LANGUAGE_CODE}}/{{politics_blog_language.blog.primary_category.slug}}/{{politics_blog_language.blog.slug}}" class="title carousel-text-color">
+                            {{politics_blog_language.title}}
+                          </a>
+                        </h5>
+                      </div>
                     </div>
                   </div>
+                {% endfor %}
                 </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Third slide">
-                </div>
+                <a class="carousel-control-prev" href="#politicsCategoryCarousel" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#politicsCategoryCarousel" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+            </div>
+          <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
+            <div class="row mb-3">
+              <div class="col-12">
+                <!-- <h2>Politics</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">{{ economy_category_language.name.0 }}</i>
+                  <span class="lifestyle-span"></span>
+                  {{ economy_category_language.name }}
+                </h3>
+              </div>
+            </div>
+            <div id="economyCategoryCarousel" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                {% for economy_blog_language in economy_category_blog_languages %}
+                  {% if forloop.counter == 1 %}
+                  <div class="carousel-item active">
+                  {% endif %}
+                  {% if forloop.counter > 1 %}
+                  <div class="carousel-item ">
+                  {% endif %}
+                    <img class="d-block w-100 h-270" src="{{economy_blog_language.blog.hero_image.url}}" alt="{{ economy_blog_language.blog.hero_image.alt_tag }}">
+                    <div class="post-content caro image-text">
+                      <div class="entry-title">
+                        {% for economic_blog_category in economy_blog_language.present_category_language.all %}
+                          <a href="/{{LANGUAGE_CODE}}/{{economic_blog_category.category.slug}}" class="caticon carousel-text-color">
+                            <span class="post-category text-white bg-secondary mb-3">
+                              {{ economic_blog_category.name }}
+                            </span>
+                          </a>
+                        {% endfor %}
+                        <h5>
+                          <a href="/{{LANGUAGE_CODE}}/{{economy_blog_language.blog.primary_category.slug}}/{{economy_blog_language.blog.slug}}" class="title carousel-text-color">
+                            {{economy_blog_language.title}}
+                          </a>
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#economyCategoryCarousel" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#economyCategoryCarousel" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
             </div>
           </div>
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
-              <div class="col-12">
-                <!-- <h2>Sports</h2> -->
-                <h3 class="category-heading mb-2">
-                  <i class="category-cation">S</i>
-                  <span class="lifestyle-span"></span>
-                  Sports
-                </h3>
-              </div>
-            </div>
-            <div id="carouselExampleControls3" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Third slide">
+                <div class="col-12">
+                  <!-- <h2>Politics</h2> -->
+                  <h3 class="category-heading mb-2">
+                    <i class="category-cation">{{ sports_category_language.name.0 }}</i>
+                    <span class="lifestyle-span"></span>
+                    {{ sports_category_language.name }}
+                  </h3>
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls3" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls3" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
+              <div id="sportsCategoryCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  {% for sports_blog_language in sports_category_blog_languages %}
+                    {% if forloop.counter == 1 %}
+                    <div class="carousel-item active">
+                    {% endif %}
+                    {% if forloop.counter > 1 %}
+                    <div class="carousel-item ">
+                    {% endif %}
+                      <img class="d-block w-100 h-270" src="{{sports_blog_language.blog.hero_image.url}}" alt="{{ sports_blog_language.blog.hero_image.alt_tag }}">
+                      <div class="post-content caro image-text">
+                        <div class="entry-title">
+                          {% for sports_blog_category in sports_blog_language.present_category_language.all %}
+                            <a href="/{{LANGUAGE_CODE}}/{{sports_blog_category.category.slug}}" class="caticon carousel-text-color">
+                              <span class="post-category text-white bg-secondary mb-3">
+                                {{ sports_blog_category.name }}
+                              </span>
+                            </a>
+                          {% endfor %}
+                          <h5>
+                            <a href="/{{LANGUAGE_CODE}}/{{sports_blog_language.blog.primary_category.slug}}/{{sports_blog_language.blog.slug}}" class="title carousel-text-color">
+                              {{sports_blog_language.title}}
+                            </a>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  </div>
+                  <a class="carousel-control-prev" href="#sportsCategoryCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#sportsCategoryCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Highlighted, Don't Miss -->
     <div class="site-section">
       <div class="container">
         <div class="row align-items-stretch retro-layout-2">
-          <div class="col-md-4 col-sm-12 col-xs-12">
+          <span class="anchor-padding" id="highlighted_posts"></span>
+          <div class="col-md-4 col-sm-12 col-xs-12" >
             <div class="row mb-3">
               <div class="col-12">
                 <!-- <h2>Highlighted</h2> -->
                 <h3 class="category-heading mb-2">
                   <i class="category-cation">H</i>
                   <span class="lifestyle-span"></span>
-                  Highlighted
+                  {% trans "Highlighted" as home_page_title_4 %}
+                  {{ home_page_title_4 }}
                 </h3>
               </div>
             </div>
-            <a href="/en/politics/pandemic-politics-pits-trump-public-health-officials-politics-2/" class="h-entry mb-30 v-height-2 gradient" aria-label="pandemic-politics" title="Pandemic Politics" alt="pandemic-politics" style="background-image: url(/media/pandemic-politics.jpg);">
-              <div class="text image-text">
-                <div class="post-categories mb-2">
-                    <span class="post-category bg-info">Health</span>
+            {% for highlighted_blog_language in highlighted_blog_languages %}
+              <a href="/{{LANGUAGE_CODE}}/{{highlighted_blog_language.blog.primary_category.slug}}/{{highlighted_blog_language.blog.slug}}" 
+                  class="h-entry mb-30 v-height-2 gradient" 
+                  alt="{{ highlighted_blog_language.blog.hero_image.alt_tag }}" 
+                  style="background-image: url({{highlighted_blog_language.blog.hero_image.url}});">
+                <div class="text image-text">
+                  <div class="post-categories mb-2">
+                      {% for highlighted_blog_category in highlighted_blog_language.present_category_language.all %}
+                        <span class="post-category bg-info">{{ highlighted_blog_category.name }}</span>
+                      {% endfor %}
+                  </div>
+                  <h2>{{ highlighted_blog_language.title }}</h2>
                 </div>
-                <h2>Pandemic Politics pits Trump against health officials. Many others like New York are seeing steady drops in infections but are still suffering large numbers of sick and dying people</h2>
-              </div>
-            </a>
-            <a href="/en/politics/pandemic-politics-pits-trump-public-health-officials-politics-2/" class="h-entry mb-30 v-height-2 gradient" aria-label="pandemic-politics" title="Pandemic Politics" alt="pandemic-politics" style="background-image: url(/media/pandemic-politics.jpg);">
-              <div class="text image-text">
-                <div class="post-categories mb-2">
-                    <span class="post-category bg-info">Health</span>
-                </div>
-                <h2>Pandemic Politics pits Trump against health officials. Many others like New York are seeing steady drops in infections but are still suffering large numbers of sick and dying people</h2>
-              </div>
-            </a>
+              </a>
+            {% endfor %}
           </div>
           <div class="col-md-8 col-sm-12 col-xs-12">
-            <div class="row mb-3">
+            <span class="anchor-padding" id="dont_miss_posts"></span>
+            <div class="row mb-3" >
               <div class="col-12">
                 <!-- <h2>Don't Miss</h2> -->
-                <h3 class="category-heading mb-2">
+                <h3 class="category-heading mb-2" >
                   <i class="category-cation">D</i>
                   <span class="lifestyle-span"></span>
-                  Don't Miss
+                  {% trans "Don't Miss" as home_page_title_5 %}
+                  {{ home_page_title_5 }}
                 </h3>
               </div>
             </div>
-            <a href="/en/politics/pandemic-politics-pits-trump-public-health-officials-politics-2/" class="h-entry mb-30 v-height-2 gradient" aria-label="pandemic-politics" title="Pandemic Politics" alt="pandemic-politics" style="background-image: url(/media/pandemic-politics.jpg);">
-              <div class="text image-text">
-                <div class="post-categories mb-2">
-                    <span class="post-category bg-info">Health</span>
+            {% for dmiss_blog_language in dmiss_blog_languages %}
+              <a href="/{{LANGUAGE_CODE}}/{{dmiss_blog_language.blog.primary_category.slug}}/{{dmiss_blog_language.blog.slug}}"  
+                  class="h-entry mb-30 v-height-2 gradient" 
+                  alt="{{ dmiss_blog_language.blog.hero_image.alt_tag }}" 
+                  style="background-image: url({{dmiss_blog_language.blog.hero_image.url}});">
+                <div class="text image-text">
+                  <div class="post-categories mb-2">
+                      {% for dmiss_blog_category in dmiss_blog_language.present_category_language.all %}
+                        <span class="post-category bg-info">{{ dmiss_blog_category.name }}</span>
+                      {% endfor %}
+                  </div>
+                  <h2>{{ dmiss_blog_language.title }}</h2>
                 </div>
-                <h2>Pandemic Politics pits Trump against health officials. Many others like New York are seeing steady drops in infections but are still suffering large numbers of sick and dying people</h2>
-              </div>
-            </a>
-            <a href="/en/politics/pandemic-politics-pits-trump-public-health-officials-politics-2/" class="h-entry mb-30 v-height-2 gradient" aria-label="pandemic-politics" title="Pandemic Politics" alt="pandemic-politics" style="background-image: url(/media/pandemic-politics.jpg);">
-              <div class="text image-text">
-                <div class="post-categories mb-2">
-                    <span class="post-category bg-info">Health</span>
-                </div>
-                <h2>Pandemic Politics pits Trump against health officials. Many others like New York are seeing steady drops in infections but are still suffering large numbers of sick and dying people</h2>
-              </div>
-            </a>
+              </a>
+            {% endfor %}
           </div>
         </div>
       </div>
     </div>
 
-    <div class="site-section">
+    <!-- Sexual wellness, Entertainment, Health carousel -->
+    <div class="site-section bg-light">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
               <div class="col-12">
-                <!-- <h2>Sexual Wellness</h2> -->
+                <!-- <h2>Politics</h2> -->
                 <h3 class="category-heading mb-2">
-                  <i class="category-cation">S</i>
+                  <i class="category-cation">{{ sexual_wellness_category_language.name.0 }}</i>
                   <span class="lifestyle-span"></span>
-                  Sexual Wellness
+                  {{ sexual_wellness_category_language.name }}
                 </h3>
               </div>
             </div>
-            <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
+            <div id="sexualwellnessCategoryCarousel" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Third slide">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
-            <div class="row mb-3">
-              <div class="col-12">
-                <!-- <h2>Entertainment</h2> -->
-                <h3 class="category-heading mb-2">
-                  <i class="category-cation">E</i>
-                  <span class="lifestyle-span"></span>
-                  Entertainment
-                </h3>
-              </div>
-            </div>
-            <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="First slide">
-                  <div class="post-content caro image-text">
-                    <div class="entry-title">
-                      <a href="category" class="caticon carousel-text-color"><span class="post-category text-white bg-secondary mb-3">Politics</span></a>
-                      <h4><a href="link" class="title carousel-text-color">UK debates banning Donald Trump</a></h4>
+                {% for sexual_blog_language in sexual_wellness_category_blog_languages %}
+                  {% if forloop.counter == 1 %}
+                  <div class="carousel-item active">
+                  {% endif %}
+                  {% if forloop.counter > 1 %}
+                  <div class="carousel-item ">
+                  {% endif %}
+                    <img class="d-block w-100 h-270" src="{{sexual_blog_language.blog.hero_image.url}}" alt="{{ sexual_blog_language.blog.hero_image.alt_tag }}">
+                    <div class="post-content caro image-text">
+                      <div class="entry-title">
+                        {% for sexual_blog_category in sexual_blog_language.present_category_language.all %}
+                          <a href="/{{LANGUAGE_CODE}}/{{sexual_blog_category.category.slug}}" class="caticon carousel-text-color">
+                            <span class="post-category text-white bg-secondary mb-3">
+                              {{ sexual_blog_category.name }}
+                            </span>
+                          </a>
+                        {% endfor %}
+                        <h5>
+                          <a href="/{{LANGUAGE_CODE}}/{{sexual_blog_language.blog.primary_category.slug}}/{{sexual_blog_language.blog.slug}}" class="title carousel-text-color">
+                            {{sexual_blog_language.title}}
+                          </a>
+                        </h5>
+                      </div>
                     </div>
                   </div>
+                {% endfor %}
                 </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Third slide">
-                </div>
+                <a class="carousel-control-prev" href="#sexualwellnessCategoryCarousel" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#sexualwellnessCategoryCarousel" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+            </div>
+          <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
+            <div class="row mb-3">
+              <div class="col-12">
+                <!-- <h2>Politics</h2> -->
+                <h3 class="category-heading mb-2">
+                  <i class="category-cation">{{ entertainment_category_language.name.0 }}</i>
+                  <span class="lifestyle-span"></span>
+                  {{ entertainment_category_language.name }}
+                </h3>
+              </div>
+            </div>
+            <div id="entertainmentCategoryCarousel" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                {% for entertainment_blog_language in entertainment_category_blog_languages %}
+                  {% if forloop.counter == 1 %}
+                  <div class="carousel-item active">
+                  {% endif %}
+                  {% if forloop.counter > 1 %}
+                  <div class="carousel-item ">
+                  {% endif %}
+                    <img class="d-block w-100 h-270" src="{{entertainment_blog_language.blog.hero_image.url}}" alt="{{ entertainment_blog_language.blog.hero_image.alt_tag }}">
+                    <div class="post-content caro image-text">
+                      <div class="entry-title">
+                        {% for entertainment_blog_category in entertainment_blog_language.present_category_language.all %}
+                          <a href="/{{LANGUAGE_CODE}}/{{entertainment_blog_category.category.slug}}" class="caticon carousel-text-color">
+                            <span class="post-category text-white bg-secondary mb-3">
+                              {{ entertainment_blog_category.name }}
+                            </span>
+                          </a>
+                        {% endfor %}
+                        <h5>
+                          <a href="/{{LANGUAGE_CODE}}/{{entertainment_blog_language.blog.primary_category.slug}}/{{entertainment_blog_language.blog.slug}}" class="title carousel-text-color">
+                            {{entertainment_blog_language.title}}
+                          </a>
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#entertainmentCategoryCarousel" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#entertainmentCategoryCarousel" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
             </div>
           </div>
           <div class="col-md-4 col-sm-12 col-xs-12 section-carousel">
             <div class="row mb-3">
-              <div class="col-12">
-                <!-- <h2>Fashion</h2> -->
-                <h3 class="category-heading mb-2">
-                  <i class="category-cation">F</i>
-                  <span class="lifestyle-span"></span>
-                  Fashion
-                </h3>
-              </div>
-            </div>
-            <div id="carouselExampleControls3" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="{% static 'images/person_1.jpg' %}" alt="Third slide">
+                <div class="col-12">
+                  <!-- <h2>Politics</h2> -->
+                  <h3 class="category-heading mb-2">
+                    <i class="category-cation">{{ health_category_language.name.0 }}</i>
+                    <span class="lifestyle-span"></span>
+                    {{ health_category_language.name }}
+                  </h3>
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls3" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls3" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
+              <div id="healthCategoryCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  {% for health_blog_language in health_category_blog_languages %}
+                    {% if forloop.counter == 1 %}
+                    <div class="carousel-item active">
+                    {% endif %}
+                    {% if forloop.counter > 1 %}
+                    <div class="carousel-item ">
+                    {% endif %}
+                      <img class="d-block w-100 h-270" src="{{health_blog_language.blog.hero_image.url}}" alt="{{ health_blog_language.blog.hero_image.alt_tag }}">
+                      <div class="post-content caro image-text">
+                        <div class="entry-title">
+                          {% for health_blog_category in health_blog_language.present_category_language.all %}
+                            <a href="/{{LANGUAGE_CODE}}/{{health_blog_category.category.slug}}" class="caticon carousel-text-color">
+                              <span class="post-category text-white bg-secondary mb-3">
+                                {{ health_blog_category.name }}
+                              </span>
+                            </a>
+                          {% endfor %}
+                          <h5>
+                            <a href="/{{LANGUAGE_CODE}}/{{health_blog_language.blog.primary_category.slug}}/{{health_blog_language.blog.slug}}" class="title carousel-text-color">
+                              {{health_blog_language.title}}
+                            </a>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  </div>
+                  <a class="carousel-control-prev" href="#healthCategoryCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#healthCategoryCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="site-section bg-light">
+    <!-- TrikonIndia Specials -->
+    <div class="site-section">
       <div class="container">
+        <span class="anchor-padding" id="trikonindia_specials_posts"></span>
         <div class="row mb-3">
             <div class="col-12">
               {% trans "Specials" as home_page_title_3 %}
@@ -530,6 +632,12 @@
     <div class="sharethis-inline-follow-buttons mb-3"></div>
 
     {% include 'footer.html' %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom bottom-nav-bar">
+      <a href="#recent_posts" >Recent Posts</a>
+      <a href="#highlighted_posts" >Highlighted</a>
+      <a href="#dont_miss_posts" >Don't Miss</a>
+      <a href="#trikonindia_specials_posts" >TrikonIndia Specials</a>
+    </nav>
 
   </body>
 </html>
