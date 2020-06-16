@@ -11,6 +11,7 @@
     {% include 'navbar.html' %}
     
     <div class="container">
+      {% include 'search.html' %}
       <div class="py-3 bg-light">
         <div class="container">
           <div class="row">
@@ -38,7 +39,7 @@
         {% render_breadcrumbs %}
         <div class="row">
           {% if category_language %}
-            {% for blog_language in category_language.blogs %}
+            {% for blog_language in category_blogs %}
               <div class="col-lg-4 mb-4">
                 <div class="entry2">
                   <a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/" class="category-blog-image">
@@ -71,18 +72,19 @@
           {% endif %}
         </div>
         <div class="sharethis-inline-follow-buttons mb-3"></div>
-        <!-- <div class="row text-center pt-5 border-top">
+        <div class="row text-center pt-5 border-top">
           <div class="col-md-12">
             <div class="custom-pagination">
-              <span>1</span>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <span>...</span>
-              <a href="#">15</a>
+              {% for page_number_loop in category_language.total_pages %}
+                {% if page_number_loop == page_number %}
+                  <span>{{ page_number_loop }}</span>
+                {% else %}
+                  <a href="?page={{page_number_loop}}">{{page_number_loop}}</a> 
+                {% endif %}
+              {% endfor %}
             </div>
           </div>
-        </div> -->
+        </div>
     </div>
   </div>
 

@@ -13,6 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 import itertools
 import random
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models.functions import Greatest
 
 
 class HomePageView(TemplateView):
@@ -126,8 +128,9 @@ class CategoryPageView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         status, template_name, category_language = self.get_template_name(*args, **kwargs)
+        page_number = int(request.GET.get('page', 1))
         return TemplateResponse(request, template_name,
-                                self.get_context_data(category_language, *args, **kwargs), status=status)
+                                self.get_context_data(category_language, page_number, *args, **kwargs), status=status)
 
     def get_template_name(self, *args, **kwargs):
         template_name = self.template_name
@@ -144,7 +147,7 @@ class CategoryPageView(TemplateView):
             template_name = 'error.html'
         return (status, template_name, category_language)
 
-    def get_context_data(self, category_language, *args, **kwargs):
+    def get_context_data(self, category_language, page_number, *args, **kwargs):
         context = super(CategoryPageView, self).get_context_data(*args, **kwargs)
         slug = kwargs.get('slug', None)
         language_code = self.request.LANGUAGE_CODE
@@ -152,7 +155,10 @@ class CategoryPageView(TemplateView):
                                     category__home_page_view=True,
                                     language__slug=language_code
                                 )
-        context['category_language'] = vulgar_serializers.CategoryLanguageSerializer(category_language, context={'language_code': language_code}).data
+        context['category_language'] = vulgar_serializers.CategoryLanguageSerializer(category_language, context={
+                                                                                                            'language_code': language_code,
+                                                                                                            'page_number': page_number
+                                                                                                        }).data
         context['constants'] = vulgar_constants
         if not category_language:
             context['message'] = 'The page you are looking for was not found.'
@@ -163,6 +169,8 @@ class CategoryPageView(TemplateView):
             context['meta'] = vulgar_utils.get_meta_info('category_page', category_language, language_code)
             context['alternate_language'] = vulgar_utils.get_alternate_language('category_page', category_language)
             context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('category_page', category_language, language_code)
+            context['category_blogs'] = context['category_language'].get('blogs')
+            context['page_number'] = page_number
         return context
 
 
@@ -237,6 +245,7 @@ class PostPageView(TemplateView):
             context['alternate_language'] = vulgar_utils.get_alternate_language('article_page', blog_language)
             context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('article_page', blog_language, language_code)
             context['background_image'] = f'images/background-image-{self.generate_random_number(1,10)}.jpeg'
+            context['share_this_display'] = True
         else:
             context['message'] = 'The page you are looking for was not found.'
             context['status'] = '404'
@@ -368,6 +377,56 @@ class NotFoundView(TemplateView):
         context['status'] = '404'
         context['constants'] = vulgar_constants
         return context
+
+
+class SearchPageView(TemplateView):
+    template_name = "searchpage.html"
+
+    def get(self, request, *args, **kwargs):
+        status, template_name = self.get_template_name(*args, **kwargs)
+        search_query = request.GET.get('search', '')
+        return TemplateResponse(request, template_name,
+                                self.get_context_data(search_query, *args, **kwargs), status=status)
+
+    def get_template_name(self, *args, **kwargs):
+        template_name = self.template_name
+        status = 200
+        return (status, template_name)
+
+    def get_context_data(self, search_query, *args, **kwargs):
+        language_code = self.request.LANGUAGE_CODE
+        context = super(SearchPageView, self).get_context_data(*args, **kwargs)
+        search_query_length = len(search_query)
+        similarity_threshold = 0.3
+        if search_query_length < 5:
+            similarity_threshold = 0.05
+        elif search_query_length < 10:
+            similarity_threshold = 0.1
+        elif search_query_length < 15:
+            similarity_threshold = 0.2
+        blogs = vulgar_models.BlogLanguage.published_objects.annotate(
+                    similarity=TrigramSimilarity('title', search_query)
+                ).filter(similarity__gt=similarity_threshold, language__slug=language_code).order_by('-similarity')\
+                .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                    'blog__hero_image', 'blog__thumbnail_image', \
+                    'blog__social_media_image', 'creator__auth_user', )\
+                .prefetch_related('language__country', 'tags', 'blog__category', )[:12]
+        context['blogs'] = vulgar_serializers.BlogLanguageSerializer(\
+                                blogs,
+                                many=True,
+                                context={'language_code': language_code}
+                            ).data
+        context['constants'] = vulgar_constants
+        context['categories_languages'] = vulgar_models.CategoryLanguage.published_objects.filter(
+                                    category__home_page_view=True,
+                                    language__slug=language_code
+                                ).select_related('category', 'language')
+        context['alternate_language'] = vulgar_utils.get_alternate_language('search_page', search_query)    
+        context['meta'] = vulgar_utils.get_meta_info('search_page', search_query, language_code)  
+        context['canonical_link'] = vulgar_utils.form_canonical_url('search_page', search_query, language_code)
+        context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('search_page', search_query, language_code)                      
+        return context
+
 
 @require_GET
 def robots_txt(request):

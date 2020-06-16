@@ -34,6 +34,10 @@ def contact_us_canonical(obj, language_code):
     return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/contact-us/'
 
 
+def search_page_canonical(search_query, language_code):
+    return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language_code}/search/?search={search_query}'
+
+
 def category_page_canonical(category_language, language_code):
     return f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{category_language.category.slug}/'
 
@@ -48,7 +52,8 @@ def form_canonical_url(page_type, obj=None, language_code = 'en'):
         'about_us': about_us_canonical,
         'contact_us': contact_us_canonical,
         'category_page': category_page_canonical,
-        'article_page': article_page_canonical
+        'article_page': article_page_canonical,
+        'search_page': search_page_canonical
     }
     return switcher.get(page_type)(obj, language_code)
 
@@ -97,6 +102,18 @@ def about_us_meta(obj, language_code):
     }
 
 
+def search_page_meta(search_query, language_code):
+    searchpage_page_meta_title = _("Search Page")
+    searchpage_page_meta_description = _("Search Page - A Newsletter, blog, complete transparency for public interest")
+    searchpage_page_keywords = _('Completely transparent newsletter, paid article writing')
+    return {
+        'title': f'{searchpage_page_meta_title} | {vulgar_constants.APP_NAME}',
+        'meta_description': f'{searchpage_page_meta_description} | {vulgar_constants.APP_NAME}',
+        'google_site_verification_code': vulgar_constants.GOOGLE_SITE_VERIFICATION_CODE,
+        'search_keywords': searchpage_page_keywords
+    }
+
+
 def category_page_meta(category_language, language_code):
     return {
         'title': f'{category_language.name} | {vulgar_constants.APP_NAME}',
@@ -121,7 +138,8 @@ def get_meta_info(page_type, obj=None, language_code = 'en'):
         'about_us': about_us_meta,
         'contact_us': contact_us_meta,
         'category_page': category_page_meta,
-        'article_page': article_page_meta
+        'article_page': article_page_meta,
+        'search_page': search_page_meta
     }
     return switcher.get(page_type)(obj, language_code)
 
@@ -142,6 +160,27 @@ def home_page_alternate_language(obj):
         {
             'code': 'x-default',
             'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/',
+            'display_name': language.display_name
+        }
+    )
+    return alternate_language
+
+
+def search_page_alternate_language(search_query):
+    alternate_language = []
+    active_languages = vulgar_models.Language.published_objects.all()
+    for language in active_languages:
+        alternate_language.append(
+            {
+                'code': language.slug,
+                'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/{language.slug}/search/?search={search_query}',
+                'display_name': language.display_name
+            }
+        )
+    alternate_language.append(
+        {
+            'code': 'x-default',
+            'link': f'{vulgar_constants.URL_SCHEME}{vulgar_constants.SECOND_LEVEL_DOMAIN}{vulgar_constants.TOP_LEVEL_DOMAIN}/en/search/?search={search_query}',
             'display_name': language.display_name
         }
     )
@@ -238,7 +277,8 @@ def get_alternate_language(page_type, obj=None):
         'about_us': about_us_alternate_language,
         'contact_us': contact_us_alternate_language,
         'category_page': category_page_alternate_language,
-        'article_page': article_page_alternate_language
+        'article_page': article_page_alternate_language,
+        'search_page': search_page_alternate_language
     }
     return switcher.get(page_type)(obj)
 
@@ -345,6 +385,43 @@ def about_us_social_media_meta_tags(obj, language_code, query_set):
     image = media.url
     image_alt = media.alt_tag
     url = form_canonical_url('about_us', obj, language_code)
+    site_name = vulgar_constants.APP_NAME
+    card = 'summary_large_image'
+    object_type = 'website'
+    locale = f'{language_code}_{vulgar_constants.COUNTRY_CODE}'
+    twitter_id = vulgar_constants.TWITTER_ID
+    alternate_language = []
+    active_languages = vulgar_models.Language.published_objects.all()
+    for language in active_languages:
+        alternate_language.append(
+            language.slug
+        )
+    article_attrs = {}
+    article_tags = []
+
+    open_graph_meta_tags = build_open_graph_meta_tags(title, description, image, url, site_name, object_type, image_alt, locale, alternate_language, article_attrs, article_tags)
+    custom_twitter_meta_tags = build_custom_twitter_meta_tags(title, description, card, image, image_alt, twitter_id)
+
+    meta_tags = {
+        'open_graph_meta_tags': open_graph_meta_tags,
+        'custom_twitter_meta_tags': custom_twitter_meta_tags,
+        'fb_app_id': vulgar_constants.FB_APP_ID,
+        'twitter_site': vulgar_constants.TWITTER_SITE
+    }
+    return meta_tags
+
+
+def search_page_social_media_meta_tags(search_query, language_code, query_set):
+    title_1 = _("Search Page")
+    title = f'{title_1} | {vulgar_constants.APP_NAME}'
+    searchpage_page_description = _("Search Page - A Newsletter, blog, complete transparency for public interest")
+    description = f'{searchpage_page_description} | {vulgar_constants.APP_NAME}'
+    media = vulgar_models.Media.objects.filter(
+                title=vulgar_constants.APP_NAME
+            ).last()
+    image = media.url
+    image_alt = media.alt_tag
+    url = form_canonical_url('search_page', search_query, language_code)
     site_name = vulgar_constants.APP_NAME
     card = 'summary_large_image'
     object_type = 'website'
@@ -487,6 +564,7 @@ def get_social_media_meta_tags(page_type, obj=None, language_code = 'en', query_
         'about_us': about_us_social_media_meta_tags,
         'contact_us': contact_us_social_media_meta_tags,
         'category_page': category_page_social_media_meta_tags,
-        'article_page': article_page_social_media_meta_tags
+        'article_page': article_page_social_media_meta_tags,
+        'search_page': search_page_social_media_meta_tags
     }
     return switcher.get(page_type)(obj, language_code, query_set)

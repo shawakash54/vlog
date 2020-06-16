@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
-from vulgar.views import HomePageView, CategoryPageView, PostPageView, DisplayContactUsPage, AboutUsPageView, SubscribeView, NotFoundView, server_error, not_found, permission_denied, bad_request, robots_txt
+from vulgar.views import HomePageView, CategoryPageView, PostPageView, DisplayContactUsPage, SearchPageView, AboutUsPageView, SubscribeView, NotFoundView, server_error, not_found, permission_denied, bad_request, robots_txt
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.sitemaps.views import sitemap
@@ -47,6 +47,7 @@ urlpatterns = [
         url(r'^/?$', HomePageView.as_view(), name='home_page_view'),
         url(r'^contact-us/?$', DisplayContactUsPage, name='contact_us_view'),
         url(r'^about-us/?$', AboutUsPageView.as_view(), name='about_us_view'),
+        url(r'^search/?$', SearchPageView.as_view(), name='search_view'),
         url(r'^(?P<slug>[-\w]+)/?$', CategoryPageView.as_view(), name='category_view'),
         url(r'^topic/(?P<slug>[\w-]+)/?$', PostPageView.as_view(), name='article_view'),
         url(r'^(?P<category_slug>[\w-]+)/(?P<slug>[\w-]+)/?$', PostPageView.as_view(), name='article_view'),

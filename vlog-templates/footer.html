@@ -69,7 +69,10 @@
 <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
-<script async src="{{constants.SHARE_THIS_API_URL}}"></script>
+{% if share_this_display %}
+    <script async src="{{constants.SHARE_THIS_API_URL}}"></script>
+{% endif %}
+
 
 
 <script>

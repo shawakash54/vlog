@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-25 12:38+0000\n"
+"POT-Creation-Date: 2020-06-16 20:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: vlog-templates/category.html:17 vlog-templates/post.html:54
-#: vlog-templates/post.html:129
+#: vlog-templates/category.html:19 vlog-templates/post.html:53
+#: vlog-templates/post.html:125
 msgid "Category"
 msgstr "केटगॉरी"
 
-#: vlog-templates/category.html:59 vlog-templates/index.html:109
+#: vlog-templates/category.html:66 vlog-templates/index.html:123
+#: vlog-templates/searchpage.html:64
 msgid "Read More"
 msgstr "अधिक पढ़ें"
 
@@ -56,7 +57,7 @@ msgid "Back to Home"
 msgstr "वापस होम"
 
 #: vlog-templates/footer.html:10 vlog-templates/pages/about-us.html:20
-#: vlog-templates/pages/about-us.html:33 vulgar/utils.py:80 vulgar/utils.py:312
+#: vlog-templates/pages/about-us.html:33 vulgar/utils.py:94 vulgar/utils.py:378
 msgid "About Us"
 msgstr "हमारे बारे में"
 
@@ -89,15 +90,23 @@ msgstr "यह ज्ञान प्राप्त करने के लि�
 msgid "it's "
 msgstr "यह "
 
-#: vlog-templates/index.html:17
+#: vlog-templates/index.html:19
 msgid "Trending Posts"
 msgstr "ट्रेंडिंग पोस्ट"
 
-#: vlog-templates/index.html:80
+#: vlog-templates/index.html:89
 msgid "Recent Posts"
 msgstr "हाल के पोस्ट"
 
-#: vlog-templates/index.html:135
+#: vlog-templates/index.html:316
+msgid "Highlighted"
+msgstr "हाइलाइट"
+
+#: vlog-templates/index.html:345
+msgid "Don't Miss"
+msgstr "देखना ज़रूर"
+
+#: vlog-templates/index.html:535
 msgid "Specials"
 msgstr "स्पेशल"
 
@@ -190,74 +199,46 @@ msgstr "अपने नोट्स या प्रश्न यहाँ ल�
 msgid "Send Message"
 msgstr "मेसेज भेजें"
 
-#: vlog-templates/post.html:60 vlog-templates/post.html:139
+#: vlog-templates/post.html:59 vlog-templates/post.html:135
 msgid "Tags"
 msgstr "टैग"
 
-#: vlog-templates/post.html:102
+#: vlog-templates/post.html:98
 msgid "Popular Posts"
 msgstr "लोकप्रिय पोस्ट"
 
-#: vulgar/settings.py:186
+#: vlog-templates/searchpage.html:15
+msgid "Search Results"
+msgstr "खोज परिणाम"
+
+#: vlog-templates/searchpage.html:72
+msgid "No Results found! Please try refining your search"
+msgstr "कोई परिणाम नहीं मिला। कृपया अपनी खोज को परिष्कृत करने का प्रयास करें।"
+
+#: vulgar/settings.py:199
 msgid "English"
 msgstr ""
 
-#: vulgar/settings.py:187
-msgid "Urdu"
-msgstr ""
-
-#: vulgar/settings.py:188
-msgid "Nepali"
-msgstr ""
-
-#: vulgar/settings.py:189
-msgid "Telugu"
-msgstr ""
-
-#: vulgar/settings.py:190
-msgid "Tamil"
-msgstr ""
-
-#: vulgar/settings.py:191
-msgid "Punjabi"
-msgstr ""
-
-#: vulgar/settings.py:192
-msgid "Marathi"
-msgstr ""
-
-#: vulgar/settings.py:193
-msgid "Malayalam"
-msgstr ""
-
-#: vulgar/settings.py:194
-msgid "Kannada"
-msgstr ""
-
-#: vulgar/settings.py:195
-msgid "Bengali"
-msgstr ""
-
-#: vulgar/settings.py:196
+#: vulgar/settings.py:200
 msgid "Hindi"
 msgstr ""
 
-#: vulgar/utils.py:52 vulgar/utils.py:267
+#: vulgar/utils.py:66 vulgar/utils.py:336
 msgid "Breaking Trending News, India and World News"
 msgstr "ब्रेकिंग ट्रेंडिंग न्यूज़, इंडिया और वर्ल्ड न्यूज़"
 
-#: vulgar/utils.py:53 vulgar/utils.py:273
+#: vulgar/utils.py:67
 msgid ""
 "provides latest news from India and the world. Get today’s news headlines "
 "from"
 msgstr ""
 "भारत और दुनिया से नवीनतम समाचार प्रदान करता है। आज की समाचार सुर्खियों में प्राप्त करें"
 
-#: vulgar/utils.py:54 vulgar/utils.py:274
+#: vulgar/utils.py:68
 msgid "and exclusive breaking news from India."
 msgstr "और भारत से विशेष ब्रेकिंग न्यूज।"
 
-#: vulgar/utils.py:55
+#: vulgar/utils.py:69
 msgid ""
 "news, live news, news in india, breaking news, today news, current news, "
 "elections, indian news, news website, politics, india news, world news, "
@@ -270,17 +251,17 @@ msgstr ""
 "व्यापार समाचार, बॉलीवुड समाचार, क्रिकेट समाचार, खेल, जीवन शैली, गैजेट्स, टेक समाचार, "
 "समाचार ब्लॉग, बेडरूम, यौन कल्याण, सेक्स, सेक्स अपडेट, सेक्स समाचार, वयस्क, वयस्क समाचार "
 
-#: vulgar/utils.py:68 vulgar/utils.py:349
+#: vulgar/utils.py:82 vulgar/utils.py:452
 msgid "Contact Us for publishing articles, blogs"
 msgstr "लेख, ब्लॉग प्रकाशित करने के लिए हमसे संपर्क करें"
 
-#: vulgar/utils.py:69 vulgar/utils.py:351
+#: vulgar/utils.py:83 vulgar/utils.py:454
 msgid ""
 "Contact for publishing news. Queries around news and paid content writing"
 msgstr ""
 "समाचार प्रकाशित करने के लिए संपर्क करें समाचार और भुगतान की गई सामग्री के बारे में प्रश्न"
 
-#: vulgar/utils.py:70
+#: vulgar/utils.py:84
 msgid ""
 "paid article publishing, news coverage, paid content writing, content "
 "publishing, news suggestions, news area improvement"
@@ -288,16 +269,45 @@ msgstr ""
 "भुगतान लेख प्रकाशन, समाचार कवरेज, भुगतान सामग्री लेखन, सामग्रीप्रकाशन, समाचार सुझाव, "
 "समाचार क्षेत्र में सुधार"
 
-#: vulgar/utils.py:81 vulgar/utils.py:314
+#: vulgar/utils.py:95 vulgar/utils.py:380
 msgid ""
 "About Us - A Newsletter, blog, complete transparency for public interest"
 msgstr "हमारे बारे में - एक न्यूज़लैटर, ब्लॉग, सार्वजनिक हित के लिए पूरी पारदर्शिता"
 
-#: vulgar/utils.py:82
+#: vulgar/utils.py:96 vulgar/utils.py:108
 msgid "Completely transparent newsletter, paid article writing"
 msgstr "पूरी तरह से पारदर्शी समाचार पत्र, सशुल्क लेख लेखन"
 
-#: vulgar/views.py:292
+#: vulgar/utils.py:106 vulgar/utils.py:415
+msgid "Search Page"
+msgstr "खोज पृष्ठ"
+
+#: vulgar/utils.py:107 vulgar/utils.py:417
+#, fuzzy
+#| msgid ""
+#| "About Us - A Newsletter, blog, complete transparency for public interest"
+msgid ""
+"Search Page - A Newsletter, blog, complete transparency for public interest"
+msgstr "हमारे बारे में - एक न्यूज़लैटर, ब्लॉग, सार्वजनिक हित के लिए पूरी पारदर्शिता"
+
+#: vulgar/utils.py:339
+#, fuzzy
+#| msgid ""
+#| "provides latest news from India and the world. Get today’s news headlines "
+#| "from"
+msgid ""
+"provides latest news from India and the world. Get today’s news headlines "
+"from "
+msgstr ""
+"भारत और दुनिया से नवीनतम समाचार प्रदान करता है। आज की समाचार सुर्खियों में प्राप्त करें"
+
+#: vulgar/utils.py:340
+#, fuzzy
+#| msgid "and exclusive breaking news from India."
+msgid "and exclusive breaking news from India. "
+msgstr "और भारत से विशेष ब्रेकिंग न्यूज।"
+
+#: vulgar/views.py:376
 msgid "The page you are looking for was not found."
 msgstr "वह पृष्ठ जिसे आप खोज रहे हैं वह नहीं मिला।"
 

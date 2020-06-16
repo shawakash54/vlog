@@ -11,19 +11,17 @@
     {% include 'navbar.html' %}
     
     <div class="container">
-      {% include 'search.html' %}
+        {% include 'search.html' %}
+        {% trans "Search Results" as search_page_title %}
       <div class="py-3 bg-light">
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <!-- {% trans "Category" as category_page_title %}
-                <span>{{ category_page_title }}</span> -->
               <h3 class="category-heading">
-                <i class="category-cation">{{category_language.name.0}}</i>
+                <i class="category-cation">{{search_page_title.0}}</i>
                 <span class="lifestyle-span"></span>
-                {{category_language.name}}
+                {{search_page_title}}
               </h3>
-              <!-- <p>{{category_language.category_description}}</p> -->
             </div>
           </div>
         </div>
@@ -34,15 +32,15 @@
       <div class="container">
         {% block breadcrumbs %}
             {% breadcrumb "Home" 'home_page_view' %}
-            {% breadcrumb category_language.name 'category_view' '{{LANGUAGE_CODE}}/{{category_language.slug}}/' %}
+            {% breadcrumb "Search" 'search_view' %}
         {% endblock %}
         {% render_breadcrumbs %}
         <div class="row">
-          {% if category_language %}
-            {% for blog_language in category_blogs %}
+          {% if blogs %}
+            {% for blog_language in blogs %}
               <div class="col-lg-4 mb-4">
                 <div class="entry2">
-                  <a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/" class="category-blog-image">
+                  <a href="/{{LANGUAGE_CODE}}/{{blog_language.blog.primary_category.slug}}/{{blog_language.blog.slug}}/" class="category-blog-image">
                     <img 
                       src="{{blog_language.blog.thumbnail_image.url}}" 
                       aria-label="{{blog_language.blog.thumbnail_image.alt_tag}}" 
@@ -64,26 +62,17 @@
                   
                     <p class="overflow-hidden height-80">{{blog_language.description}}...</p>
                     {% trans "Read More" as category_page_blog_helper %}
-                    <p><a href="/{{LANGUAGE_CODE}}/{{category_language.slug}}/{{blog_language.blog.slug}}/">{{category_page_blog_helper}}</a></p>
+                    <p><a href="/{{LANGUAGE_CODE}}/{{blog_language.blog.primary_category.slug}}/{{blog_language.blog.slug}}/">{{category_page_blog_helper}}</a></p>
                   </div>
                 </div>
               </div>
             {% endfor %}
+            {% else %}
+                <div class="col-lg-4 mb-4">
+                    {% trans "No Results found! Please try refining your search" as search_page_title_2 %}
+                    {{ search_page_title_2 }}
+                </div>
           {% endif %}
-        </div>
-        <div class="sharethis-inline-follow-buttons mb-3"></div>
-        <div class="row text-center pt-5 border-top">
-          <div class="col-md-12">
-            <div class="custom-pagination">
-              {% for page_number_loop in category_language.total_pages %}
-                {% if page_number_loop == page_number %}
-                  <span>{{ page_number_loop }}</span>
-                {% else %}
-                  <a href="?page={{page_number_loop}}">{{page_number_loop}}</a> 
-                {% endif %}
-              {% endfor %}
-            </div>
-          </div>
         </div>
     </div>
   </div>
