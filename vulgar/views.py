@@ -405,7 +405,10 @@ class SearchPageView(TemplateView):
         elif search_query_length < 15:
             similarity_threshold = 0.2
         blogs = vulgar_models.BlogLanguage.published_objects.annotate(
-                    similarity=TrigramSimilarity('title', search_query)
+                    similarity=Greatest(
+                        TrigramSimilarity('title', search_query),
+                        TrigramSimilarity('blog__slug', search_query)
+                    )
                 ).filter(similarity__gt=similarity_threshold, language__slug=language_code).order_by('-similarity')\
                 .select_related('language', 'creator', 'blog', 'blog__primary_category', \
                     'blog__hero_image', 'blog__thumbnail_image', \

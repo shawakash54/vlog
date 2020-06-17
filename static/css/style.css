@@ -821,11 +821,11 @@ h1, h2, h3, h4, h5,
   height: 200px;
   object-fit: scale-down;
   margin-bottom: 10px; }
-  @media (max-width: 991.98px) {
+  /* @media (max-width: 991.98px) {
     .entry2 img {
-      margin-left: 15px;
+      margin-left: 5px;
     }
-  }
+  } */
 
 .entry2 h2 {
   font-size: 16px;
@@ -1392,6 +1392,7 @@ h1, h2, h3, h4, h5,
 
 .carousel-text-color {
   color: white;
+  font-size: 15px;
 }
 
 .post-content-override {
@@ -1474,4 +1475,9 @@ h1, h2, h3, h4, h5,
   .search-box {
     float: right;
   }
+}
+
+.image-about-us {
+  width: 300px;
+  height: 220px;
 }

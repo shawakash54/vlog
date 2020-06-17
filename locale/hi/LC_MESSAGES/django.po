@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-16 20:00+0000\n"
+"POT-Creation-Date: 2020-06-17 17:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,24 +71,14 @@ msgid "Connect With Us"
 msgstr "हमसे जुडे"
 
 #: vlog-templates/footer.html:14
-msgid "It's more than a newsletter"
-msgstr "यह एक समाचार पत्र से अधिक है"
+msgid ""
+"We authenticate any information we share and dig deeper for really important "
+"issues. TrikonIndia has become the most evolved and reliable choice for "
+"anyone looking for hyperlocal authentic news in their local language."
+msgstr ""
+"हम किसी भी जानकारी को साझा करते हैं और वास्तव में महत्वपूर्ण मुद्दों के लिए गहरी खुदाई करते हैं।"
+"TrikonIndia अपनी स्थानीय भाषा में हाइपरलोकल प्रामाणिक समाचारों की तलाश करने वालों के लिए सबसे विकसित और विश्वसनीय विकल्प बन गया है।"
 
-#: vlog-templates/footer.html:15
-msgid "it's more than a blog"
-msgstr "यह एक ब्लॉग से अधिक है"
-
-#: vlog-templates/footer.html:16
-msgid "it's more than a place for learning"
-msgstr "यह सीखने के लिए एक जगह से अधिक है"
-
-#: vlog-templates/footer.html:17
-msgid "it's more than a place for gaining knowledge"
-msgstr "यह ज्ञान प्राप्त करने के लिए एक जगह से अधिक है"
-
-#: vlog-templates/footer.html:18
-msgid "it's "
-msgstr "यह "
 
 #: vlog-templates/index.html:19
 msgid "Trending Posts"
@@ -116,12 +106,14 @@ msgid "Home"
 msgstr "होम"
 
 #: vlog-templates/pages/about-us.html:21
-#, fuzzy
-#| msgid "it's more than a place for gaining knowledge"
 msgid ""
-"It's more than a newsletter, a blog, a place for learning, a place for "
-"gaining knowledge, it's"
-msgstr "यह ज्ञान प्राप्त करने के लिए एक जगह से अधिक है"
+"We are soon to be the pioneer in India's hyperlocal news industry. Incisive "
+"and creative, TrikonIndia targets the global Indian with news that is "
+"credible, true and fast."
+msgstr ""
+"हम जल्द ही भारत के हाइपरलोकल समाचार उद्योग में अग्रणी बनने जा रहे हैं।"
+"रचनात्मक और रचनात्मक, TrikonIndia वैश्विक भारतीय को ऐसी खबरों के साथ लक्षित करता है जो विश्वसनीय, सच्चा और तेज है।"
+
 
 #: vlog-templates/pages/about-us.html:46
 msgid "OUR MISSION"
@@ -310,6 +302,28 @@ msgstr "और भारत से विशेष ब्रेकिंग न�
 #: vulgar/views.py:376
 msgid "The page you are looking for was not found."
 msgstr "वह पृष्ठ जिसे आप खोज रहे हैं वह नहीं मिला।"
+
+#~ msgid "It's more than a newsletter"
+#~ msgstr "यह एक समाचार पत्र से अधिक है"
+
+#~ msgid "it's more than a blog"
+#~ msgstr "यह एक ब्लॉग से अधिक है"
+
+#~ msgid "it's more than a place for learning"
+#~ msgstr "यह सीखने के लिए एक जगह से अधिक है"
+
+#~ msgid "it's more than a place for gaining knowledge"
+#~ msgstr "यह ज्ञान प्राप्त करने के लिए एक जगह से अधिक है"
+
+#~ msgid "it's "
+#~ msgstr "यह "
+
+#, fuzzy
+#~| msgid "it's more than a place for gaining knowledge"
+#~ msgid ""
+#~ "It's more than a newsletter, a blog, a place for learning, a place for "
+#~ "gaining knowledge, it's"
+#~ msgstr "यह ज्ञान प्राप्त करने के लिए एक जगह से अधिक है"
 
 #, fuzzy
 #~ msgid "Categories"
