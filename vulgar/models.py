@@ -199,8 +199,6 @@ class Blog(BaseModel):
     published_status = models.CharField(max_length=100,
                                             choices=[(tag.value, tag.value) for tag in PublishedStatusChoice],
                                             default='Active')
-    published_date_from = models.DateTimeField()
-    published_date_to = models.DateTimeField()
 
     objects = models.Manager()
     published_objects = PublishedManager()  
