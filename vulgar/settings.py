@@ -90,18 +90,19 @@ if USE_S3:
     AWS_S3_ACCESS_KEY_ID = decouple_config('AWS_ACCESS_KEY_ID')
     AWS_S3_SECRET_ACCESS_KEY = decouple_config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = decouple_config('AWS_STORAGE_BUCKET_NAME')
+    AWS_PRELOAD_METADATA = True
     AWS_DEFAULT_ACL = None
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     # s3 static settings
-    # STATIC_LOCATION = 'static'
-    # STATIC_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    # STATICFILES_STORAGE = 'vulgar.storage_backends.StaticStorage'
+    STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    STATICFILES_STORAGE = 'vulgar.storage_backends.StaticStorage'
     # STATICFILES_STORAGE = 'myproject.storage.S3Storage'
     # s3 public media settings
-    STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    # STATIC_URL = '/static/'
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     PUBLIC_MEDIA_LOCATION = 'media'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
     DEFAULT_FILE_STORAGE = 'vulgar.storage_backends.PublicMediaStorage'
@@ -119,7 +120,6 @@ else:
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, './vlog-templates/'),
-    os.path.join(BASE_DIR, './vulgar/static'),
 ]
 
 WSGI_APPLICATION = 'vulgar.wsgi.application'
