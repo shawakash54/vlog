@@ -447,7 +447,7 @@ def server_error(request):
     context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['message'] = 'There was some serve error. Our team is on it.'
     context['status'] = 500
-    response.status_code = 500
+    request.status_code = 500
     return render(request, 'error.html', context)
  
 
@@ -456,7 +456,7 @@ def not_found(request):
     context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['message'] = 'The page you are looking for was not found.'
     context['status'] = 404
-    response.status_code = 404
+    request.status_code = 404
     return render(request, 'error.html', context)
  
 
@@ -465,7 +465,7 @@ def permission_denied(request):
     context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['message'] = 'Looks like you are lost.'
     context['status'] = '403'
-    response.status_code = 403
+    request.status_code = 403
     return render(request, 'error.html', context)
  
 
@@ -474,6 +474,6 @@ def bad_request(request):
     context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['message'] = 'Our system did not quite understand your request.'
     context['status'] = '400'
-    response.status_code = 400
+    request.status_code = 400
     return render(request, 'error.html', context)
 
