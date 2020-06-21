@@ -538,8 +538,6 @@ def article_page_social_media_meta_tags(blog_language, language_code, query_set)
         )
     tags = blog_language.tags
     article_attrs = {
-        'published_time': blog_language.blog.published_date_from.date,
-        'expiration_time': blog_language.blog.published_date_to.date,
         'section': blog_language.blog.primary_category.slug
     }
     article_tags = []
