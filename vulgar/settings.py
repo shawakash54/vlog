@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django_extensions',
+    'storages',
     'vulgar',
     'ckeditor',
     'rest_framework',
@@ -94,19 +95,21 @@ if USE_S3:
     DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     # s3 static settings
-    STATIC_LOCATION = 'static'
-    STATIC_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    STATICFILES_STORAGE = 'core.storage_backends.StaticStorage'
+    # STATIC_LOCATION = 'static'
+    # STATIC_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    # STATICFILES_STORAGE = 'vulgar.storage_backends.StaticStorage'
     # STATICFILES_STORAGE = 'myproject.storage.S3Storage'
     # s3 public media settings
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     PUBLIC_MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'//{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'vulgar.storage_backends.PublicMediaStorage'
     # AWS_S3_SECURE_URLS = False
     AWS_S3_REGION_NAME = "ap-south-1"
     AWS_S3_SIGNATURE_VERSION = "s3v4"
     AWS_S3_ADDRESSING_STYLE = "path"
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -116,6 +119,7 @@ else:
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, './vlog-templates/'),
+    os.path.join(BASE_DIR, './vulgar/static'),
 ]
 
 WSGI_APPLICATION = 'vulgar.wsgi.application'
