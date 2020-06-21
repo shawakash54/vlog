@@ -439,9 +439,10 @@ class SearchPageView(TemplateView):
 def robots_txt(request):
     lines = [
         "User-agent: *",
-        "",
-        vulgar_utils.get_sitemap_url(),
-        vulgar_utils.get_host_url()
+        "Allow: *",
+        "Disallow: ",
+        f'Sitemap: {vulgar_utils.get_sitemap_url()}',
+        f'Host: {vulgar_utils.get_host_url()}'
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
