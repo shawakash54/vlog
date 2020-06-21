@@ -202,6 +202,7 @@ BREADCRUMBS_TEMPLATE = "components/breadcrumbs.html"
 LANGUAGES = [
     ('en', _('English')),
     ('hi', _('Hindi')),
+    ('bn', _('Bengali')),
 ]
 LANGUAGE_CODE = 'en'
 
