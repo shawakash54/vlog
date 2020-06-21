@@ -15,6 +15,10 @@ import itertools
 import random
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models.functions import Greatest
+from django.shortcuts import (
+render_to_response
+)
+from django.template import RequestContext
 
 
 class HomePageView(TemplateView):
@@ -447,8 +451,12 @@ def server_error(request):
     context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['message'] = 'There was some serve error. Our team is on it.'
     context['status'] = 500
-    request.status_code = 500
-    return render(request, 'error.html', context)
+    response = render_to_response(
+        'error.html',
+        context=RequestContext(context)
+        )
+    response.status_code = 400
+    return response
  
 
 def not_found(request):
