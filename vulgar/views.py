@@ -446,7 +446,7 @@ def server_error(request):
     context = {}
     context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['message'] = 'There was some serve error. Our team is on it.'
-    context['status'] = '500'
+    context['status'] = 500
     return render(request, 'error.html', context)
  
 
@@ -454,7 +454,7 @@ def not_found(request):
     context = {}
     context['categories'] = vulgar_models.Category.published_objects.filter(home_page_view=True)
     context['message'] = 'The page you are looking for was not found.'
-    context['status'] = '404'
+    context['status'] = 404
     return render(request, 'error.html', context)
  
 
