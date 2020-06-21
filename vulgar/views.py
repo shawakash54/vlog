@@ -453,7 +453,7 @@ def server_error(request):
     context['status'] = 500
     response = render_to_response(
         'error.html',
-        context=RequestContext(context)
+        context=context
         )
     response.status_code = 400
     return response
