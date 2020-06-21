@@ -102,7 +102,7 @@ msgstr "স্পেশালস"
 #: vlog-templates/navbar.html:31 vlog-templates/pages/about-us.html:34
 #: vlog-templates/pages/contact-us.html:32
 msgid "Home"
-msgstr ""
+msgstr "হোম"
 
 #: vlog-templates/pages/about-us.html:21
 msgid ""
