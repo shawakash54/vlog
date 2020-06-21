@@ -248,7 +248,7 @@ class PostPageView(TemplateView):
             context['meta'] = vulgar_utils.get_meta_info('article_page', blog_language, language_code)
             context['alternate_language'] = vulgar_utils.get_alternate_language('article_page', blog_language)
             context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('article_page', blog_language, language_code)
-            context['background_image'] = f'images/background-image-{self.generate_random_number(1,10)}.jpeg'
+            context['background_image'] = f'images/background-image-{self.generate_random_number(1,3)}.jpeg'
             context['share_this_display'] = True
         else:
             context['message'] = 'The page you are looking for was not found.'
