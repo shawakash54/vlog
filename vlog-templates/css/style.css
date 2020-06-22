@@ -678,10 +678,13 @@ h1, h2, h3, h4, h5,
 
 @media (max-width: 767.98px) {
   .retro-layout .img-1 {
-    background-size: contain;
     height: 400px !important;
     position: relative;
     margin-bottom: 30px; } }
+
+.retro-layou {
+  background-size: contain !important;
+}
 
 .retro-layout .mb30 {
   margin-bottom: 30px; }
