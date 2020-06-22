@@ -113,7 +113,7 @@ class HomePageView(TemplateView):
                                 vulgar_models.BlogLanguage\
                                     .published_objects\
                                     .filter(
-                                        blog__category__categorylanguage=category,
+                                        blog__primary_category__categorylanguage=category,
                                         language__slug=language_code
                                     )\
                                     .select_related('language', 'creator', 'blog', 'blog__primary_category', \
