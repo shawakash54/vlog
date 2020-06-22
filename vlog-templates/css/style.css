@@ -682,7 +682,7 @@ h1, h2, h3, h4, h5,
     position: relative;
     margin-bottom: 30px; } }
 
-.retro-layout {
+.retro-layout .img-1 {
   background-size: contain !important;
 }
 
