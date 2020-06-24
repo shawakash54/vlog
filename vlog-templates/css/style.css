@@ -667,7 +667,7 @@ h1, h2, h3, h4, h5,
   text-transform: uppercase; }
   @media (min-width: 767.98px) {
     .post-category {
-      font-size: .8rem;
+      font-size: .61rem;
     }
   }
 

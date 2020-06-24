@@ -13,6 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET
 import itertools
 import random
+from django.utils.timezone import get_current_timezone
+from datetime import datetime, timedelta
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db.models.functions import Greatest
 from django.shortcuts import (
@@ -35,26 +37,12 @@ class HomePageView(TemplateView):
                                 ).select_related('category', 'language')
         context['meta'] = vulgar_utils.get_meta_info('home_page', None, language_code)
         context['trending_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                vulgar_models\
-                                    .Tag.published_objects.filter(name__icontains='Trending').first()\
-                                    .blogs.filter(language__slug=language_code)\
-                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
-                                                    'blog__hero_image', 'blog__thumbnail_image', \
-                                                    'blog__social_media_image', 'creator__auth_user', )\
-                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
-                                    .order_by('-created_at')[:5],
+                                self.get_tag_random_query_set_filter("Trending", language_code, 5),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
         context['recent_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                vulgar_models\
-                                    .Tag.published_objects.filter(name__icontains='Recent').first()\
-                                    .blogs.filter(language__slug=language_code)\
-                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
-                                                    'blog__hero_image', 'blog__thumbnail_image', \
-                                                    'blog__social_media_image', 'creator__auth_user', )\
-                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
-                                    .order_by('-created_at')[:5],
+                                self.get_tag_random_query_set_filter("Recent", language_code, 5),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
@@ -65,38 +53,17 @@ class HomePageView(TemplateView):
         context['entertainment_category_language'], context['entertainment_category_blog_languages'] = self.get_category_blogs('entertainment', language_code)
         context['health_category_language'], context['health_category_blog_languages'] = self.get_category_blogs('health', language_code)
         context['special_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                vulgar_models\
-                                    .Tag.published_objects.filter(name__icontains='Special').first()\
-                                    .blogs.filter(language__slug=language_code)\
-                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
-                                                    'blog__hero_image', 'blog__thumbnail_image', \
-                                                    'blog__social_media_image', 'creator__auth_user', )\
-                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
-                                    .order_by('-created_at')[:5],
+                                self.get_tag_random_query_set_filter("Special", language_code, 5),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
         context['highlighted_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                vulgar_models\
-                                    .Tag.published_objects.filter(name__icontains='Highlighted').first()\
-                                    .blogs.filter(language__slug=language_code)\
-                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
-                                                    'blog__hero_image', 'blog__thumbnail_image', \
-                                                    'blog__social_media_image', 'creator__auth_user', )\
-                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
-                                    .order_by('-created_at')[:2],
+                                self.get_tag_random_query_set_filter("Highlighted", language_code, 2),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
         context['dmiss_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                vulgar_models\
-                                    .Tag.published_objects.filter(name__icontains="Don't Miss").first()\
-                                    .blogs.filter(language__slug=language_code)\
-                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
-                                                    'blog__hero_image', 'blog__thumbnail_image', \
-                                                    'blog__social_media_image', 'creator__auth_user', )\
-                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
-                                    .order_by('-created_at')[:2],
+                                self.get_tag_random_query_set_filter("Don't Miss", language_code, 2),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
@@ -104,27 +71,50 @@ class HomePageView(TemplateView):
         context['social_meta_tags'] = vulgar_utils.get_social_media_meta_tags('home_page', None, language_code, context['categories_languages'])
         return context
 
-    def get_category_blogs(self, category_slug, language_code):
+    def get_category_blogs(self, category_slug, language_code, count=5, days=30):
         category = vulgar_models.CategoryLanguage.published_objects.filter(
                     category__slug=category_slug,
                     language__slug=language_code
                 ).last()
+        
+        actual_queryset = vulgar_models.BlogLanguage\
+                                .published_objects\
+                                .filter(
+                                    blog__primary_category__categorylanguage=category,
+                                    language__slug=language_code,
+                                    updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days)
+                                )
+        actual_queryset_values = actual_queryset.values_list('id', flat=True)
+        if actual_queryset_values:
+            random_queryset_values = random.sample(list(actual_queryset_values), min(len(actual_queryset_values), count))
+        else:
+            random_queryset_values = []
         category_blogs = vulgar_serializers.BlogLanguageSerializer(\
                                 vulgar_models.BlogLanguage\
-                                    .published_objects\
-                                    .filter(
-                                        blog__primary_category__categorylanguage=category,
-                                        language__slug=language_code
-                                    )\
+                                    .published_objects.filter(id__in=random_queryset_values)\
                                     .select_related('language', 'creator', 'blog', 'blog__primary_category', \
                                                                     'blog__hero_image', 'blog__thumbnail_image', \
                                                                     'blog__social_media_image', 'creator__auth_user', )\
-                                    .prefetch_related('language__country', 'tags', 'blog__category', )[:5],
+                                    .prefetch_related('language__country', 'tags', 'blog__category', )[:count],
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
         return [category, category_blogs]
-        
+
+    def get_tag_random_query_set_filter(self, tag, language_code, count, days=30):
+        actual_queryset = vulgar_models\
+                            .Tag.published_objects.filter(name__icontains=tag).first()\
+                            .blogs.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
+        actual_queryset_values = actual_queryset.values_list('id', flat=True)
+        if not actual_queryset_values:
+            return actual_queryset
+        random_queryset_values = random.sample(list(actual_queryset_values), min(len(actual_queryset_values), count))
+        return vulgar_models.BlogLanguage.published_objects.filter(id__in=random_queryset_values)\
+                                .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                            'blog__hero_image', 'blog__thumbnail_image', \
+                                            'blog__social_media_image', 'creator__auth_user', )\
+                                .prefetch_related('language__country', 'tags', 'blog__category', )\
+                                .order_by('-created_at')[:count]
 
 
 class CategoryPageView(TemplateView):
@@ -263,37 +253,52 @@ class PostPageView(TemplateView):
 
     def get_popular_blogs(self, slug, language_code):
         return vulgar_serializers.BlogLanguageSerializer(\
-                                vulgar_models\
-                                    .Tag.published_objects.filter(name__icontains='Popular').first()\
-                                    .blogs.filter(language__slug=language_code)\
-                                    .select_related('language', 'creator', 'blog', 'blog__primary_category', \
-                                                    'blog__hero_image', 'blog__thumbnail_image', \
-                                                    'blog__social_media_image', 'creator__auth_user', )\
-                                    .prefetch_related('language__country', 'tags', 'blog__category', )\
-                                    .order_by('-created_at')[:4],
+                                self.get_tag_random_query_set_filter('Popular', language_code, 4),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
 
+    def get_tag_random_query_set_filter(self, tag, language_code, count, days=30):
+        actual_queryset = vulgar_models\
+                            .Tag.published_objects.filter(name__icontains=tag).first()\
+                            .blogs.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
+        actual_queryset_values = actual_queryset.values_list('id', flat=True)
+        if not actual_queryset_values:
+            return actual_queryset
+        random_queryset_values = random.sample(list(actual_queryset_values), min(len(actual_queryset_values), count))
+        return vulgar_models.BlogLanguage.published_objects.filter(id__in=random_queryset_values)\
+                                .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                            'blog__hero_image', 'blog__thumbnail_image', \
+                                            'blog__social_media_image', 'creator__auth_user', )\
+                                .prefetch_related('language__country', 'tags', 'blog__category', )\
+                                .order_by('-created_at')[:count]
 
-    def get_related_blogs(self, blog_language, language_code):
-        categories = blog_language.blog.category.all()[:4]
+
+    def get_related_blogs(self, blog_language, language_code, days=30, count=4):
+        category = blog_language.blog.primary_category
         related_blogs_languages = []
-        for category in categories:
-            blog_language_obj = vulgar_serializers.BlogLanguageSerializer(\
-                        vulgar_models.BlogLanguage.published_objects.filter(
-                            language__slug=language_code,
-                            blog__category=category,
-                            ).exclude(blog__slug=blog_language.blog.slug)\
-                            .select_related('language', 'creator', 'blog', 'blog__primary_category', \
-                                                    'blog__hero_image', 'blog__thumbnail_image', \
-                                                    'blog__social_media_image', 'creator__auth_user', )\
-                            .prefetch_related('language__country', 'tags', 'blog__category', )\
-                            .order_by('-created_at')[:4],
-                        many=True,
-                        context={'language_code': language_code}
-                    ).data
-            related_blogs_languages.append(blog_language_obj)
+        actual_queryset = vulgar_models.BlogLanguage.published_objects.filter(
+                                language__slug=language_code,
+                                blog__category=category,
+                                updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days)
+                            ).exclude(blog__slug=blog_language.blog.slug)
+        actual_queryset_values = actual_queryset.values_list('id', flat=True)
+        if actual_queryset_values:
+            random_queryset_values = random.sample(list(actual_queryset_values), min(len(actual_queryset_values), count))
+        else:
+            random_queryset_values = []
+        final_queryset = vulgar_models.BlogLanguage.published_objects.filter(id__in=random_queryset_values) \
+                                .select_related('language', 'creator', 'blog', 'blog__primary_category', \
+                                                'blog__hero_image', 'blog__thumbnail_image', \
+                                                'blog__social_media_image', 'creator__auth_user', )\
+                                .prefetch_related('language__country', 'tags', 'blog__category', )\
+                                .order_by('-created_at')[:count]
+        blog_language_obj = vulgar_serializers.BlogLanguageSerializer(\
+                    final_queryset,
+                    many=True,
+                    context={'language_code': language_code}
+                ).data
+        related_blogs_languages.append(blog_language_obj)
         return list(itertools.chain.from_iterable(related_blogs_languages))
 
 
