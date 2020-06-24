@@ -217,7 +217,7 @@ class BlogLanguage(BaseModel):
     language = models.ForeignKey(
         Language, on_delete=models.PROTECT, blank=True, null=True)
     title = models.CharField(max_length=1000, db_index=True)
-    breadcrumb_title = models.CharField(max_length=20, default='')
+    breadcrumb_title = models.CharField(max_length=20, default='', blank=True, null=True)
     meta_keywords = ArrayField(
                         models.CharField(max_length=50),
                         default=list
