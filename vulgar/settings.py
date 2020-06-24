@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_bootstrap_breadcrumbs',
     'cities_light',
     'django_better_admin_arrayfield',
+    'bulk_admin',
 ]
 
 MIDDLEWARE = [

@@ -6,6 +6,7 @@ from ckeditor.widgets import CKEditorWidget
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 from django.utils.html import format_html
 from django.utils.html import mark_safe
+import bulk_admin
 
 app = apps.get_app_config('vulgar')
 
@@ -41,7 +42,7 @@ admin.site.register(CategoryLanguage, CategoryLanguageAdmin)
 
 
 @admin.register(Media)
-class MediaAdmin(admin.ModelAdmin):
+class MediaAdmin(bulk_admin.BulkModelAdmin):
     fields = ['image_tag', 'title', 'alt_tag', 'media_type', 'photo', 'url']
     readonly_fields = ['image_tag']
 
