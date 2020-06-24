@@ -67,4 +67,5 @@ uritemplate==3.0.1
 urllib3==1.25.8
 webencodings==0.5.1
 Werkzeug==1.0.1
-django-bulk-admin
+django-bulk-admin==0.1.1
+django-searchable-select==1.5.0

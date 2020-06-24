@@ -1,20 +1,27 @@
 from django.contrib import admin
 from django.apps import apps
 from django import forms
-from vulgar.models import BlogLanguage, Media, CategoryLanguage, Tag
+from vulgar.models import BlogLanguage, Media, CategoryLanguage, Tag, BlogLanguage
 from ckeditor.widgets import CKEditorWidget
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 from django.utils.html import format_html
 from django.utils.html import mark_safe
 import bulk_admin
+from searchableselect.widgets import SearchableSelect
+
 
 app = apps.get_app_config('vulgar')
+
 
 class PostAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = BlogLanguage
-        fields = '__all__'
+        exclude = ()
+        widgets = {
+            'tags': SearchableSelect(model='vulgar.Tag', search_field='name', limit=10, many=True)
+        }
+        # fields = '__all__'
 
 
 class PostAdmin(admin.ModelAdmin, DynamicArrayMixin):

@@ -36,6 +36,7 @@ sitemaps = {
 
 urlpatterns = [
         url(r'^admin/', admin.site.urls),
+        url('^searchableselect/', include('searchableselect.urls')),
         url(r'^/?$', HomePageView.as_view(), name='home_page_view'),
         url(r'^i18n/', include('django.conf.urls.i18n')),
         url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

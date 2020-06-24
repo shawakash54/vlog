@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'cities_light',
     'django_better_admin_arrayfield',
     'bulk_admin',
+    'searchableselect',
 ]
 
 MIDDLEWARE = [
