@@ -35,7 +35,8 @@ class PostAdminForm(forms.ModelForm):
         model = BlogLanguage
         exclude = ('breadcrumb_title',)
         widgets = {
-            'tags': SearchableSelect(model='vulgar.Tag', search_field='name', limit=10, many=True)
+            'tags': SearchableSelect(model='vulgar.Tag', search_field='name', limit=10, many=True),
+            'blog': SearchableSelect(model='vulgar.Blog', search_field='slug', limit=10, many=False),
         }
         # fields = '__all__'
 
