@@ -1412,6 +1412,11 @@ h1, h2, h3, h4, h5,
   color: black;
 }
 
+.post-content-override img {
+  height: auto !important;
+  width: auto !important;
+}
+
 .newsletter-box {
   border-radius: 10px;
   margin: 5px;
