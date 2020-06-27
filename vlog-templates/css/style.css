@@ -1417,6 +1417,26 @@ h1, h2, h3, h4, h5,
   width: auto !important;
 }
 
+.post-content-override p img {
+  height: auto !important;
+  width: auto !important;
+}
+
+.post-content-override a img {
+  height: auto !important;
+  width: auto !important;
+}
+
+.post-content-override div img {
+  height: auto !important;
+  width: auto !important;
+}
+
+.post-content-override span img {
+  height: auto !important;
+  width: auto !important;
+}
+
 .newsletter-box {
   border-radius: 10px;
   margin: 5px;
