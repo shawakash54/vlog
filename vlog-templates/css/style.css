@@ -1413,28 +1413,28 @@ h1, h2, h3, h4, h5,
 }
 
 .post-content-override img {
-  height: auto !important;
-  width: auto !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .post-content-override p img {
-  height: auto !important;
-  width: auto !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .post-content-override a img {
-  height: auto !important;
-  width: auto !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .post-content-override div img {
-  height: auto !important;
-  width: auto !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .post-content-override span img {
-  height: auto !important;
-  width: auto !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .newsletter-box {
