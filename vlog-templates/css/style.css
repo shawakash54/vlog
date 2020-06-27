@@ -1407,6 +1407,9 @@ h1, h2, h3, h4, h5,
 }
 
 .post-content-override {
+  word-wrap: break-word !important;
+  height: 100% !important;
+  width: 100% !important;
   font-size: 16px;
   font-weight: 500;
   color: black;
