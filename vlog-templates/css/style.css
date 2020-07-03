@@ -1415,6 +1415,10 @@ h1, h2, h3, h4, h5,
   color: black;
 }
 
+.mt-40 {
+  margin-top: 40px;
+}
+
 .post-content-override img {
   height: 100% !important;
   width: 100% !important;
