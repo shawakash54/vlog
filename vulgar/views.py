@@ -102,9 +102,11 @@ class HomePageView(TemplateView):
         return [category, category_blogs]
 
     def get_tag_random_query_set_filter(self, tag, language_code, count, days=30):
+        # actual_queryset = vulgar_models\
+        #                     .Tag.published_objects.filter(name__icontains=tag).first()\
+        #                     .blogs.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
         actual_queryset = vulgar_models\
-                            .Tag.published_objects.filter(name__icontains=tag).first()\
-                            .blogs.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
+                            .BlogLanguage.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
         actual_queryset_values = actual_queryset.values_list('id', flat=True)
         if not actual_queryset_values:
             return actual_queryset

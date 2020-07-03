@@ -104,7 +104,6 @@ class Article_Sitemap(Sitemap):
                     blog_ob_new['instance'] = blog_language
                     blog_ob_new['url'] = f'/{blog_language.language.slug}/{category.slug}/{blog.slug}/'
                     list_urls.append(blog_ob_new.copy())
-        print(list_urls)
         return list_urls
 
     def location(self, obj):
