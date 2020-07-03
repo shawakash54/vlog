@@ -106,7 +106,7 @@ class HomePageView(TemplateView):
         #                     .Tag.published_objects.filter(name__icontains=tag).first()\
         #                     .blogs.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
         actual_queryset = vulgar_models\
-                            .BlogLanguage.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
+                            .BlogLanguage.published_objects.filter(language__slug=language_code, updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days))
         actual_queryset_values = actual_queryset.values_list('id', flat=True)
         if not actual_queryset_values:
             return actual_queryset
