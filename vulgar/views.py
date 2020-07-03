@@ -42,14 +42,20 @@ class HomePageView(TemplateView):
                                 context={'language_code': language_code}
                             ).data
         context['recent_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                self.get_tag_random_query_set_filter("Recent", language_code, 5),
+                                self.get_tag_random_query_set_filter("Recent", language_code, 6),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
         context['politics_category_language'], context['politics_category_blog_languages'] = self.get_category_blogs('politics', language_code)
         context['economy_category_language'], context['economy_category_blog_languages'] = self.get_category_blogs('economy', language_code)
         context['sports_category_language'], context['sports_category_blog_languages'] = self.get_category_blogs('sports', language_code)
-        context['sexual_wellness_category_language'], context['sexual_wellness_category_blog_languages'] = self.get_category_blogs('sexual-wellness', language_code)
+        # context['sexual_wellness_category_language'], context['sexual_wellness_category_blog_languages'] = self.get_category_blogs('sexual-wellness', language_code)
+        # context['tech_category_language'], context['tech_category_blog_languages'] = self.get_category_blogs('technology', language_code)
+        context['sexual_wellness_category_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
+                                self.get_tag_random_query_set_filter("Recent", language_code, 5),
+                                many=True,
+                                context={'language_code': language_code}
+                            ).data
         context['entertainment_category_language'], context['entertainment_category_blog_languages'] = self.get_category_blogs('entertainment', language_code)
         context['health_category_language'], context['health_category_blog_languages'] = self.get_category_blogs('health', language_code)
         context['special_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
