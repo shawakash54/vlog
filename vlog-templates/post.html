@@ -45,7 +45,9 @@
         <div class="row blog-entries element-animate mr-0">
           <div class="col-md-12 col-lg-8 main-content">
             <div class="post-content-body post-content-override">
-              {% autoescape off %}{{ blog_language.content }}{% endautoescape %}
+              <content:encoded>
+                {% autoescape off %}{{ blog_language.content }}{% endautoescape %}
+              </content:encoded>
             </div>
             <div class="pt-2">
               <!-- <div class="sharethis-inline-share-buttons mb-3"></div> -->
