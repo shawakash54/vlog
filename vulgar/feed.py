@@ -9,12 +9,15 @@ from django.utils.timezone import get_current_timezone
 
 class PoliticsPostsFeed(Feed):
     title = "Politics"
-    link = "/politics/"
+    # link = "/politics/"
     description = "Latest news and breaking stories on Indian and West Bengal politics. Find updates, comment and expert analysis on government policies and bills | TrikonIndia"
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='politics', \
             created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+
+    def link(self, obj):
+        return f'https://trikonindia.com/politics/'
 
     def item_title(self, item):
         return escape(item.title)
@@ -28,12 +31,15 @@ class PoliticsPostsFeed(Feed):
 
 class TechnologyPostsFeed(Feed):
     title = "Technology"
-    link = "/technology/"
+    # link = "/technology/"
     description = "Latest Technology News and Daily Updates on TrikonIndia. Get trending tech news, mobile phones, laptops, reviews, software updates, video games, internet and other technology updates on gadgets from India and around the world. | TrikonIndia"
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='technology', \
             created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+
+    def link(self, obj):
+        return f'https://trikonindia.com/technology/'
 
     def item_title(self, item):
         return escape(item.title)
@@ -47,12 +53,15 @@ class TechnologyPostsFeed(Feed):
 
 class SportsPostsFeed(Feed):
     title = "sports"
-    link = "/sports/"
+    # link = "/sports/"
     description = "Sports News - Read Latest Sports News Today Headlines on TrikonIndia.com. Find latest cricket news, tennis, football, hockey, World cup 2019, IPL 2020 Live Score Updates. Stay updated on Sports News. Get West Bengal sports updates. Get India sports updates. | TrikonIndia"
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='sports', \
             created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+
+    def link(self, obj):
+        return f'https://trikonindia.com/sports/'
 
     def item_title(self, item):
         return escape(item.title)
@@ -66,12 +75,15 @@ class SportsPostsFeed(Feed):
 
 class HealthPostsFeed(Feed):
     title = "health"
-    link = "/health/"
+    # link = "/health/"
     description = "Medical news and health news headlines posted throughout the day, every day - India, West Bengal. | TrikonIndia"
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='health', \
             created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+
+    def link(self, obj):
+        return f'https://trikonindia.com/health/'
 
     def item_title(self, item):
         return escape(item.title)
@@ -85,12 +97,15 @@ class HealthPostsFeed(Feed):
 
 class EconomyPostsFeed(Feed):
     title = "economy"
-    link = "/economy/"
+    # link = "/economy/"
     description = "Business News - Read Latest Financial news, Stock/Share Market News, Economy News, Business News. Find IPO Analysis, Mutual Funds Trends & Analysis, Gold Rate, Real Estate & more. | TrikonIndia"
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='economy', \
             created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+
+    def link(self, obj):
+        return f'https://trikonindia.com/economy/'
 
     def item_title(self, item):
         return escape(item.title)
@@ -104,12 +119,15 @@ class EconomyPostsFeed(Feed):
 
 class EntertainmentPostsFeed(Feed):
     title = "entertainment"
-    link = "/entertainment/"
+    # link = "/entertainment/"
     description = "Latest entertainment news and gossip from the world of bollywood, Hollywood and regional film industries. Get the latest celebrity news on celebrity scandals, engagements, and divorces. Get latest updates on nepotism, inside knowledge of bollywood and hollywood industry. | TrikonIndia"
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='entertainment', \
             created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+
+    def link(self, obj):
+        return f'https://trikonindia.com/entertainment/'
 
     def item_title(self, item):
         return escape(item.title)
