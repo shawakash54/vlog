@@ -27,7 +27,7 @@ def blog_language_web_push(sender, instance, created, **kwargs):
             "name": instance.title + '-' + instance.language.code,
             "icon": "https://trikonindia-assets.s3.amazonaws.com/media/trikonindia.png",
             "image": instance.blog.hero_image.url,
-            "send_at": notification_time.isoformat(),
+            # "send_at": notification_time.isoformat(),
             "action_buttons": [
                 {
                     "title": "Related News",
@@ -57,7 +57,7 @@ def blog_language_web_push(sender, instance, created, **kwargs):
             "name": 'multilanguage-target-' + english_blog_langugae.title + '-' + english_blog_langugae.language.code,
             "icon": "https://trikonindia-assets.s3.amazonaws.com/media/trikonindia.png",
             "image": english_blog_langugae.blog.hero_image.url,
-            "send_at": notification_time.isoformat(),
+            # "send_at": notification_time.isoformat(),
             "action_buttons": [
                 {
                     "title": "Bengali",
