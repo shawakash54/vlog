@@ -14,7 +14,7 @@ class PoliticsPostsFeed(Feed):
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='politics', \
-            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=15))
 
     def feed_url(self, obj):
         return f'https://trikonindia.com/feed/politics/'
@@ -39,7 +39,7 @@ class TechnologyPostsFeed(Feed):
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='technology', \
-            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=15))
     
     def feed_url(self, obj):
         return f'https://trikonindia.com/feed/technology/'
@@ -64,7 +64,7 @@ class SportsPostsFeed(Feed):
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='sports', \
-            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=15))
 
     def feed_url(self, obj):
         return f'https://trikonindia.com/feed/sports/'
@@ -89,7 +89,7 @@ class HealthPostsFeed(Feed):
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='health', \
-            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=15))
 
     def feed_url(self, obj):
         return f'https://trikonindia.com/feed/health/'
@@ -114,7 +114,7 @@ class EconomyPostsFeed(Feed):
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='economy', \
-            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=15))
 
     def feed_url(self, obj):
         return f'https://trikonindia.com/feed/economy/'
@@ -139,7 +139,7 @@ class EntertainmentPostsFeed(Feed):
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='entertainment', \
-            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=5))
+            created_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=15))
 
     def feed_url(self, obj):
         return f'https://trikonindia.com/feed/entertainment/'
