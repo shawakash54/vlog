@@ -261,7 +261,7 @@ class PostPageView(TemplateView):
 
     def get_popular_blogs(self, slug, language_code):
         return vulgar_serializers.BlogLanguageSerializer(\
-                                self.get_tag_random_query_set_filter('Popular', language_code, 4),
+                                self.get_tag_random_query_set_filter('Popular', language_code, 7),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
