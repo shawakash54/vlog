@@ -15,7 +15,7 @@ headers = {
 def blog_language_web_push(sender, instance, created, **kwargs):
     if created and instance.language.code == 'EN':
         english_primary_category_language = instance.blog.primary_category.categorylanguage_set.all().filter(language__code='EN').last()
-        notification_time = datetime.now() + timedelta(minutes=random.randint(10,40))
+        notification_time = datetime.now() - timedelta(hours=5, minutes=30) + timedelta(minutes=random.randint(10, 50))
         # notification_time = datetime.now() + timedelta(minutes=1) 
         blog_language_url = f'https://trikonindia.com/en/{english_primary_category_language.category.slug}/{instance.blog.slug}'
 
@@ -27,7 +27,7 @@ def blog_language_web_push(sender, instance, created, **kwargs):
             "name": instance.title + '-' + instance.language.code,
             "icon": "https://trikonindia-assets.s3.amazonaws.com/media/trikonindia.png",
             "image": instance.blog.hero_image.url,
-            # "send_at": notification_time.isoformat(),
+            "send_at": notification_time.isoformat(),
             "action_buttons": [
                 {
                     "title": "Related News",
@@ -44,7 +44,7 @@ def blog_language_web_push(sender, instance, created, **kwargs):
         print(f'campaign created: {response.ok} {response.json().get("ID")}')
 
     if created and instance.language.code == 'BN' and len(instance.blog.bloglanguage_set.all()) == 3:
-        notification_time = datetime.now() + timedelta(minutes=random.randint(10,40))
+        notification_time = datetime.now() - timedelta(hours=5, minutes=30) + timedelta(minutes=random.randint(10, 50))
         # notification_time = datetime.now() + timedelta(minutes=1) 
         english_blog_langugae = instance.blog.bloglanguage_set.all().filter(language__code='EN').last()
         english_blog_language_url = f'https://trikonindia.com/en/{instance.blog.primary_category.slug}/{instance.blog.slug}'
@@ -57,7 +57,7 @@ def blog_language_web_push(sender, instance, created, **kwargs):
             "name": 'multilanguage-target-' + english_blog_langugae.title + '-' + english_blog_langugae.language.code,
             "icon": "https://trikonindia-assets.s3.amazonaws.com/media/trikonindia.png",
             "image": english_blog_langugae.blog.hero_image.url,
-            # "send_at": notification_time.isoformat(),
+            "send_at": notification_time.isoformat(),
             "action_buttons": [
                 {
                     "title": "Bengali",
