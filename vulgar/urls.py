@@ -23,6 +23,8 @@ from django.contrib.sitemaps.views import sitemap
 from vulgar.sitemap import Static_Sitemap, HomePage_Sitemap, Category_Sitemap, Category_Sitemap_Localized, Article_Sitemap
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import ugettext_lazy as _
+from vulgar.feed import PoliticsPostsFeed, TechnologyPostsFeed, SportsPostsFeed, HealthPostsFeed, EconomyPostsFeed, EntertainmentPostsFeed
+
 
 
 sitemaps = {
@@ -37,6 +39,12 @@ sitemaps = {
 urlpatterns = [
         url(r'^admin/', admin.site.urls),
         url('^searchableselect/', include('searchableselect.urls')),
+        url(r'feed/politics/', PoliticsPostsFeed()),
+        url(r'feed/technology/', TechnologyPostsFeed()),
+        url(r'feed/sports/', SportsPostsFeed()),
+        url(r'feed/health/', HealthPostsFeed()),
+        url(r'feed/economy/', EconomyPostsFeed()),
+        url(r'feed/entertainment/', EntertainmentPostsFeed()),
         url(r'^/?$', HomePageView.as_view(), name='home_page_view'),
         url(r'^i18n/', include('django.conf.urls.i18n')),
         url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
