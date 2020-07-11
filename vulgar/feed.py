@@ -12,7 +12,7 @@ class PoliticsPostsFeed(Feed):
     title = "Politics"
     # link = "/politics/"
     description = "Latest news and breaking stories on Indian and West Bengal politics. Find updates, comment and expert analysis on government policies and bills | TrikonIndia"
-    days = 7
+    days = 10
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='politics', \
@@ -65,7 +65,7 @@ class TechnologyPostsFeed(Feed):
     title = "Technology"
     # link = "/technology/"
     description = "Latest Technology News and Daily Updates on TrikonIndia. Get trending tech news, mobile phones, laptops, reviews, software updates, video games, internet and other technology updates on gadgets from India and around the world. | TrikonIndia"
-    days = 7
+    days = 10
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='technology', \
@@ -118,7 +118,7 @@ class SportsPostsFeed(Feed):
     title = "Sports"
     # link = "/sports/"
     description = "Sports News - Read Latest Sports News Today Headlines on TrikonIndia.com. Find latest cricket news, tennis, football, hockey, World cup 2019, IPL 2020 Live Score Updates. Stay updated on Sports News. Get West Bengal sports updates. Get India sports updates. | TrikonIndia"
-    days = 7
+    days = 10
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='sports', \
@@ -171,7 +171,7 @@ class HealthPostsFeed(Feed):
     title = "Health"
     # link = "/health/"
     description = "Medical news and health news headlines posted throughout the day, every day - India, West Bengal. | TrikonIndia"
-    days = 7
+    days = 10
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='health', \
@@ -224,7 +224,7 @@ class EconomyPostsFeed(Feed):
     title = "Economy"
     # link = "/economy/"
     description = "Business News - Read Latest Financial news, Stock/Share Market News, Economy News, Business News. Find IPO Analysis, Mutual Funds Trends & Analysis, Gold Rate, Real Estate & more. | TrikonIndia"
-    days = 7
+    days = 10
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='economy', \
@@ -277,7 +277,7 @@ class EntertainmentPostsFeed(Feed):
     title = "Entertainment"
     # link = "/entertainment/"
     description = "Latest entertainment news and gossip from the world of bollywood, Hollywood and regional film industries. Get the latest celebrity news on celebrity scandals, engagements, and divorces. Get latest updates on nepotism, inside knowledge of bollywood and hollywood industry. | TrikonIndia"
-    days = 7
+    days = 10
 
     def items(self):
         return BlogLanguage.published_objects.filter(blog__primary_category__slug='entertainment', \
