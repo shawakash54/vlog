@@ -37,7 +37,7 @@ class HomePageView(TemplateView):
                                 ).select_related('category', 'language')
         context['meta'] = vulgar_utils.get_meta_info('home_page', None, language_code)
         context['trending_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                self.get_tag_random_query_set_filter("Trending", language_code, 5),
+                                self.get_tag_random_query_set_filter("Trending", language_code, 3),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
@@ -89,7 +89,7 @@ class HomePageView(TemplateView):
                                     blog__primary_category__categorylanguage=category,
                                     language__slug=language_code,
                                     updated_at__gte=datetime.now(tz=get_current_timezone())-timedelta(days=days)
-                                )
+                                ).order_by('-created_at')[:30]
         actual_queryset_values = actual_queryset.values_list('id', flat=True)
         if actual_queryset_values:
             random_queryset_values = random.sample(list(actual_queryset_values), min(len(actual_queryset_values), count))

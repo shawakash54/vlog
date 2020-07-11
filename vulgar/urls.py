@@ -23,7 +23,12 @@ from django.contrib.sitemaps.views import sitemap
 from vulgar.sitemap import Static_Sitemap, HomePage_Sitemap, Category_Sitemap, Category_Sitemap_Localized, Article_Sitemap
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import ugettext_lazy as _
-from vulgar.feed import PoliticsPostsFeed, TechnologyPostsFeed, SportsPostsFeed, HealthPostsFeed, EconomyPostsFeed, EntertainmentPostsFeed
+from vulgar.feed import PoliticsPostsFeed, PoliticsPostsFeedHindi, PoliticsPostsFeedBengali,\
+    TechnologyPostsFeed, TechnologyPostsFeedHindi, TechnologyPostsFeedBengali, \
+    SportsPostsFeed, SportsPostsFeedHindi, SportsPostsFeedBengali, \
+    HealthPostsFeed, HealthPostsFeedHindi, HealthPostsFeedBengali, \
+    EconomyPostsFeed, EconomyPostsFeedHindi, EconomyPostsFeedBengali, \
+    EntertainmentPostsFeed, EntertainmentPostsFeedHindi, EntertainmentPostsFeedBengali
 
 
 
@@ -45,6 +50,21 @@ urlpatterns = [
         url(r'feed/health/', HealthPostsFeed()),
         url(r'feed/economy/', EconomyPostsFeed()),
         url(r'feed/entertainment/', EntertainmentPostsFeed()),
+
+        url(r'feed/hi/politics/', PoliticsPostsFeedHindi()),
+        url(r'feed/hi/technology/', TechnologyPostsFeedHindi()),
+        url(r'feed/hi/sports/', SportsPostsFeedHindi()),
+        url(r'feed/hi/health/', HealthPostsFeedHindi()),
+        url(r'feed/hi/economy/', EconomyPostsFeedHindi()),
+        url(r'feed/hi/entertainment/', EntertainmentPostsFeedHindi()),
+
+        url(r'feed/bn/politics/', PoliticsPostsFeedBengali()),
+        url(r'feed/bn/technology/', TechnologyPostsFeedBengali()),
+        url(r'feed/bn/sports/', SportsPostsFeedBengali()),
+        url(r'feed/bn/health/', HealthPostsFeedBengali()),
+        url(r'feed/bn/economy/', EconomyPostsFeedBengali()),
+        url(r'feed/bn/entertainment/', EntertainmentPostsFeedBengali()),
+
         url(r'^/?$', HomePageView.as_view(), name='home_page_view'),
         url(r'^i18n/', include('django.conf.urls.i18n')),
         url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
