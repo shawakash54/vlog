@@ -37,7 +37,7 @@ class HomePageView(TemplateView):
                                 ).select_related('category', 'language')
         context['meta'] = vulgar_utils.get_meta_info('home_page', None, language_code)
         context['trending_blog_languages'] = vulgar_serializers.BlogLanguageSerializer(\
-                                self.get_tag_random_query_set_filter("Trending", language_code, 3),
+                                self.get_tag_random_query_set_filter("Trending", language_code, 5),
                                 many=True,
                                 context={'language_code': language_code}
                             ).data
